@@ -1310,26 +1310,37 @@ async function loadCloud(){
 // ═══════════════════════════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════════════════════════
-window.addEventListener('DOMContentLoaded',async()=>{
-  const lc=document.getElementById('lcloud');
-  if(lc)lc.innerHTML=buildCloud('neutral',110,92,.66);
+window.addEventListener('DOMContentLoaded', async () => {
+  const lc = document.getElementById('lcloud');
+  if(lc) lc.innerHTML = buildCloud('neutral', 110, 92, .66);
   renderAuth('login');
+
   if(!sb){
-    if(loadLocal()&&S.name&&S.userId)startApp();
-    else{hideLoad();showScrn('auth');}
+    if(loadLocal() && S.name && S.userId) startApp();
+    else { hideLoad(); showScrn('auth'); }
     return;
   }
-  const{data:{session}}=await sb.auth.getSession();
+
+  const { data: { session } } = await sb.auth.getSession();
   if(session){
-    S.userId=session.user.id;S.email=session.user.email;
+    S.userId = session.user.id;
+    S.email  = session.user.email;
+    showLoad();
     await loadCloud();
-    if(!S.name)loadLocal();
+    if(!S.name) loadLocal();
     hideLoad();
-    if(S.name)startApp();else startOnboard();
+    if(S.name) startApp();
+    else startOnboard();
     return;
   }
-  if(loadLocal()&&S.name&&S.userId&&S.userId.startsWith('demo')){startApp();}
-  else{hideLoad();showScrn('auth');}
+
+  // No session — check for demo local data
+  if(loadLocal() && S.name && S.userId && S.userId.startsWith('demo')){
+    startApp();
+  } else {
+    hideLoad();
+    showScrn('auth');
+  }
 });
 </script>
 </body>
