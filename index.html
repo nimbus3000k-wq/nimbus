@@ -570,16 +570,36 @@ function updateBurnoutAlert(){
 }
 
 function updateNimbusState(){
-  const avg=(S.overwhelm+S.workload)/2;
-  const td=S.tasks.filter(t=>isToday(t.due));
-  const allDone=td.length>0&&td.every(t=>t.done);
-  if(allDone)          S.nimbusState='glowing';
-  else if(avg>=8)      S.nimbusState='stressed';
-  else if(avg>=6)      S.nimbusState='sad';
-  else if(avg<=3)      S.nimbusState='happy';
-  else                 S.nimbusState='neutral';
-}
+  const avg        = (S.overwhelm + S.workload) / 2;
+  const todayTasks = S.tasks.filter(t => isToday(t.due));
+  const allDone    = todayTasks.length > 0 && todayTasks.every(t => t.done);
+  const pending    = S.tasks.filter(t => !t.done).length;
+  const urgentLeft = S.tasks.filter(t => t.urgent && !t.done).length;
 
+  // Rainbow — everything done AND feeling good
+  if(allDone && avg <= 4){
+    S.nimbusState = 'glowing';
+
+  // Stormy — very high burnout
+  } else if(avg >= 8.5){
+    S.nimbusState = 'stressed';
+
+  // Rainy — high burnout or lots of urgent tasks
+  } else if(avg >= 6.5 || urgentLeft >= 3){
+    S.nimbusState = 'sad';
+
+  // Sunny — low burnout and making progress
+  } else if(avg <= 3 && pending <= 2){
+    S.nimbusState = 'happy';
+
+  // Glowing — all done even if moderate stress
+  } else if(allDone){
+    S.nimbusState = 'glowing';
+
+  } else {
+    S.nimbusState = 'neutral';
+  }
+}
 // ═══════════════════════════════════════════════════════════════
 // AUTH
 // ═══════════════════════════════════════════════════════════════
@@ -763,7 +783,42 @@ function drawN(m){const e=document.getElementById('nSVG');if(e)e.innerHTML=build
 // ═══════════════════════════════════════════════════════════════
 // APP START
 // ═══════════════════════════════════════════════════════════════
+function recalcFromSaved(){
+  // Recalc Nimbus cloud from actual current task state + burnout
+  const pendingTasks = S.tasks.filter(t => !t.done);
+  const todayTasks   = S.tasks.filter(t => isToday(t.due));
+  const allTodayDone = todayTasks.length > 0 && todayTasks.every(t => t.done);
+
+  const avg = (S.overwhelm + S.workload) / 2;
+
+  if(allTodayDone && avg <= 5){
+    S.nimbusState = 'glowing';
+  } else if(avg >= 8){
+    S.nimbusState = 'stressed';
+  } else if(avg >= 6){
+    S.nimbusState = 'sad';
+  } else if(pendingTasks.length === 0){
+    S.nimbusState = 'glowing';
+  } else if(avg <= 3){
+    S.nimbusState = 'happy';
+  } else {
+    S.nimbusState = 'neutral';
+  }
+
+  // Recalc points badge visually
+  drawPts();
+
+  // Recalc burnout alert
+  updateBurnoutAlert();
+
+  // Recalc affirmation based on current burnout
+  setAff();
+
+  // Recalc streak display
+  drawStreak();
+}
 function startApp(){
+  recalcFromSaved();
   showScrn('app');
   ['tasks','cal','notes','settings'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
   const h=document.getElementById('home');if(h)h.style.display='block';
