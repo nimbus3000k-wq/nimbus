@@ -612,18 +612,28 @@ function showScrn(id){
 }
 
 async function doLogin(){
-  const email=document.getElementById('aEmail').value.trim();
-  const pass=document.getElementById('aPass').value;
-  if(!email||!pass){authErr('Please fill in all fields.');return;}
-  if(!sb){S.email=email;S.userId='demo-'+Date.now();afterAuth();return;}
+  const email = document.getElementById('aEmail').value.trim();
+  const pass  = document.getElementById('aPass').value;
+  if(!email || !pass){ authErr('Please fill in all fields.'); return; }
+  if(!sb){ S.email = email; S.userId = 'demo-' + Date.now(); afterAuth(); return; }
   showLoad();
-  const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
-  if(error){hideLoad();showScrn('auth');authErr(error.message.includes('Invalid')?'Wrong email or password.':error.message);return;}
-  S.userId=data.user.id;S.email=data.user.email;_re=null;
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if(error){
+    hideLoad();
+    showScrn('auth');
+    authErr(error.message.includes('Invalid') ? 'Wrong email or password.' : error.message);
+    return;
+  }
+  S.userId = data.user.id;
+  S.email  = data.user.email;
+  _re      = null;
+  showLoad();
   await loadCloud();
-  afterAuth();
+  if(!S.name) loadLocal();
+  hideLoad();
+  if(S.name) startApp();
+  else startOnboard();
 }
-
 async function doSignup(){
   const n=document.getElementById('aName')?.value.trim()||'';
   const email=document.getElementById('aEmail').value.trim();
