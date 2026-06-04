@@ -635,7 +635,12 @@ async function doLogin(){
   const email = document.getElementById('aEmail').value.trim();
   const pass  = document.getElementById('aPass').value;
   if(!email || !pass){ authErr('Please fill in all fields.'); return; }
-  if(!sb){ S.email = email; S.userId = 'demo-' + Date.now(); afterAuth(); return; }
+  if(!sb){
+    S.email  = email;
+    S.userId = 'demo-' + Date.now();
+    afterAuth();
+    return;
+  }
   showLoad();
   const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
   if(error){
@@ -647,27 +652,45 @@ async function doLogin(){
   S.userId = data.user.id;
   S.email  = data.user.email;
   _re      = null;
-  showLoad();
   await loadCloud();
   if(!S.name) loadLocal();
   hideLoad();
-  if(S.name) startApp();
-  else startOnboard();
+  if(S.name && S.name.trim() !== ''){
+    startApp();
+  } else {
+    startOnboard();
+  }
 }
 async function doSignup(){
-  const n=document.getElementById('aName')?.value.trim()||'';
-  const email=document.getElementById('aEmail').value.trim();
-  const phone=document.getElementById('aPhone')?.value.trim()||'';
-  const pass=document.getElementById('aPass').value;
-  if(!n){authErr('Please enter your name.');return;}
-  if(!email||!pass){authErr('Please fill in email and password.');return;}
-  if(pass.length<6){authErr('Password must be at least 6 characters.');return;}
-  if(!sb){S.name=n;S.email=email;S.phone=phone;S.userId='demo-'+Date.now();startOnboard();return;}
+  const n     = document.getElementById('aName')?.value.trim() || '';
+  const email = document.getElementById('aEmail').value.trim();
+  const phone = document.getElementById('aPhone')?.value.trim() || '';
+  const pass  = document.getElementById('aPass').value;
+  if(!n)              { authErr('Please enter your name.');                    return; }
+  if(!email || !pass) { authErr('Please fill in email and password.');          return; }
+  if(pass.length < 6) { authErr('Password must be at least 6 characters.');    return; }
+  if(!sb){
+    S.name = n; S.email = email; S.phone = phone;
+    S.userId = 'demo-' + Date.now();
+    saveLocal();
+    startOnboard();
+    return;
+  }
   showLoad();
-  const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name:n,phone}}});
-  if(error){hideLoad();showScrn('auth');authErr(error.message);return;}
-  S.userId=data.user.id;S.name=n;S.email=email;S.phone=phone;_re=null;
-  hideLoad();startOnboard();
+  const { data, error } = await sb.auth.signUp({
+    email, password: pass,
+    options: { data: { name: n, phone } }
+  });
+  if(error){ hideLoad(); showScrn('auth'); authErr(error.message); return; }
+  S.userId = data.user.id;
+  S.name   = n;
+  S.email  = email;
+  S.phone  = phone;
+  _re      = null;
+  // Save name immediately so it persists
+  saveLocal();
+  hideLoad();
+  startOnboard();
 }
 
 function skipAuth(){
@@ -677,12 +700,9 @@ function skipAuth(){
 function authErr(m){const e=document.getElementById('authErr');e.textContent=m;e.classList.add('show');}
 async function afterAuth(){
   hideLoad();
-  // Always try to load cloud data first
   await loadCloud();
-  // If still no name, try local storage as fallback
   if(!S.name) loadLocal();
-  // Only show onboarding if we genuinely have no profile
-  if(S.name){
+  if(S.name && S.name.trim() !== ''){
     startApp();
   } else {
     startOnboard();
@@ -750,7 +770,21 @@ function selGr(el){document.querySelectorAll('#grOpts .ob').forEach(b=>b.classLi
 function togG(el){el.classList.toggle('sel');const v=el.textContent;const i=S.goals.indexOf(v);i>-1?S.goals.splice(i,1):S.goals.push(v);}
 function saveBurn(){S.overwhelm=parseInt(document.getElementById('bStr').value);S.workload=parseInt(document.getElementById('bWk').value);nextS();}
 function nextS(){if(S.onboardStep<STEPS.length-1)renderStep(S.onboardStep+1);}
-async function finOnboard(){await save();showScrn('app');startApp();}
+async function finOnboard(){
+  // Make sure name is set from the onboarding input
+  const nameInput = document.getElementById('aName');
+  if(nameInput && nameInput.value.trim()) S.name = nameInput.value.trim();
+  
+  // Force save to both local and cloud before moving on
+  saveLocal();
+  await save();
+  
+  // Small delay to make sure save completes
+  await new Promise(r => setTimeout(r, 500));
+  
+  showScrn('app');
+  startApp();
+}
 
 // ═══════════════════════════════════════════════════════════════
 // NIMBUS SVG
