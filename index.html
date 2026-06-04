@@ -1376,23 +1376,41 @@ window.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  const { data: { session } } = await sb.auth.getSession();
-  if(session){
-    S.userId = session.user.id;
-    S.email  = session.user.email;
-    showLoad();
-    await loadCloud();
-    if(!S.name) loadLocal();
-    hideLoad();
-    if(S.name) startApp();
-    else startOnboard();
-    return;
-  }
+  try {
+    const { data: { session } } = await sb.auth.getSession();
 
-  // No session — check for demo local data
-  if(loadLocal() && S.name && S.userId && S.userId.startsWith('demo')){
-    startApp();
-  } else {
+    if(session){
+      S.userId = session.user.id;
+      S.email  = session.user.email;
+      showLoad();
+
+      // Load cloud data FIRST before any decision
+      await loadCloud();
+
+      // Fallback to local if cloud had nothing
+      if(!S.name) loadLocal();
+
+      hideLoad();
+
+      // Only go to app if we have a real profile
+      if(S.name && S.name.trim() !== ''){
+        startApp();
+      } else {
+        startOnboard();
+      }
+      return;
+    }
+
+    // No active session — check local demo data
+    if(loadLocal() && S.name && S.userId && S.userId.startsWith('demo')){
+      startApp();
+    } else {
+      hideLoad();
+      showScrn('auth');
+    }
+
+  } catch(e){
+    console.error('Boot error:', e);
     hideLoad();
     showScrn('auth');
   }
