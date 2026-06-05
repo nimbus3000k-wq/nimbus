@@ -1407,28 +1407,29 @@ window.addEventListener('DOMContentLoaded', async () => {
   try {
     const { data: { session } } = await sb.auth.getSession();
 
-    if(session){
-      S.userId = session.user.id;
-      S.email  = session.user.email;
-      showLoad();
+   if(session){
+  S.userId = session.user.id;
+  S.email  = session.user.email;
+  showLoad();
 
-      // Load cloud data FIRST before any decision
-      await loadCloud();
+  await loadCloud();
 
-      // Fallback to local if cloud had nothing
-      if(!S.name) loadLocal();
+  if(!S.name) loadLocal();
 
-      hideLoad();
+  if(!S.name || S.name.trim() === ''){
+    // User deleted or no profile — clean slate
+    await sb.auth.signOut();
+    localStorage.removeItem('nimbus_v5');
+    hideLoad();
+    showScrn('auth');
+    renderAuth('login');
+    return;
+  }
 
-      // Only go to app if we have a real profile
-      if(S.name && S.name.trim() !== ''){
-        startApp();
-      } else {
-        startOnboard();
-      }
-      return;
-    }
-
+  hideLoad();
+  startApp();
+  return;
+}
     // No active session — check local demo data
     if(loadLocal() && S.name && S.userId && S.userId.startsWith('demo')){
       startApp();
