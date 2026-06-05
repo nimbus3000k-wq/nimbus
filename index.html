@@ -1314,35 +1314,28 @@ async function save(){
   saveLocal();
   if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
   try{
+    const sess=(await sb.auth.getSession()).data.session;
+    if(!sess){console.log('No session');return;}
     const payload={
       tasks:S.tasks,notes:S.notes,categories:S.categories,
       points:S.points,streak:S.streak,mood:S.mood,
-      workload:S.workload,overwhelm:S.overwhelm,nimbusState:S.nimbusState,
-      name:S.name,phone:S.phone,grade:S.grade,goals:S.goals,
+      workload:S.workload,overwhelm:S.overwhelm,
+      nimbusState:S.nimbusState,name:S.name,
+      phone:S.phone,grade:S.grade,goals:S.goals,
       notifs:S.notifs,lastCI:S.lastCI,lastStreak:S.lastStreak,
       burnoutHistory:S.burnoutHistory||[]
     };
-    const sess=(await sb.auth.getSession()).data.session;
-    if(!sess)return;
-    const tok=sess.access_token;
-    const hdr={'apikey':SB_KEY,'Authorization':'Bearer '+tok,'Content-Type':'application/json'};
-    if(_re===null){
-      const chk=await fetch(SB_URL+'/rest/v1/user_data?user_id=eq.'+S.userId+'&select=user_id&limit=1',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+tok}});
-      const rows=await chk.json();_re=Array.isArray(rows)&&rows.length>0;
-    }
-    let res;
-    if(_re){
-      res=await fetch(SB_URL+'/rest/v1/user_data?user_id=eq.'+S.userId,{method:'PATCH',headers:hdr,body:JSON.stringify({data:payload,updated_at:new Date().toISOString()})});
-    }else{
-      res=await fetch(SB_URL+'/rest/v1/user_data',{method:'POST',headers:hdr,body:JSON.stringify({user_id:S.userId,data:payload,updated_at:new Date().toISOString()})});
-      if(res.ok)_re=true;
-    }
-    if(!res.ok){const txt=await res.text();console.error('SAVE FAILED',res.status,txt);if(res.status===409){_re=true;}}
-    else console.log('✅ Saved tasks='+S.tasks.length+' pts='+S.points);
+    const{error}=await sb.from('user_data')
+      .upsert({user_id:S.userId,data:payload,updated_at:new Date().toISOString()},
+              {onConflict:'user_id'});
+    if(error)console.error('SAVE ERROR:',error.message);
+    else console.log('✅ Saved — name:'+S.name+' tasks:'+S.tasks.length);
   }catch(e){console.error('SAVE EX',e);}
 }
 
-function saveLocal(){try{localStorage.setItem('nimbus_v5',JSON.stringify(S));}catch(e){}}
+function saveLocal(){
+  try{localStorage.setItem('nimbus_v5',JSON.stringify(S));}catch(e){}
+}
 
 function loadLocal(){
   try{
@@ -1365,33 +1358,34 @@ async function loadCloud(){
   if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
   try{
     const sess=(await sb.auth.getSession()).data.session;
-    if(!sess)return;
-    const res=await fetch(SB_URL+'/rest/v1/user_data?user_id=eq.'+encodeURIComponent(S.userId)+'&select=data&limit=1',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+sess.access_token,'Accept':'application/json'}});
-    if(!res.ok)return;
-    const rows=await res.json();
-    if(!rows?.length){console.log('No cloud data yet');return;}
-    const d=rows[0].data;if(!d)return;
-    console.log('✅ Loaded tasks='+( d.tasks||[]).length+' pts='+d.points+' name='+d.name);
+    if(!sess){console.log('No session for loadCloud');return;}
+    const{data,error}=await sb.from('user_data')
+      .select('data')
+      .eq('user_id',S.userId)
+      .single();
+    if(error){console.log('loadCloud:',error.message);return;}
+    if(!data?.data){console.log('No cloud data yet');return;}
+    const d=data.data;
+    console.log('✅ Loaded — name:'+d.name+' tasks:'+(d.tasks||[]).length);
     const uid=S.userId,em=S.email;
-    // Restore all persisted fields
-    if(Array.isArray(d.tasks))S.tasks=d.tasks;
-    if(Array.isArray(d.notes))S.notes=d.notes;
-    if(Array.isArray(d.categories))S.categories=d.categories;
-    if(d.points!=null)S.points=d.points;
-    if(d.streak!=null)S.streak=d.streak;
-    if(d.mood!=null)S.mood=d.mood;
-    if(d.workload!=null)S.workload=d.workload;
-    if(d.overwhelm!=null)S.overwhelm=d.overwhelm;
-    if(d.nimbusState)S.nimbusState=d.nimbusState;
-    if(d.name)S.name=d.name;
-    if(d.phone!=null)S.phone=d.phone;
-    if(d.grade!=null)S.grade=d.grade;
-    if(d.notifs)S.notifs=d.notifs;
-    if(d.lastCI!=null)S.lastCI=d.lastCI;
-    if(d.lastStreak!=null)S.lastStreak=d.lastStreak;
+    if(Array.isArray(d.tasks))         S.tasks=d.tasks;
+    if(Array.isArray(d.notes))         S.notes=d.notes;
+    if(Array.isArray(d.categories))    S.categories=d.categories;
+    if(d.points!=null)                 S.points=d.points;
+    if(d.streak!=null)                 S.streak=d.streak;
+    if(d.mood!=null)                   S.mood=d.mood;
+    if(d.workload!=null)               S.workload=d.workload;
+    if(d.overwhelm!=null)              S.overwhelm=d.overwhelm;
+    if(d.nimbusState)                  S.nimbusState=d.nimbusState;
+    if(d.name)                         S.name=d.name;
+    if(d.phone!=null)                  S.phone=d.phone;
+    if(d.grade!=null)                  S.grade=d.grade;
+    if(d.notifs)                       S.notifs=d.notifs;
+    if(d.lastCI!=null)                 S.lastCI=d.lastCI;
+    if(d.lastStreak!=null)             S.lastStreak=d.lastStreak;
     if(Array.isArray(d.burnoutHistory))S.burnoutHistory=d.burnoutHistory;
-    if(Array.isArray(d.goals))S.goals=d.goals;
-    S.userId=uid;S.email=em;_re=true;
+    if(Array.isArray(d.goals))         S.goals=d.goals;
+    S.userId=uid;S.email=em;
     saveLocal();
   }catch(e){console.error('LOAD EX',e);}
 }
