@@ -561,6 +561,9 @@ async function doSignup(){
     options: { data: { name: n, phone } }
   });
   if(error){ hideLoad(); showScrn('auth'); authErr(error.message); return; }
+  if(!data.session){
+    console.warn('Signed up but no active session yet — this Supabase project likely has "Confirm email" turned on. Cloud saves will fail silently until the email is confirmed and the user logs in again; onboarding will still be cached locally on this device in the meantime.');
+  }
   S.userId = data.user.id;
   S.name   = n;
   S.email  = email;
@@ -591,7 +594,7 @@ function logOut(){
   if(sb)sb.auth.signOut();
   stopNI();clearInterval(TMR.iv);
   S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
-  localStorage.removeItem('nimbus_v5');_re=null;
+  _re=null;
   showScrn('auth');renderAuth('login');
 }
 
@@ -1104,8 +1107,6 @@ async function save(){
   saveLocal();
   if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
   try{
-    const sess=(await sb.auth.getSession()).data.session;
-    if(!sess){console.log('No session');return;}
     const payload={
       tasks:S.tasks,categories:S.categories,
       mood:S.mood,
@@ -1118,7 +1119,7 @@ async function save(){
     const{error}=await sb.from('user_data')
       .upsert({user_id:S.userId,data:payload,updated_at:new Date().toISOString()},
               {onConflict:'user_id'});
-    if(error)console.error('SAVE ERROR:',error.message);
+    if(error)console.error('SAVE ERROR:',error.message,'(if this says no session/JWT, the account likely still needs email confirmation — see Supabase Auth settings)');
     else console.log('✅ Saved — name:'+S.name+' tasks:'+S.tasks.length);
   }catch(e){console.error('SAVE EX',e);}
 }
@@ -1131,6 +1132,9 @@ function loadLocal(){
   try{
     const s=localStorage.getItem('nimbus_v5');if(!s)return false;
     const p=JSON.parse(s);
+    const isDemo=id=>!id||id==='demo'||(typeof id==='string'&&id.startsWith('demo-'));
+    // Don't let a different real account's cached profile leak into this login
+    if(!isDemo(S.userId)&&!isDemo(p.userId)&&p.userId!==S.userId)return false;
     const uid=S.userId,em=S.email;
     Object.assign(S,p);
     if(uid)S.userId=uid;if(em)S.email=em;
@@ -1146,8 +1150,6 @@ function loadLocal(){
 async function loadCloud(){
   if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
   try{
-    const sess=(await sb.auth.getSession()).data.session;
-    if(!sess){console.log('No session for loadCloud');return;}
     const{data,error}=await sb.from('user_data')
       .select('data')
       .eq('user_id',S.userId)
