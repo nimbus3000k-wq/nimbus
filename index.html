@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Nimbus — Breakout from Burnout</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght scheduled@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --or:#f5a96a;--orl:#fcd5b0;--orp:#feecd8;--ord:#e8874a;
@@ -35,18 +35,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .ob:hover{border-color:var(--or);color:var(--ord);}
 .ob.sel{border-color:var(--or);background:rgba(245,169,106,.12);color:var(--ord);}
 .tg{display:flex;flex-wrap:wrap;gap:8px;}
+.tb{padding:8px 15px;border-radius:999px;border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.65);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--tm);cursor:pointer;transition:all .2s;}
+.tb.sel{border-color:var(--or);background:rgba(245,169,106,.14);color:var(--ord);}
 .si{display:flex;gap:8px;justify-content:center;margin-bottom:22px;}
 .sd{width:8px;height:8px;border-radius:50%;background:var(--orl);transition:all .3s;}
 .sd.act{background:var(--or);width:24px;border-radius:4px;}
 .sd.dn{background:var(--mint);}
 
-/* ORIGINAL LOGO DRAWING CLASS */
-.logo-cloud { position: relative; width: 120px; height: 70px; margin: 0 auto; }
-.lc-base { position: absolute; bottom: 0; width: 120px; height: 35px; background: #fff; border-radius: 20px; border: 4px solid var(--td); }
-.lc-circle-1 { position: absolute; bottom: 10px; left: 15px; width: 45px; height: 45px; background: #fff; border-radius: 50%; border: 4px solid var(--td); border-bottom: none; border-right: none; }
-.lc-circle-2 { position: absolute; bottom: 15px; left: 45px; width: 55px; height: 55px; background: #fff; border-radius: 50%; border: 4px solid var(--td); border-bottom: none; border-left: none; border-right: none; }
-
-/* AUTH SCREEN */
+/* AUTH */
 #auth{align-items:center;justify-content:center;padding:24px;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
 .ac{background:rgba(255,252,248,.92);backdrop-filter:blur(16px);border:1.5px solid rgba(240,200,160,.4);border-radius:var(--rxl);padding:32px 26px;max-width:400px;width:100%;box-shadow:0 12px 48px rgba(232,135,74,.12);}
 .alo{text-align:center;margin-bottom:20px;}
@@ -57,20 +53,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .ae{font-size:13px;color:#c05030;font-weight:700;text-align:center;margin-bottom:10px;display:none;}
 .ae.show{display:block;}
 
-/* LOADING SCREEN */
+/* LOADING */
 #load{align-items:center;justify-content:center;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
-.lt">Loading Nimbus...</div>
+.lt{font-size:16px;font-weight:700;color:var(--tm);margin-top:16px;}
 
-/* ONBOARDING SCREEN */
+/* ONBOARD */
 #onboard{align-items:center;justify-content:center;padding:24px;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
 .oc{background:rgba(255,252,248,.92);backdrop-filter:blur(16px);border:1.5px solid rgba(240,200,160,.4);border-radius:var(--rxl);padding:30px 26px;max-width:420px;width:100%;box-shadow:0 12px 48px rgba(232,135,74,.12);}
 .ot{font-size:25px;font-weight:900;color:var(--td);margin-bottom:6px;line-height:1.2;}
 .os{font-size:14px;color:var(--tm);margin-bottom:20px;line-height:1.5;font-weight:600;}
+.cc{text-align:center;margin:8px 0 14px;}
 .il{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;}
 .ir{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.6);border:1.5px solid rgba(240,200,160,.3);border-radius:var(--rsm);padding:8px 12px;}
 .irt{flex:1;font-size:13px;font-weight:700;color:var(--td);}
+.irs{font-size:11px;color:var(--tl);font-weight:600;margin-top:1px;}
+.irm{font-size:16px;color:var(--tl);cursor:pointer;padding:0 4px;background:none;border:none;}
+.irm:hover{color:#d06040;}
+.air{display:flex;gap:8px;align-items:center;}
+.aii{flex:1;padding:10px 14px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:13px;color:var(--td);outline:none;font-weight:600;}
+.aii:focus{border-color:var(--or);}
+.aib{padding:10px 16px;border-radius:var(--rsm);border:none;background:var(--orb);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.ais{padding:10px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--tm);outline:none;flex-shrink:0;max-width:110px;}
 
-/* DASHBOARD & SYSTEM APP STYLES */
+/* MAIN APP */
 .ah{padding:52px 22px 14px;background:linear-gradient(180deg,rgba(254,236,216,.85) 0%,transparent 100%);}
 .ag{font-size:27px;font-weight:900;color:var(--td);}
 .ad{font-size:13px;color:var(--tm);margin-top:2px;font-weight:600;}
@@ -85,7 +90,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .cnt{font-size:16px;font-weight:900;color:var(--lavd);margin-bottom:6px;}
 .cns{font-size:13px;color:var(--tm);font-weight:600;margin-bottom:12px;}
 
-/* TASKS LIST */
+/* TASKS */
 .tc{background:var(--cb);border:1.5px solid var(--cbr);border-radius:var(--rmd);padding:13px 15px;margin-bottom:7px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
 .tc:hover{border-color:var(--orl);}
 .tc.dc{background:rgba(88,176,136,.07);border-color:rgba(88,176,136,.25);opacity:.7;}
@@ -102,7 +107,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .pl2{background:rgba(88,176,136,.15);color:#388060;}
 .tsd{width:4px;height:100%;position:absolute;left:0;top:0;border-radius:3px 0 0 3px;}
 
-/* BOTTOM NAVIGATION MENU BAR */
+/* BOTTOM NAV */
 .bn2{position:fixed;bottom:0;left:0;right:0;background:rgba(255,252,248,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(240,200,160,.3);display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom, 16px));z-index:100;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 0;transition:all .2s;}
 .ni{font-size:22px;}
@@ -110,7 +115,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .nb.act .nl{color:var(--ord);}
 .nb.act .ni{transform:scale(1.1);}
 
-/* TIMER INTERFACE PANELS */
+/* TIMER */
 #timer{background:linear-gradient(160deg,#2a1808 0%,#3a1e10 40%,#1a2018 100%);color:white;align-items:center;justify-content:center;padding:40px 24px;width:100%;}
 .ttn{font-size:19px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:5px;text-align:center;}
 .tph{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:42px;}
@@ -122,16 +127,356 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .tce{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
 .tdi{font-size:52px;font-weight:900;color:white;line-height:1;letter-spacing:-2px;}
 .tsu{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);margin-top:4px;}
-.tct{display:flex;gap:16px;align-items:center;margin-bottom: 20px;}
+.tct{display:flex;gap:16px;align-items:center;}
 .tbtn{border-radius:50%;border:none;cursor:pointer;font-size:22px;transition:all .2s;display:flex;align-items:center;justify-content:center;}
 .tbtn.pp{width:78px;height:78px;font-size:28px;background:var(--orb);color:white;box-shadow:0 0 28px rgba(232,135,74,.38);}
+.tbtn.pp.break{background:linear-gradient(135deg,#8ad8ab 0%,#58b088 100%);box-shadow:0 0 28px rgba(88,176,136,.38);}
 .tbtn.pp:hover{transform:scale(1.05);}
 .tbtn.sb{width:60px;height:60px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);}
 
-/* ADAPTIVE BREAK POPUP PROMPT */
-.bsg{margin-top:16px;background:rgba(88,176,136,.14);border:1px solid rgba(88,176,136,.35);border-radius:var(--rlg);padding:16px 20px;text-align:center;width:100%;max-width:320px;display:none;}
+.bsg{margin-top:26px;background:rgba(88,176,136,.14);border:1px solid rgba(88,176,136,.35);border-radius:var(--rlg);padding:16px 20px;text-align:center;width:100%;max-width:320px;display:none;}
 .bsg.show{display:block;}
 .bst{font-size:14px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;}
 .bso{display:flex;flex-direction:column;gap:8px;justify-content:center;width:100%;margin-top:10px;}
 .bop{padding:12px 16px;border-radius:var(--rmd);border:1.5px solid rgba(88,176,136,.45);background:rgba(88,176,136,.18);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;width:100%;text-align:center;}
-.bop:hover{background:rgba(8
+.bop:hover{background:rgba(88,176,136,.32);}
+
+/* TABS */
+#tasks,#settings{padding:52px 16px 140px;overflow-y:auto;min-height:100vh;width:100%;}
+.th{font-size:26px;font-weight:900;color:var(--td);margin-bottom:4px;}
+.ts{font-size:14px;color:var(--tm);font-weight:600;margin-bottom:16px;}
+.atb{width:100%;padding:14px;border-radius:var(--rmd);border:2px dashed rgba(245,185,140,.55);background:rgba(245,185,140,.06);color:var(--ord);font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:13px;}
+.atb:hover{background:rgba(245,185,140,.12);}
+.fr{display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap;width:100%;}
+.fc{padding:7px 14px;border-radius:999px;border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--tm);cursor:pointer;transition:all .2s;}
+.fc.act{background:var(--ord);color:white;border-color:var(--ord);}
+.cgh{display:flex;align-items:center;gap:8px;margin:16px 0 8px;font-size:13px;font-weight:800;color:var(--tm);}
+.cgl{flex:1;height:1px;background:rgba(240,200,160,.3);}
+.ss{margin-bottom:20px;width:100%;}
+.ssl{font-size:12px;font-weight:800;color:var(--tl);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;}
+.srow{display:flex;align-items:center;justify-content:space-between;background:var(--cb);border:1.5px solid var(--cbr);border-radius:var(--rmd);padding:14px 16px;margin-bottom:7px;gap:12px;}
+.srl{flex:1;min-width:0;}.srl .srt{font-size:15px;font-weight:700;color:var(--td);word-break:break-word;}
+.srl .srs{font-size:12px;color:var(--tl);font-weight:600;margin-top:2px;}
+.tgl{position:relative;width:46px;height:26px;flex-shrink:0;}
+.tgl input{opacity:0;width:0;height:0;}
+.tgs{position:absolute;inset:0;border-radius:999px;background:rgba(200,180,160,.3);cursor:pointer;transition:.3s;}
+.tgs::before{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:white;bottom:3px;left:3px;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.15);}
+.tgl input:checked+.tgs{background:var(--or);}
+.tgl input:checked+.tgs::before{transform:translateX(20px);}
+.sse{padding:8px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.4);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--td);outline:none;}
+.lb{width:100%;padding:14px;border-radius:var(--rmd);border:1.5px solid rgba(220,100,80,.25);background:rgba(220,100,80,.06);color:#c05030;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
+
+/* MODALS */
+.mo{position:fixed;inset:0;background:rgba(40,20,10,.45);backdrop-filter:blur(5px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.mo.show{display:flex;}
+.ms{background:#fff9f5;border-radius:28px 28px 0 0;padding:24px 22px calc(44px + env(safe-area-inset-bottom, 16px));width:100%;max-width:480px;max-height:85vh;overflow-y:auto;animation:su .3s ease;box-shadow: 0 -8px 32px rgba(0,0,0,0.08);}
+@keyframes su{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.mh{width:38px;height:4px;border-radius:2px;background:rgba(200,170,140,.3);margin:0 auto 18px;}
+.mt{font-size:22px;font-weight:900;color:var(--td);margin-bottom:16px;}
+.mr{display:flex;justify-content:space-around;margin:6px 0 16px;gap:4px;width:100%;}
+.moo{text-align:center;cursor:pointer;transition:all .2s;flex:1;}
+.me{font-size:30px;display:block;margin-bottom:3px;transition:transform .2s;}
+.moo:hover .me,.moo.sel .me{transform:scale(1.28);}
+.mla{font-size:10px;font-weight:700;color:var(--tl);display:block;word-break:break-word;}
+.moo.sel .mla{color:var(--ord);font-weight:800;}
+.cq{font-size:14px;font-weight:700;color:var(--tm);margin-bottom:9px;}
+.toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom, 0px));left:50%;transform:translateX(-50%) translateY(16px);background:var(--td);color:white;padding:11px 20px;border-radius:999px;font-size:14px;font-weight:700;z-index:500;opacity:0;transition:all .3s;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div id="load" class="screen active">
+  <div style="text-align:center;">
+    <svg width="110" height="92" viewBox="0 0 110 92" id="lcloud"></svg>
+    <div class="lt">Loading Nimbus...</div>
+  </div>
+</div>
+
+<div id="auth" class="screen">
+  <div class="ac">
+    <div class="alo">
+      <svg width="90" height="76" viewBox="0 0 90 76" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="45" cy="52" rx="38" ry="19" fill="rgba(245,185,140,.22)"/>
+        <ellipse cx="28" cy="40" rx="20" ry="18" fill="#fff5ef"/>
+        <ellipse cx="48" cy="36" rx="24" ry="22" fill="#fff8f3"/>
+        <ellipse cx="64" cy="42" rx="16" ry="15" fill="#fff5ef"/>
+        <ellipse cx="45" cy="50" rx="36" ry="16" fill="#fff8f3"/>
+        <ellipse cx="45" cy="44" rx="30" ry="18" fill="#fffaf7" opacity=".8"/>
+        <ellipse cx="33" cy="45" rx="7" ry="8.5" fill="#2a1808"/>
+        <ellipse cx="55" cy="45" rx="7" ry="8.5" fill="#2a1808"/>
+        <ellipse cx="35" cy="43" rx="2.5" ry="3" fill="white"/>
+        <ellipse cx="57" cy="43" rx="2.5" ry="3" fill="white"/>
+        <ellipse cx="25" cy="50" rx="7" ry="4" fill="rgba(232,135,74,.28)"/>
+        <ellipse cx="63" cy="50" rx="7" ry="4" fill="rgba(232,135,74,.28)"/>
+        <path d="M37 54 Q45 61 53 54" stroke="#2a1808" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".75"/>
+      </svg>
+    </div>
+    <div class="at">Welcome to Nimbus</div>
+    <div class="asb" id="authSub">Your personal study cloud ☁️</div>
+    <div class="ae" id="authErr"></div>
+    <div id="authForm"></div>
+  </div>
+</div>
+
+<div id="onboard" class="screen">
+  <div class="oc" style="margin:auto;">
+    <div class="si" id="stepDots"></div>
+    <div id="onboardContent"></div>
+  </div>
+</div>
+
+<div id="app" class="screen">
+  <div id="home" style="display:flex; flex-direction:column; height:100%;">
+    <div class="ah">
+      <div class="ag" id="greet">Hey there ☁️</div>
+      <div class="ad" id="ddate"></div>
+    </div>
+    <div class="asc">
+      <div style="text-align:center;padding:14px 0 4px;">
+        <div style="display:inline-block;cursor:pointer;transition:transform .3s;" onclick="nimClick()" id="nWrap">
+          <svg id="nSVG" width="200" height="170" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:var(--tm);margin-top:6px;" id="nTxt">Nimbus is here ☁️</div>
+      </div>
+      <div class="cin" id="nudge">
+        <div class="cnt">☁️ How are you feeling today?</div>
+        <div class="cns">Nimbus wants to check in before the day starts.</div>
+        <button class="bp" style="margin-top:0;" onclick="openCI()">Do Daily Check-In</button>
+      </div>
+      <div class="afc">
+        <div class="afq" id="affQ">"Loading your daily spark..."</div>
+        <div class="afa" id="affA">— Nimbus</div>
+      </div>
+      <div class="secH">Today's Tasks</div>
+      <div id="todayList"></div>
+    </div>
+  </div>
+
+  <div id="tasks" style="display:none;">
+    <div class="th">My Tasks</div>
+    <div class="ts" id="taskSub">All your work, organized</div>
+    <button class="atb" onclick="openAddTask()"><span>＋</span> Add New Task</button>
+    <div class="fr">
+      <div class="fc act" onclick="filterT('all',this)">All</div>
+      <div class="fc" onclick="filterT('today',this)">Today</div>
+      <div class="fc" onclick="filterT('upcoming',this)">Upcoming</div>
+      <div class="fc" onclick="filterT('done',this)">Done</div>
+    </div>
+    <div id="allTasks"></div>
+  </div>
+
+  <div id="settings" style="display:none;">
+    <div class="th">Settings</div>
+    <div class="ts" id="setUser">Your account</div>
+    <div class="ss">
+      <div class="ssl">Notifications</div>
+      <div class="srow"><div class="srl"><div class="srt">Break Reminders</div><div class="srs" id="breakHint">Adapts to your stress level</div></div><label class="tgl"><input type="checkbox" id="nBreak" onchange="saveN()"><div class="tgs"></div></label></div>
+      <div class="srow" id="bfRow" style="display:none;"><div class="srl"><div class="srt">Break every</div></div><select class="sse" id="bFreq" onchange="saveN()"><option value="20">20 min</option><option value="30">30 min</option><option value="45">45 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hrs</option></select></div>
+      <div class="srow"><div class="srl"><div class="srt">Task Reminders</div><div class="srs">Surface priority tasks</div></div><label class="tgl"><input type="checkbox" id="nTasks" onchange="saveN()"><div class="tgs"></div></label></div>
+      <div class="srow"><div class="srl"><div class="srt">Daily Check-In</div><div class="srs">Morning prompt</div></div><label class="tgl"><input type="checkbox" id="nCI" onchange="saveN()"><div class="tgs"></div></label></div>
+      <div class="srow" id="ciTRow" style="display:none;"><div class="srl"><div class="srt">Check-in time</div></div><input type="time" class="sse" id="ciTime" value="08:00" onchange="saveN()"></div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Account</div>
+      <div class="srow"><div class="srl"><div class="srt" id="setEmail">Email</div><div class="srs" id="setPhone">—</div></div></div>
+      <button class="lb" onclick="logOut()">Log Out</button>
+    </div>
+    <div class="ss">
+      <div class="ssl">About</div>
+      <div class="srow"><div class="srl"><div class="srt">Nimbus</div><div class="srs">Version 1.0 beta</div></div></div>
+    </div>
+  </div>
+
+  <div class="bn2">
+    <button class="nb act" onclick="swTab('home',this)"><span class="ni">🏠</span><span class="nl">Home</span></button>
+    <button class="nb" onclick="swTab('tasks',this)"><span class="ni">✅</span><span class="nl">Tasks</span></button>
+    <button class="nb" onclick="swTab('settings',this)"><span class="ni">⚙️</span><span class="nl">Settings</span></button>
+  </div>
+</div>
+
+<div id="timer" class="screen">
+  <button onclick="closeTimer()" style="position:absolute;top:52px;left:20px;background:rgba(255,255,255,.1);border:none;color:white;font-size:24px;width:42px;height:42px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
+  <div class="ttn" id="tName">Task Timer</div>
+  <div class="tph" id="tPhase">Focus Session</div>
+  <div class="tcw">
+    <svg class="tsvg" viewBox="0 0 252 252">
+      <circle class="ttr" cx="126" cy="126" r="110"/>
+      <circle class="tpr" id="tProg" cx="126" cy="126" r="110" stroke-dasharray="691" stroke-dashoffset="0" stroke="#f5a96a"/>
+    </svg>
+    <div class="tce"><div class="tdi" id="tDisp">25:00</div><div class="tsu">minutes remaining</div></div>
+  </div>
+  <div class="tct">
+    <button class="tbtn sb" onclick="resetTimer()">↺</button>
+    <button class="tbtn pp" id="tPlay" onclick="toggleTimer()">▶</button>
+  </div>
+  <div class="bsg" id="bSug">
+    <div class="bst">🌿 Time for a break!</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:6px;">Choose your break:</div>
+    <div class="bso">
+      <button class="bop" onclick="startBreak(5)">Take 5 min Break</button>
+      <button class="bop" onclick="startBreak(10)">Take 10 min Break</button>
+      <button class="bop" onclick="startBreak(15)">Take 15 min Break</button>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="ciModal" onclick="closeMO(event,'ciModal')">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">Daily Check-In ☁️</div>
+    <div style="font-size:13px;color:var(--tl);font-weight:600;margin-bottom:14px;" id="ciDate"></div>
+    <div class="cq">How are you feeling right now?</div>
+    <div class="mr" id="moodRow">
+      <div class="moo" onclick="selMood(0)"><span class="me">😰</span><span class="mla">Stressed</span></div>
+      <div class="moo" onclick="selMood(1)"><span class="me">😔</span><span class="mla">Low</span></div>
+      <div class="moo" onclick="selMood(2)"><span class="me">😐</span><span class="mla">Okay</span></div>
+      <div class="moo" onclick="selMood(3)"><span class="me">🙂</span><span class="mla">Good</span></div>
+      <div class="moo" onclick="selMood(4)"><span class="me">🌟</span><span class="mla">Great</span></div>
+    </div>
+    <div class="cq">Workload today (1–10):</div>
+    <div class="sr" style="margin-bottom:16px;"><div class="st"><input type="range" min="1" max="10" value="5" id="wlS" oninput="updS(this,'wlV')"></div><div class="sv" id="wlV">5</div></div>
+    <div class="cq">How overwhelmed do you feel? (1–10):</div>
+    <div class="sr" style="margin-bottom:22px;"><div class="st"><input type="range" min="1" max="10" value="5" id="owS" oninput="updS(this,'owV')"></div><div class="sv" id="owV">5</div></div>
+    <button class="bp" onclick="submitCI()">Update Nimbus ☁️</button>
+  </div>
+</div>
+
+<div class="mo" id="addTaskModal" onclick="closeMO(event,'addTaskModal')">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">Add Task</div>
+    <div class="fg"><label class="fl">Task name</label><input class="fi" id="tName2" placeholder="What do you need to do?" type="text"></div>
+    <div class="fg"><label class="fl">Category</label><select class="fi" id="tCat" onchange="updSubcats()"><option value="">Choose a category</option></select></div>
+    <div class="fg" id="subG" style="display:none;"><label class="fl">Subject / Activity</label><select class="fi" id="tSubcat"></select></div>
+    <div class="fg"><label class="fl">Estimated time</label><div class="og" id="timeOpts"><div class="ob" onclick="selO(this,'timeOpts')">15 min</div><div class="ob" onclick="selO(this,'timeOpts')">30 min</div><div class="ob" onclick="selO(this,'timeOpts')">45 min</div><div class="ob" onclick="selO(this,'timeOpts')">1 hr</div><div class="ob" onclick="selO(this,'timeOpts')">1.5 hr</div><div class="ob" onclick="selO(this,'timeOpts')">2+ hr</div></div></div>
+    <div class="fg"><label class="fl">Priority</label><div class="og" id="priOpts"><div class="ob" onclick="selO(this,'priOpts')">🔴 Urgent</div><div class="ob" onclick="selO(this,'priOpts')">🟠 Medium</div><div class="ob" onclick="selO(this,'priOpts')">🟢 Low</div><div class="ob" onclick="selO(this,'priOpts')">📚 Study</div></div></div>
+    <div class="fg"><label class="fl">Due date</label><input class="fi" id="tDue" type="date"></div>
+    <button class="bp" onclick="addTask()">Add Task ✓</button>
+  </div>
+</div>
+
+<div class="mo" id="taskDetail" onclick="closeMO(event,'taskDetail')">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt" id="dtName">Task</div>
+    <div style="font-size:14px;color:var(--tm);font-weight:600;margin-bottom:20px;" id="dtMeta"></div>
+    <button class="bp" id="dtTimerBtn" onclick="launchTimer()" style="margin-bottom:8px;">⏱ Start Focus Timer</button>
+    <button class="bs" onclick="openEdit()">✏️ Edit Task</button>
+    <button class="bs" id="dtCompleteBtn" onclick="doneDetail()">✓ Mark Complete</button>
+    <button class="bs" onclick="delTask()" style="color:#c05030;border-color:rgba(220,100,80,.25);margin-top:4px;">Delete Task</button>
+  </div>
+</div>
+
+<div class="mo" id="editModal" onclick="closeMO(event,'editModal')">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">Edit Task</div>
+    <div class="fg"><label class="fl">Task name</label><input class="fi" id="eName" type="text"></div>
+    <div class="fg"><label class="fl">Estimated time</label><div class="og" id="eTimeOpts"><div class="ob" onclick="selO(this,'eTimeOpts')">15 min</div><div class="ob" onclick="selO(this,'eTimeOpts')">30 min</div><div class="ob" onclick="selO(this,'eTimeOpts')">45 min</div><div class="ob" onclick="selO(this,'eTimeOpts')">1 hr</div><div class="ob" onclick="selO(this,'eTimeOpts')">1.5 hr</div><div class="ob" onclick="selO(this,'eTimeOpts')">2+ hr</div></div></div>
+    <div class="fg"><label class="fl">Priority</label><div class="og" id="ePriOpts"><div class="ob" onclick="selO(this,'ePriOpts')">🔴 Urgent</div><div class="ob" onclick="selO(this,'ePriOpts')">🟠 Medium</div><div class="ob" onclick="selO(this,'ePriOpts')">🟢 Low</div><div class="ob" onclick="selO(this,'ePriOpts')">📚 Study</div></div></div>
+    <div class="fg"><label class="fl">Due date</label><input class="fi" id="eDue" type="date"></div>
+    <button class="bp" onclick="saveEdit()">Save Changes ✓</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// SUPABASE — paste your credentials here
+// ═══════════════════════════════════════════════════════════════
+const SB_URL = 'https://efnbwiyycuupgalwakws.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmbmJ3aXl5Y3V1cGdhbHdha3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTExOTAsImV4cCI6MjA5NjAyNzE5MH0.3GKnnIwbGN9RG3xUKeh8GTwt--XkNuAjAdTh9BG2g2Q';
+let sb=null;
+try{sb=supabase.createClient(SB_URL,SB_KEY);}catch(e){}
+
+// ═══════════════════════════════════════════════════════════════
+// STATE — everything that persists
+// ═══════════════════════════════════════════════════════════════
+let S={
+  userId:null,email:'',phone:'',name:'',grade:'',
+  categories:[],tasks:[],
+  mood:2,workload:5,overwhelm:5,
+  nimbusState:'neutral',
+  notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},
+  lastCI:null,
+  burnoutHistory:[], 
+  goals:[],
+  onboardStress:null 
+};
+
+let TMR={active:false,iv:null,rem:1500,total:1500,phase:'focus',taskId:null,name:'',bc:0};
+let NI=[],detId=null,curF='all',selM=2,_re=null;
+
+// ═══════════════════════════════════════════════════════════════
+// DATE HELPERS
+// ═══════════════════════════════════════════════════════════════
+function today(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function isToday(s){return s===today();}
+function ciDone(){return S.lastCI===today();}
+
+// ═══════════════════════════════════════════════════════════════
+// BURNOUT ADAPTIVE SYSTEM
+// ═══════════════════════════════════════════════════════════════
+function getBurnoutLevel(){
+  const avg=(S.overwhelm+S.workload)/2;
+  if(avg>=8.5) return'critical';
+  if(avg>=7)   return'high';
+  if(avg>=5)   return'moderate';
+  if(avg>=3)   return'low';
+  return'minimal';
+}
+
+function getAdaptiveBreakMins(){
+  const lvl=getBurnoutLevel();
+  if(lvl==='critical') return 20;
+  if(lvl==='high')     return 30;
+  if(lvl==='moderate') return 45;
+  return S.notifs.breakFreq||60;
+}
+
+function updateBurnoutAlert(){
+  const lvl=getBurnoutLevel();
+  const bh=document.getElementById('breakHint');
+  if(bh){
+    const mins=getAdaptiveBreakMins();
+    if(lvl==='critical'||lvl==='high'){
+      bh.textContent=`Auto-set to ${mins} min based on your stress`;
+    } else {
+      bh.textContent='Adapts to your stress level';
+    }
+  }
+}
+
+function updateNimbusState(){
+  const avg        = (S.overwhelm + S.workload) / 2;
+  const todayTasks = S.tasks.filter(t => isToday(t.due));
+  const allDone    = todayTasks.length > 0 && todayTasks.every(t => t.done);
+  const pending    = S.tasks.filter(t => !t.done).length;
+  const urgentLeft = S.tasks.filter(t => t.priority === 'Urgent' && !t.done).length;
+
+  if(allDone && avg <= 4){
+    S.nimbusState = 'glowing';
+  } else if(avg >= 8.5){
+    S.nimbusState = 'stressed';
+  } else if(avg >= 6.5 || urgentLeft >= 3){
+    S.nimbusState = 'sad';
+  } else if(avg <= 3 && pending <= 2){
+    S.nimbusState = 'happy';
+  } else if(allDone){
+    S.nimbusState = 'glowing';
+  } else {
+    S.nimbusState = 'neutral';
+  }
+}
+
+// Initial mock load bypass logic for setup visualization
+setTimeout(() => {
+  document.getElementById('load').style.display = 'none';
+  document.getElementById('app').classList.add('active');
+}, 800);
+</script>
+</body>
+</html>
