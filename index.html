@@ -69,11 +69,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .irs{font-size:11px;color:var(--tl);font-weight:600;margin-top:1px;}
 .irm{font-size:16px;color:var(--tl);cursor:pointer;padding:0 4px;background:none;border:none;}
 .irm:hover{color:#d06040;}
-.air{display:flex;gap:8px;align-items:center;}
-.aii{flex:1;padding:10px 14px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:13px;color:var(--td);outline:none;font-weight:600;}
+.air{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.aii{flex:1 1 100%;min-width:0;padding:10px 14px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:13px;color:var(--td);outline:none;font-weight:600;}
 .aii:focus{border-color:var(--or);}
-.aib{padding:10px 16px;border-radius:var(--rsm);border:none;background:var(--orb);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.ais{padding:10px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--tm);outline:none;flex-shrink:0;max-width:110px;}
+.aib{padding:10px 16px;border-radius:var(--rsm);border:none;background:var(--orb);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex:0 0 auto;}
+.ais{flex:1 1 auto;min-width:0;padding:10px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--tm);outline:none;}
 
 /* MAIN APP */
 .ah{padding:52px 22px 14px;background:linear-gradient(180deg,rgba(254,236,216,.85) 0%,transparent 100%);}
@@ -307,6 +307,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
     <button class="tbtn sb" onclick="resetTimer()">↺</button>
     <button class="tbtn pp" id="tPlay" onclick="toggleTimer()">▶</button>
   </div>
+  <button class="bop" onclick="offerBreak()" style="margin-top:22px;">🌿 Take a Break</button>
   <div class="bsg" id="bSug">
     <div class="bst">🌿 Time for a break!</div>
     <div style="font-size:12px;color:rgba(255,255,255,.5);font-weight:600;">Choose your break:</div>
@@ -454,35 +455,28 @@ function updateBurnoutAlert(){
 }
 
 function updateNimbusState(){
-  const avg        = (S.overwhelm + S.workload) / 2;
-  const todayTasks = S.tasks.filter(t => isToday(t.due));
-  const allDone    = todayTasks.length > 0 && todayTasks.every(t => t.done);
-  const pending    = S.tasks.filter(t => !t.done).length;
-  const urgentLeft = S.tasks.filter(t => t.priority === 'Urgent' && !t.done).length;
+  // Check-in baseline: avg 1(chill)-10(slammed) -> happiness 9..0
+  const avg = (S.overwhelm + S.workload) / 2;
+  const checkinScore = 10 - avg;
 
-  // Rainbow — everything done AND feeling good
-  if(allDone && avg <= 4){
-    S.nimbusState = 'glowing';
+  // Task influence: every pending task nudges sadder, every completed task
+  // nudges happier, urgent pending tasks sting extra. Capped so the daily
+  // check-in still sets the overall tone instead of being drowned out by
+  // a long lifetime task list.
+  const pending        = S.tasks.filter(t => !t.done).length;
+  const done           = S.tasks.filter(t => t.done).length;
+  const urgentPending  = S.tasks.filter(t => !t.done && t.priority === 'Urgent').length;
+  let taskScore = (done * 1.8) - (pending * 1.2) - (urgentPending * 0.8);
+  taskScore = Math.max(-4, Math.min(4, taskScore));
 
-  // Stormy — very high burnout
-  } else if(avg >= 8.5){
-    S.nimbusState = 'stressed';
+  let score = checkinScore + taskScore;
+  score = Math.max(0, Math.min(10, score));
 
-  // Rainy — high burnout or lots of urgent tasks
-  } else if(avg >= 6.5 || urgentLeft >= 3){
-    S.nimbusState = 'sad';
-
-  // Sunny — low burnout and making progress
-  } else if(avg <= 3 && pending <= 2){
-    S.nimbusState = 'happy';
-
-  // Glowing — all done even if moderate stress
-  } else if(allDone){
-    S.nimbusState = 'glowing';
-
-  } else {
-    S.nimbusState = 'neutral';
-  }
+  if(score >= 8.5)      S.nimbusState = 'glowing';
+  else if(score >= 6.5) S.nimbusState = 'happy';
+  else if(score >= 4)   S.nimbusState = 'neutral';
+  else if(score >= 2)   S.nimbusState = 'sad';
+  else                  S.nimbusState = 'stressed';
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -927,7 +921,7 @@ function addTask(){
     time:(document.querySelector('#timeOpts .ob.sel')||{textContent:'30 min'}).textContent,
     priority:((document.querySelector('#priOpts .ob.sel')||{textContent:'Medium'}).textContent).replace(/[🔴🟠🟢📚]\s*/,''),
     due:document.getElementById('tDue').value||today(),done:false};
-  S.tasks.push(t);closeM('addTaskModal');drawTodayTasks();drawAllTasks();drawCal();toast('Task added! ✓');save();
+  S.tasks.push(t);closeM('addTaskModal');drawTodayTasks();drawAllTasks();toast('Task added! ✓');save();
 }
 function selO(el,gid){document.querySelectorAll(`#${gid} .ob`).forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
 
@@ -971,10 +965,13 @@ function startBreak(min){
   TMR.phase='break';TMR.rem=min*60;TMR.total=min*60;
   document.getElementById('tPhase').textContent=`${min} min Break`;
   updTDisp();TMR.active=true;document.getElementById('tPlay').textContent='⏸';
-  TMR.iv=setInterval(tickT,1000);addPts(10);toast(`${min} min break started 🌿`);
+  TMR.iv=setInterval(tickT,1000);toast(`${min} min break started 🌿`);
 }
 function resetTimer(){clearInterval(TMR.iv);TMR.active=false;TMR.rem=TMR.total;TMR.phase='focus';document.getElementById('tPlay').textContent='▶';document.getElementById('bSug').classList.remove('show');document.getElementById('tPhase').textContent='Focus Session';updTDisp();}
-function skipPhase(){TMR.rem=0;tickT();}
+function offerBreak(){
+  clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent='▶';
+  document.getElementById('bSug').classList.add('show');
+}
 
 // ═══════════════════════════════════════════════════════════════
 // CHECK-IN
@@ -1001,7 +998,7 @@ function submitCI(){
   if(S.burnoutHistory.length>30)S.burnoutHistory=S.burnoutHistory.slice(-30);
   updateNimbusState();drawN(S.nimbusState);updNTxt();
   const n=document.getElementById('nudge');if(n)n.classList.remove('show');
-  updCIBanner();closeM('ciModal');addPts(15);toast('Nimbus updated! ☁️');
+  closeM('ciModal');toast('Nimbus updated! ☁️');
   updateBurnoutAlert();setAff();
   // Re-setup notifications with adaptive timing
   setupNotifs();
