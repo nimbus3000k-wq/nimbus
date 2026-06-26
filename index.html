@@ -75,12 +75,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .aib{padding:10px 16px;border-radius:var(--rsm);border:none;background:var(--orb);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .ais{padding:10px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--tm);outline:none;flex-shrink:0;max-width:110px;}
 
-/* BURNOUT ALERT BANNER */
-.burnout-alert{background:linear-gradient(135deg,rgba(186,175,240,.5),rgba(232,135,74,.2));border:2px solid rgba(186,175,240,.5);border-radius:var(--rmd);padding:14px 16px;margin-bottom:10px;display:none;}
-.burnout-alert.show{display:block;}
-.burnout-alert-title{font-size:15px;font-weight:900;color:var(--lavd);margin-bottom:4px;}
-.burnout-alert-body{font-size:13px;color:var(--tm);font-weight:600;line-height:1.5;}
-
 /* MAIN APP */
 .ah{padding:52px 22px 14px;background:linear-gradient(180deg,rgba(254,236,216,.85) 0%,transparent 100%);}
 .ag{font-size:27px;font-weight:900;color:var(--td);}
@@ -91,9 +85,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .afq{font-size:15px;font-weight:700;color:var(--td);line-height:1.5;font-style:italic;}
 .afa{font-size:12px;font-weight:700;color:var(--tl);margin-top:6px;}
 .secH{font-size:11px;font-weight:800;color:var(--tl);text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px;}
-.cib{background:linear-gradient(135deg,rgba(252,213,176,.5),rgba(216,208,248,.35));border:1.5px solid rgba(245,185,140,.35);border-radius:var(--rlg);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s;}
-.cib:hover{background:linear-gradient(135deg,rgba(252,213,176,.65),rgba(216,208,248,.48));}
-.cia{margin-left:auto;color:var(--ord);font-size:20px;}
 .cin{background:linear-gradient(135deg,rgba(216,208,248,.6),rgba(252,213,176,.45));border:1.5px solid rgba(186,175,240,.4);border-radius:var(--rlg);padding:16px 18px;margin-bottom:12px;text-align:center;display:none;}
 .cin.show{display:block;}
 .cnt{font-size:16px;font-weight:900;color:var(--lavd);margin-bottom:6px;}
@@ -115,7 +106,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .pm{background:rgba(186,175,240,.25);color:#6858b0;}
 .pl2{background:rgba(88,176,136,.15);color:#388060;}
 .tsd{width:4px;height:100%;position:absolute;left:0;top:0;border-radius:3px 0 0 3px;}
-.adb{background:linear-gradient(135deg,rgba(88,176,136,.12),rgba(252,213,176,.2));border:1.5px solid rgba(88,176,136,.3);border-radius:var(--rmd);padding:14px 18px;text-align:center;font-size:15px;font-weight:800;color:var(--mint);margin-bottom:7px;}
 
 /* BOTTOM NAV */
 .bn2{position:fixed;bottom:0;left:0;right:0;background:rgba(255,252,248,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(240,200,160,.3);display:flex;padding:8px 0 20px;z-index:100;}
@@ -133,20 +123,56 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .tsvg{width:100%;height:100%;transform:rotate(-90deg);}
 .ttr{fill:none;stroke:rgba(255,255,255,.07);stroke-width:12;}
 .tpr{fill:none;stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .5s;}
+.tpr.break{
+    stroke:url(#breakGradient);
+}
 .tce{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
 .tdi{font-size:52px;font-weight:900;color:white;line-height:1;letter-spacing:-2px;}
 .tsu{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);margin-top:4px;}
 .tct{display:flex;gap:16px;align-items:center;}
 .tbtn{border-radius:50%;border:none;cursor:pointer;font-size:22px;transition:all .2s;display:flex;align-items:center;justify-content:center;}
-.tbtn.pp{width:78px;height:78px;font-size:28px;background:var(--orb);color:white;box-shadow:0 0 28px rgba(232,135,74,.38);}
+.tbtn.pp{
+    width:78px;
+    height:78px;
+    font-size:28px;
+    background:var(--orb);
+    color:white;
+    box-shadow:0 0 28px rgba(232,135,74,.38);
+}
+
+.tbtn.pp.break{
+    background:linear-gradient(135deg,#8ad8ab 0%,#58b088 100%);
+    box-shadow:0 0 28px rgba(88,176,136,.38);
+}
 .tbtn.pp:hover{transform:scale(1.05);}
 .tbtn.sb{width:60px;height:60px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);}
-.bsg{margin-top:26px;background:rgba(255,255,255,.07);border-radius:var(--rlg);padding:16px 20px;text-align:center;max-width:300px;display:none;}
-.bsg.show{display:block;}
+.bsg{
+    margin-top:26px;
+    background:rgba(88,176,136,.14);
+    border:1px solid rgba(88,176,136,.35);
+    border-radius:var(--rlg);
+    padding:16px 20px;
+    text-align:center;
+    max-width:300px;
+    display:none;
+}.bsg.show{display:block;}
 .bst{font-size:14px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:6px;}
 .bso{display:flex;gap:10px;justify-content:center;margin-top:10px;}
-.bop{padding:8px 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
-.bop:hover{background:rgba(255,255,255,.2);}
+.bop{
+    padding:8px 16px;
+    border-radius:999px;
+    border:1.5px solid rgba(88,176,136,.45);
+    background:rgba(88,176,136,.18);
+    color:white;
+    font-family:'Nunito',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    transition:all .2s;
+}
+.bop:hover{
+    background:rgba(88,176,136,.32);
+}
 
 /* TABS */
 #tasks,#settings{padding:52px 14px 100px;overflow-y:auto;min-height:100vh;}
@@ -240,25 +266,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div class="ad" id="ddate"></div>
     </div>
     <div class="asc">
-      <div class="cin" id="nudge">
-        <div class="cnt">☁️ How are you feeling today?</div>
-        <div class="cns">Nimbus wants to check in before the day starts.</div>
-        <button class="bp" style="margin-top:0;" onclick="openCI()">Do Daily Check-In</button>
-      </div>
-      <div class="burnout-alert" id="burnoutAlert">
-        <div class="burnout-alert-title">⚠️ Nimbus is worried about you</div>
-        <div class="burnout-alert-body" id="burnoutAlertBody"></div>
-      </div>
-      <div class="cib" onclick="openCI()">
-        <div style="font-size:26px;">🌤️</div>
-        <div><div style="font-size:15px;font-weight:800;color:var(--td);">Daily Check-In</div><div style="font-size:12px;color:var(--tm);font-weight:600;" id="ciSub">How's Nimbus feeling today?</div></div>
-        <div class="cia">›</div>
-      </div>
       <div style="text-align:center;padding:14px 0 4px;">
         <div style="display:inline-block;cursor:pointer;transition:transform .3s;" onclick="nimClick()" id="nWrap">
           <svg id="nSVG" width="200" height="170" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
         <div style="font-size:14px;font-weight:700;color:var(--tm);margin-top:6px;" id="nTxt">Nimbus is here ☁️</div>
+      </div>
+      <div class="cin" id="nudge">
+        <div class="cnt">☁️ How are you feeling today?</div>
+        <div class="cns">Nimbus wants to check in before the day starts.</div>
+        <button class="bp" style="margin-top:0;" onclick="openCI()">Do Daily Check-In</button>
       </div>
       <div class="afc">
         <div class="afq" id="affQ">"Loading your daily spark..."</div>
@@ -325,7 +342,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="tct">
     <button class="tbtn sb" onclick="resetTimer()">↺</button>
     <button class="tbtn pp" id="tPlay" onclick="toggleTimer()">▶</button>
-    <button class="tbtn sb" onclick="skipPhase()">⏭</button>
   </div>
   <div class="bsg" id="bSug">
     <div class="bst">🌿 Time for a break!</div>
@@ -379,9 +395,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
     <div class="mh"></div>
     <div class="mt" id="dtName">Task</div>
     <div style="font-size:14px;color:var(--tm);font-weight:600;margin-bottom:20px;" id="dtMeta"></div>
-    <button class="bp" onclick="launchTimer()" style="margin-bottom:8px;">⏱ Start Focus Timer</button>
+    <button class="bp" id="dtTimerBtn" onclick="launchTimer()" style="margin-bottom:8px;">⏱ Start Focus Timer</button>
     <button class="bs" onclick="openEdit()">✏️ Edit Task</button>
-    <button class="bs" onclick="doneDetail()">✓ Mark Complete</button>
+    <button class="bs" id="dtCompleteBtn" onclick="doneDetail()">✓ Mark Complete</button>
     <button class="bs" onclick="delTask()" style="color:#c05030;border-color:rgba(220,100,80,.25);margin-top:4px;">Delete Task</button>
   </div>
 </div>
@@ -417,6 +433,7 @@ let S={
   userId:null,email:'',phone:'',name:'',grade:'',
   categories:[],tasks:[],
   mood:2,workload:5,overwhelm:5,
+  nimbusState:'neutral',
   notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},
   lastCI:null,
   burnoutHistory:[], // [{date,overwhelm,workload}]
@@ -460,19 +477,6 @@ function getAdaptiveBreakMins(){
 
 function updateBurnoutAlert(){
   const lvl=getBurnoutLevel();
-  const el=document.getElementById('burnoutAlert');
-  const bd=document.getElementById('burnoutAlertBody');
-  if(!el||!bd) return;
-  if(lvl==='critical'){
-    el.classList.add('show');
-    bd.textContent="You're running on empty. Nimbus is giving you permission to rest. Take breaks every 20 minutes and do at least one task at a time. Your health comes first.";
-  } else if(lvl==='high'){
-    el.classList.add('show');
-    bd.textContent="High stress detected. Nimbus suggests breaking your tasks into smaller chunks and taking 30-minute break intervals today.";
-  } else {
-    el.classList.remove('show');
-  }
-
   // Update break hint in settings
   const bh=document.getElementById('breakHint');
   if(bh){
@@ -485,10 +489,37 @@ function updateBurnoutAlert(){
   }
 }
 
-// Nimbus's face is fixed and friendly — it no longer changes based on
-// tasks or stress levels. Check-in data still drives adaptive break timing
-// and the burnout alert banner below, just not the cloud's expression.
-const NIMBUS_MOOD = 'happy';
+function updateNimbusState(){
+  const avg        = (S.overwhelm + S.workload) / 2;
+  const todayTasks = S.tasks.filter(t => isToday(t.due));
+  const allDone    = todayTasks.length > 0 && todayTasks.every(t => t.done);
+  const pending    = S.tasks.filter(t => !t.done).length;
+  const urgentLeft = S.tasks.filter(t => t.priority === 'Urgent' && !t.done).length;
+
+  // Rainbow — everything done AND feeling good
+  if(allDone && avg <= 4){
+    S.nimbusState = 'glowing';
+
+  // Stormy — very high burnout
+  } else if(avg >= 8.5){
+    S.nimbusState = 'stressed';
+
+  // Rainy — high burnout or lots of urgent tasks
+  } else if(avg >= 6.5 || urgentLeft >= 3){
+    S.nimbusState = 'sad';
+
+  // Sunny — low burnout and making progress
+  } else if(avg <= 3 && pending <= 2){
+    S.nimbusState = 'happy';
+
+  // Glowing — all done even if moderate stress
+  } else if(allDone){
+    S.nimbusState = 'glowing';
+
+  } else {
+    S.nimbusState = 'neutral';
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════
 // AUTH
@@ -601,7 +632,7 @@ async function afterAuth(){
 function logOut(){
   if(sb)sb.auth.signOut();
   stopNI();clearInterval(TMR.iv);
-  S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
+  S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
   localStorage.removeItem('nimbus_v5');_re=null;
   showScrn('auth');renderAuth('login');
 }
@@ -708,7 +739,9 @@ function drawN(m){const e=document.getElementById('nSVG');if(e)e.innerHTML=build
 // APP START
 // ═══════════════════════════════════════════════════════════════
 function recalcFromSaved(){
-  // Recalc burnout alert based on saved check-in data
+  // Recalc Nimbus cloud from actual current task state + burnout
+  updateNimbusState();
+  // Recalc break hint based on saved check-in data
   updateBurnoutAlert();
   // Recalc affirmation based on current burnout
   setAff();
@@ -718,22 +751,18 @@ function startApp(){
   showScrn('app');
   ['tasks','settings'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
   const h=document.getElementById('home');if(h)h.style.display='block';
-  drawN(NIMBUS_MOOD);updNTxt();
+  drawN(S.nimbusState);updNTxt();
   updGreet();drawTodayTasks();setAff();
   updAllS();loadNS();buildCatDD();updSetInfo();
-  setupNotifs();updCIBanner();
+  setupNotifs();
   const n=document.getElementById('nudge');
   if(n)n.classList.toggle('show',!ciDone());
   updateBurnoutAlert();
 }
 
-function updCIBanner(){
-  const s=document.getElementById('ciSub');
-  if(s)s.textContent=ciDone()?'Already checked in today ✓':"How's Nimbus feeling today?";
-}
-
 function updNTxt(){
-  const e=document.getElementById('nTxt');if(e)e.textContent='Nimbus is cheering you on ☁️';
+  const m={stressed:'Nimbus is feeling stormy 🌩️',sad:'Nimbus is feeling rainy 🌧️',neutral:'Nimbus is okay ⛅',happy:'Nimbus is feeling sunny ☀️',glowing:'Nimbus is glowing! 🌈'};
+  const e=document.getElementById('nTxt');if(e)e.textContent=m[S.nimbusState]||'Nimbus is here ☁️';
 }
 
 function updGreet(){
@@ -750,33 +779,8 @@ function updSetInfo(){
   const ph=document.getElementById('setPhone');if(ph)ph.textContent=S.phone||'No phone added';
 }
 
-// ═══════════════════════════════════════════════════════════════
-// STREAK
-// ═══════════════════════════════════════════════════════════════
-function drawStreak(){
-  const days=['M','T','W','T','F','S','S'],labs=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const td=new Date().getDay(),ti=td===0?6:td-1;
-  const e=document.getElementById('strkN');if(e)e.textContent=S.streak;
-  const de=document.getElementById('strkD');if(!de)return;
-  de.innerHTML=days.map((d,i)=>`<div class="dot${i<S.streak&&i<ti?' done':i===ti?' today':''}"><span class="sl">${d}</span><span class="sd2">${labs[i]}</span></div>`).join('');
-}
 
-function bumpStreak(){
-  const t=today();if(S.lastStreak===t)return;
-  S.streak=Math.min((S.streak||0)+1,7);S.lastStreak=t;drawStreak();
-}
 
-// ═══════════════════════════════════════════════════════════════
-// POINTS
-// ═══════════════════════════════════════════════════════════════
-function drawPts(){
-  const e=document.getElementById('pts');if(e)e.textContent=S.points;
-  const badges=[{min:0,icon:'🌱',name:'Cloud Seedling'},{min:100,icon:'☁️',name:'Nimbus Sprout'},{min:250,icon:'🌤️',name:'Silver Liner'},{min:500,icon:'⛅',name:'Storm Chaser'},{min:1000,icon:'🌈',name:'Rainbow Rider'}];
-  let b=badges[0];for(const x of badges){if(S.points>=x.min)b=x;}
-  const bi=document.getElementById('badI');if(bi)bi.textContent=b.icon;
-  const bn=document.getElementById('badN');if(bn)bn.textContent=b.name;
-}
-function addPts(n){S.points=(S.points||0)+n;drawPts();toast(`+${n} points! ☁️`);save();}
 
 // ═══════════════════════════════════════════════════════════════
 // AFFIRMATIONS
@@ -788,10 +792,10 @@ const AFFS=[
   "Rest is not giving up. Rest is recharging.",
   "You've made it through every hard day so far.",
   "Progress, not perfection. Always.",
-  "Your worth is not measured by your GPA.",
-  "It's okay to ask for help. That's strength.",
-  "One task at a time. You've got this.",
-  "Take a breath. You are doing better than you think.",
+  "You got this twin!!",
+  "Never back down never WHAT?",
+  "You da goat keep going",
+   "Take a breath. You are doing better than you think.",
 ];
 // Burnout-aware affirmations
 const BURN_AFFS=[
@@ -827,11 +831,14 @@ function dotColor(t){const c=getCatForTask(t);if(!c)return'#e8a888';return CM[c.
 function drawTodayTasks(){
   const td=S.tasks.filter(t=>isToday(t.due));
   const el=document.getElementById('todayList');if(!el)return;
-  if(!td.length){el.innerHTML=`<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;font-size:15px;">No tasks due today! ✨</div>`;return;}
-  if(td.every(t=>t.done)){el.innerHTML=`<div class="adb">All tasks done! Nimbus is glowing 🌈</div>`;updateNimbusState();drawN(S.nimbusState);updNTxt();return;}
-  // Sort: urgent first, then by due date
-  td.sort((a,b)=>{const po={Urgent:0,Medium:1,Low:2,Study:3};return(po[a.priority]||1)-(po[b.priority]||1);});
-  el.innerHTML=td.map(t=>taskHTML(t)).join('');
+  if(!td.length){
+    el.innerHTML=`<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;font-size:15px;">No tasks due today! ✨</div>`;
+  } else {
+    // Sort: urgent first, then by due date
+    td.sort((a,b)=>{const po={Urgent:0,Medium:1,Low:2,Study:3};return(po[a.priority]||1)-(po[b.priority]||1);});
+    el.innerHTML=td.map(t=>taskHTML(t)).join('');
+  }
+  updateNimbusState();drawN(S.nimbusState);updNTxt();
 }
 
 function taskHTML(t){
@@ -857,8 +864,6 @@ function fmtDue(s){
 function togTask(id){
   const t=S.tasks.find(x=>x.id===id);if(!t)return;
   t.done=!t.done;
-  if(t.done){addPts(25);bumpStreak();}
-  updateNimbusState();drawN(S.nimbusState);updNTxt();
   drawTodayTasks();drawAllTasks();save();
 }
 
@@ -909,6 +914,10 @@ function openDetail(id){
   detId=id;const c=getCatForTask(t);
   document.getElementById('dtName').textContent=t.name;
   document.getElementById('dtMeta').textContent=`${c?c.name:'General'}${t.subcatName?' › '+t.subcatName:''}  ·  ${t.time||''}  ·  Due: ${t.due||'Not set'}  ·  ${t.priority}`;
+  const timerBtn=document.getElementById('dtTimerBtn');
+  if(timerBtn)timerBtn.style.display=t.done?'none':'block';
+  const completeBtn=document.getElementById('dtCompleteBtn');
+  if(completeBtn)completeBtn.textContent=t.done?'↺ Mark Incomplete':'✓ Mark Complete';
   openM('taskDetail');
 }
 function launchTimer(){closeM('taskDetail');const t=S.tasks.find(x=>x.id===detId);if(t)openTimer(t);}
@@ -1002,45 +1011,6 @@ function startBreak(min){
 }
 function resetTimer(){clearInterval(TMR.iv);TMR.active=false;TMR.rem=TMR.total;TMR.phase='focus';document.getElementById('tPlay').textContent='▶';document.getElementById('bSug').classList.remove('show');document.getElementById('tPhase').textContent='Focus Session';updTDisp();}
 function skipPhase(){TMR.rem=0;tickT();}
-
-// ═══════════════════════════════════════════════════════════════
-// CALENDAR
-// ═══════════════════════════════════════════════════════════════
-function drawCal(){
-  const n=new Date(),m=n.getMonth(),y=n.getFullYear();
-  const el=document.getElementById('calMonth');if(el)el.textContent=n.toLocaleString('default',{month:'long',year:'numeric'});
-  const lel=document.getElementById('calLabels');if(lel)lel.innerHTML=['Su','Mo','Tu','We','Th','Fr','Sa'].map(l=>`<div class="cdl">${l}</div>`).join('');
-  const first=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate(),prev=new Date(y,m,0).getDate();
-  let cells='';
-  for(let i=0;i<first;i++)cells+=`<div class="cd om">${prev-first+1+i}</div>`;
-  for(let d=1;d<=dim;d++){
-    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    cells+=`<div class="cd${d===n.getDate()?' tod':''}${S.tasks.some(t=>t.due===ds&&!t.done)?' he':''}">${d}</div>`;
-  }
-  const gel=document.getElementById('calGrid');if(gel)gel.innerHTML=cells;
-  const up=S.tasks.filter(t=>!t.done).sort((a,b)=>(a.due||'').localeCompare(b.due||''));
-  const mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const uel=document.getElementById('upList');if(!uel)return;
-  uel.innerHTML=up.slice(0,8).map(t=>{
-    const d=new Date((t.due||today())+'T12:00:00');
-    const c=getCatForTask(t);
-    return`<div class="ui"><div class="udb"><div class="udm">${mn[d.getMonth()]}</div><div class="udd">${d.getDate()}</div></div><div><div class="uti">${t.name}</div><div class="utm">${c?c.icon+' '+c.name:'General'} · ${t.priority}</div></div></div>`;
-  }).join('')||`<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;">No upcoming tasks! ☁️</div>`;
-}
-
-// ═══════════════════════════════════════════════════════════════
-// NOTES
-// ═══════════════════════════════════════════════════════════════
-function drawNotes(){
-  const el=document.getElementById('notesList');if(!el)return;
-  el.innerHTML=S.notes.length?S.notes.map(n=>`<div class="nc"><div class="nti">${n.title}</div><div class="np">${n.content.substring(0,100)}${n.content.length>100?'...':''}</div><div class="nd">${n.date}</div></div>`).join(''):`<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;">No notes yet! 📝</div>`;
-}
-function openAddNote(){document.getElementById('nTitle').value='';document.getElementById('nContent').value='';openM('noteModal');}
-function addNote(){
-  const title=document.getElementById('nTitle').value.trim();if(!title){toast('Please add a title!');return;}
-  S.notes.push({id:Date.now(),title,content:document.getElementById('nContent').value.trim(),date:new Date().toLocaleDateString()});
-  closeM('noteModal');drawNotes();toast('Note saved! 📝');save();
-}
 
 // ═══════════════════════════════════════════════════════════════
 // CHECK-IN
@@ -1147,12 +1117,10 @@ function nimClick(){
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════
 function swTab(tab,el){
-  ['home','tasks','cal','notes','settings'].forEach(id=>{const s=document.getElementById(id);if(s)s.style.display='none';});
+  ['home','tasks','settings'].forEach(id=>{const s=document.getElementById(id);if(s)s.style.display='none';});
   const t=document.getElementById(tab);if(t)t.style.display='block';
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));el.classList.add('act');
   if(tab==='tasks'){buildCatDD();drawAllTasks();}
-  if(tab==='cal')drawCal();
-  if(tab==='notes')drawNotes();
   if(tab==='settings'){loadNS();updSetInfo();}
 }
 
@@ -1178,12 +1146,12 @@ async function save(){
     const sess=(await sb.auth.getSession()).data.session;
     if(!sess){console.log('No session');return;}
     const payload={
-      tasks:S.tasks,notes:S.notes,categories:S.categories,
-      points:S.points,streak:S.streak,mood:S.mood,
+      tasks:S.tasks,categories:S.categories,
+      mood:S.mood,
       workload:S.workload,overwhelm:S.overwhelm,
       nimbusState:S.nimbusState,name:S.name,
       phone:S.phone,grade:S.grade,goals:S.goals,
-      notifs:S.notifs,lastCI:S.lastCI,lastStreak:S.lastStreak,
+      notifs:S.notifs,lastCI:S.lastCI,
       burnoutHistory:S.burnoutHistory||[]
     };
     const{error}=await sb.from('user_data')
@@ -1207,7 +1175,6 @@ function loadLocal(){
     if(uid)S.userId=uid;if(em)S.email=em;
     if(!S.notifs)S.notifs={break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'};
     if(!Array.isArray(S.tasks))S.tasks=[];
-    if(!Array.isArray(S.notes))S.notes=[];
     if(!Array.isArray(S.categories))S.categories=[];
     if(!S.burnoutHistory)S.burnoutHistory=[];
     if(!S.goals)S.goals=[];
@@ -1230,10 +1197,7 @@ async function loadCloud(){
     console.log('✅ Loaded — name:'+d.name+' tasks:'+(d.tasks||[]).length);
     const uid=S.userId,em=S.email;
     if(Array.isArray(d.tasks))         S.tasks=d.tasks;
-    if(Array.isArray(d.notes))         S.notes=d.notes;
     if(Array.isArray(d.categories))    S.categories=d.categories;
-    if(d.points!=null)                 S.points=d.points;
-    if(d.streak!=null)                 S.streak=d.streak;
     if(d.mood!=null)                   S.mood=d.mood;
     if(d.workload!=null)               S.workload=d.workload;
     if(d.overwhelm!=null)              S.overwhelm=d.overwhelm;
@@ -1243,7 +1207,6 @@ async function loadCloud(){
     if(d.grade!=null)                  S.grade=d.grade;
     if(d.notifs)                       S.notifs=d.notifs;
     if(d.lastCI!=null)                 S.lastCI=d.lastCI;
-    if(d.lastStreak!=null)             S.lastStreak=d.lastStreak;
     if(Array.isArray(d.burnoutHistory))S.burnoutHistory=d.burnoutHistory;
     if(Array.isArray(d.goals))         S.goals=d.goals;
     S.userId=uid;S.email=em;
