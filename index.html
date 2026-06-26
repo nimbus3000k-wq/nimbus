@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Nimbus — Breakout from Burnout</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght scheduled@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --or:#f5a96a;--orl:#fcd5b0;--orp:#feecd8;--ord:#e8874a;
@@ -42,7 +42,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .sd.act{background:var(--or);width:24px;border-radius:4px;}
 .sd.dn{background:var(--mint);}
 
-/* AUTH SCREEN */
+/* AUTH */
 #auth{align-items:center;justify-content:center;padding:24px;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
 .ac{background:rgba(255,252,248,.92);backdrop-filter:blur(16px);border:1.5px solid rgba(240,200,160,.4);border-radius:var(--rxl);padding:32px 26px;max-width:400px;width:100%;box-shadow:0 12px 48px rgba(232,135,74,.12);}
 .alo{text-align:center;margin-bottom:20px;}
@@ -53,11 +53,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .ae{font-size:13px;color:#c05030;font-weight:700;text-align:center;margin-bottom:10px;display:none;}
 .ae.show{display:block;}
 
-/* LOADING SCREEN */
+/* LOADING */
 #load{align-items:center;justify-content:center;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
 .lt{font-size:16px;font-weight:700;color:var(--tm);margin-top:16px;}
 
-/* ONBOARDING SCREEN */
+/* ONBOARD */
 #onboard{align-items:center;justify-content:center;padding:24px;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
 .oc{background:rgba(255,252,248,.92);backdrop-filter:blur(16px);border:1.5px solid rgba(240,200,160,.4);border-radius:var(--rxl);padding:30px 26px;max-width:420px;width:100%;box-shadow:0 12px 48px rgba(232,135,74,.12);}
 .ot{font-size:25px;font-weight:900;color:var(--td);margin-bottom:6px;line-height:1.2;}
@@ -75,7 +75,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .aib{padding:10px 16px;border-radius:var(--rsm);border:none;background:var(--orb);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .ais{padding:10px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--tm);outline:none;flex-shrink:0;max-width:110px;}
 
-/* DASHBOARD & SYSTEM APP STYLES */
+/* MAIN APP */
 .ah{padding:52px 22px 14px;background:linear-gradient(180deg,rgba(254,236,216,.85) 0%,transparent 100%);}
 .ag{font-size:27px;font-weight:900;color:var(--td);}
 .ad{font-size:13px;color:var(--tm);margin-top:2px;font-weight:600;}
@@ -90,7 +90,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .cnt{font-size:16px;font-weight:900;color:var(--lavd);margin-bottom:6px;}
 .cns{font-size:13px;color:var(--tm);font-weight:600;margin-bottom:12px;}
 
-/* TASKS LIST */
+/* TASKS */
 .tc{background:var(--cb);border:1.5px solid var(--cbr);border-radius:var(--rmd);padding:13px 15px;margin-bottom:7px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
 .tc:hover{border-color:var(--orl);}
 .tc.dc{background:rgba(88,176,136,.07);border-color:rgba(88,176,136,.25);opacity:.7;}
@@ -107,7 +107,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .pl2{background:rgba(88,176,136,.15);color:#388060;}
 .tsd{width:4px;height:100%;position:absolute;left:0;top:0;border-radius:3px 0 0 3px;}
 
-/* BOTTOM NAVIGATION MENU BAR */
+/* BOTTOM NAV */
 .bn2{position:fixed;bottom:0;left:0;right:0;background:rgba(255,252,248,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(240,200,160,.3);display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom, 16px));z-index:100;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 0;transition:all .2s;}
 .ni{font-size:22px;}
@@ -115,7 +115,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .nb.act .nl{color:var(--ord);}
 .nb.act .ni{transform:scale(1.1);}
 
-/* TIMER INTERFACE PANELS */
+/* TIMER */
 #timer{background:linear-gradient(160deg,#2a1808 0%,#3a1e10 40%,#1a2018 100%);color:white;align-items:center;justify-content:center;padding:40px 24px;width:100%;}
 .ttn{font-size:19px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:5px;text-align:center;}
 .tph{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:42px;}
@@ -134,7 +134,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .tbtn.pp:hover{transform:scale(1.05);}
 .tbtn.sb{width:60px;height:60px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);}
 
-/* ADAPTIVE BREAK POPUP PROMPT */
 .bsg{margin-top:26px;background:rgba(88,176,136,.14);border:1px solid rgba(88,176,136,.35);border-radius:var(--rlg);padding:16px 20px;text-align:center;width:100%;max-width:320px;display:none;}
 .bsg.show{display:block;}
 .bst{font-size:14px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;}
@@ -142,7 +141,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .bop{padding:12px 16px;border-radius:var(--rmd);border:1.5px solid rgba(88,176,136,.45);background:rgba(88,176,136,.18);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;width:100%;text-align:center;}
 .bop:hover{background:rgba(88,176,136,.32);}
 
-/* TABS PACKAGING */
+/* TABS */
 #tasks,#settings{padding:52px 16px 140px;overflow-y:auto;min-height:100vh;width:100%;}
 .th{font-size:26px;font-weight:900;color:var(--td);margin-bottom:4px;}
 .ts{font-size:14px;color:var(--tm);font-weight:600;margin-bottom:16px;}
@@ -167,7 +166,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .sse{padding:8px 12px;border-radius:var(--rsm);border:1.5px solid rgba(240,200,160,.4);background:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--td);outline:none;}
 .lb{width:100%;padding:14px;border-radius:var(--rmd);border:1.5px solid rgba(220,100,80,.25);background:rgba(220,100,80,.06);color:#c05030;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
 
-/* BOTTOM ACTION SHEETS MODALS */
+/* MODALS */
 .mo{position:fixed;inset:0;background:rgba(40,20,10,.45);backdrop-filter:blur(5px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .mo.show{display:flex;}
 .ms{background:#fff9f5;border-radius:28px 28px 0 0;padding:24px 22px calc(44px + env(safe-area-inset-bottom, 16px));width:100%;max-width:480px;max-height:85vh;overflow-y:auto;animation:su .3s ease;box-shadow: 0 -8px 32px rgba(0,0,0,0.08);}
@@ -322,7 +321,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   </div>
 </div>
 
-<!-- MODALS -->
 <div class="mo" id="ciModal" onclick="closeMO(event,'ciModal')">
   <div class="ms">
     <div class="mh"></div>
@@ -387,7 +385,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
-// SUPABASE CLIENT INITIALIZATION
+// SUPABASE — paste your credentials here
 // ═══════════════════════════════════════════════════════════════
 const SB_URL = 'https://efnbwiyycuupgalwakws.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmbmJ3aXl5Y3V1cGdhbHdha3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTExOTAsImV4cCI6MjA5NjAyNzE5MH0.3GKnnIwbGN9RG3xUKeh8GTwt--XkNuAjAdTh9BG2g2Q';
@@ -395,7 +393,7 @@ let sb=null;
 try{sb=supabase.createClient(SB_URL,SB_KEY);}catch(e){}
 
 // ═══════════════════════════════════════════════════════════════
-// GLOBAL STATE OBJECT
+// STATE — everything that persists
 // ═══════════════════════════════════════════════════════════════
 let S={
   userId:null,email:'',phone:'',name:'',grade:'',
@@ -412,37 +410,15 @@ let S={
 let TMR={active:false,iv:null,rem:1500,total:1500,phase:'focus',taskId:null,name:'',bc:0};
 let NI=[],detId=null,curF='all',selM=2,_re=null;
 
-const DEF_CATS=[
-  {id:'c1',name:'🎓 Academics',subcats:['Math','Science','History','English','Foreign Language','Exam Prep','Homework']},
-  {id:'c2',name:'💼 Career & College',subcats:['College Apps','SAT/ACT Prep','Resume Building','Internships','Scholarships']},
-  {id:'c3',name:'🎨 Extracurriculars',subcats:['Sports','Music / Art','Clubs','Volunteering','Hobby Projects']},
-  {id:'c4',name:'🌱 Life & Wellness',subcats:['Exercise','Chores','Self Care','Socializing','Meditation']}
-];
-
-const EN_CLD=`<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><path d="M25 65 A16 16 0 0 1 25 33 A22 22 0 0 1 63 21 A18 18 0 0 1 90 40 A14 14 0 0 1 85 67 Z" fill="#fff" stroke="#2a1808"/><ellipse cx="40" cy="44" rx="3.5" ry="5.5" fill="#2a1808"/><ellipse cx="68" cy="44" rx="3.5" ry="5.5" fill="#2a1808"/><path d="M48 53 Q54 58 60 53" stroke="#2a1808" stroke-width="3"/><ellipse cx="32" cy="48" rx="5" ry="2.5" fill="rgba(232,135,74,.25)" stroke="none"/><ellipse cx="76" cy="48" rx="5" ry="2.5" fill="rgba(232,135,74,.25)" stroke="none"/></g>`;
-const EN_HAP=`<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><path d="M25 65 A16 16 0 0 1 25 33 A22 22 0 0 1 63 21 A18 18 0 0 1 90 40 A14 14 0 0 1 85 67 Z" fill="#fff5ef" stroke="#2a1808"/><path d="M36 45 Q40 40 44 45" stroke="#2a1808" stroke-width="3.5"/><path d="M64 45 Q68 40 72 45" stroke="#2a1808" stroke-width="3.5"/><path d="M46 51 Q54 59 62 51" stroke="#2a1808" stroke-width="3.5" fill="#e8874a"/><ellipse cx="30" cy="48" rx="6" ry="3" fill="rgba(232,135,74,.35)" stroke="none"/><ellipse cx="78" cy="48" rx="6" ry="3" fill="rgba(232,135,74,.35)" stroke="none"/></g>`;
-const EN_STR=`<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><path d="M25 65 A16 16 0 0 1 25 33 A22 22 0 0 1 63 21 A18 18 0 0 1 90 40 A14 14 0 0 1 85 67 Z" fill="#ece8fc" stroke="#2a1808"/><ellipse cx="40" cy="45" rx="4" ry="4" fill="#2a1808"/><ellipse cx="68" cy="45" rx="4" ry="4" fill="#2a1808"/><path d="M34 37 L44 40 M74 37 L64 40" stroke="#2a1808" stroke-width="3.5"/><path d="M46 56 Q54 50 62 56" stroke="#2a1808" stroke-width="3"/><path d="M24 18 L20 26 M84 15 L80 23 M52 10 L50 16" stroke="#8878d0" stroke-width="3"/></g>`;
-const EN_SAD=`<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><path d="M25 65 A16 16 0 0 1 25 33 A22 22 0 0 1 63 21 A18 18 0 0 1 90 40 A14 14 0 0 1 85 67 Z" fill="#e2f0fc" stroke="#2a1808"/><ellipse cx="40" cy="46" rx="3.5" ry="5.5" fill="#2a1808"/><ellipse cx="68" cy="46" rx="3.5" ry="5.5" fill="#2a1808"/><path d="M35 38 Q40 36 43 39 M73 38 Q68 36 65 39" stroke="#2a1808" stroke-width="2.5"/><path d="M48 56 Q54 50 60 56" stroke="#2a1808" stroke-width="3"/><path d="M38 54 C38 58 40 60 40 60 M70 54 C70 58 68 60 68 60" stroke="#5898d8" stroke-width="2.5"/></g>`;
-const EN_GLO=`<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"><circle cx="55" cy="44" r="46" fill="rgba(252,213,176,.35)" filter="blur(6px)" stroke="none"/><path d="M25 65 A16 16 0 0 1 25 33 A22 22 0 0 1 63 21 A18 18 0 0 1 90 40 A14 14 0 0 1 85 67 Z" fill="#fffdfa" stroke="#e8874a" stroke-width="5.5"/><ellipse cx="40" cy="43" rx="4" ry="6" fill="#3a2818"/><ellipse cx="68" cy="43" rx="4" ry="6" fill="#3a2818"/><path d="M45 50 Q54 62 63 50" stroke="#e8874a" stroke-width="4" fill="#fff"/><path d="M12 24 L6 20 M96 22 L104 18 M54 4 L54 0" stroke="#f5a96a" stroke-width="3.5"/></g>`;
-
-const SPARKS=[
-  {q:"Your value doesn't decrease based on your inability to completed a giant to-do list.",a:"Nimbus Mindset"},
-  {q:"Rest isn't a reward for finishing your work. It's the fuel that allows you to live safely.",a:"Wellness Guide"},
-  {q:"Taking a small structured break today is an act of long-term academic power.",a:"Burnout Prevention"},
-  {q:"Placing limits on how much you work is how you protect your spark.",a:"Nimbus Wisdom"},
-  {q:"Ambitious targets require sustainable paths. Slow down to climb higher safely.",a:"Peer Support"}
-];
-
 // ═══════════════════════════════════════════════════════════════
-// DATE CALCULATIONS
+// DATE HELPERS
 // ═══════════════════════════════════════════════════════════════
 function today(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function isToday(s){return s===today();}
 function ciDone(){return S.lastCI===today();}
-function fmtD(s){if(!s)return'No Date';const parts=s.split('-');if(parts.length!==3)return s;const d=new Date(parts[0],parts[1]-1,parts[2]);return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
 
 // ═══════════════════════════════════════════════════════════════
-// BURNOUT ADAPTIVE ENGINE
+// BURNOUT ADAPTIVE SYSTEM
 // ═══════════════════════════════════════════════════════════════
 function getBurnoutLevel(){
   const avg=(S.overwhelm+S.workload)/2;
@@ -452,493 +428,55 @@ function getBurnoutLevel(){
   if(avg>=3)   return'low';
   return'minimal';
 }
+
 function getAdaptiveBreakMins(){
   const lvl=getBurnoutLevel();
-  if(lvl==='critical')return 20;
-  if(lvl==='high')return 15;
-  if(lvl==='moderate')return 10;
-  return 5;
+  if(lvl==='critical') return 20;
+  if(lvl==='high')     return 30;
+  if(lvl==='moderate') return 45;
+  return S.notifs.breakFreq||60;
 }
+
 function updateBurnoutAlert(){
-  const lvl=getBurnoutLevel();const bh=document.getElementById('breakHint');
-  if(bh){const mins=getAdaptiveBreakMins();bh.textContent=(lvl==='critical'||lvl==='high')?`Auto-set to ${mins} min breaks based on stress`:'Adapts to your stress level';}
+  const lvl=getBurnoutLevel();
+  const bh=document.getElementById('breakHint');
+  if(bh){
+    const mins=getAdaptiveBreakMins();
+    if(lvl==='critical'||lvl==='high'){
+      bh.textContent=`Auto-set to ${mins} min based on your stress`;
+    } else {
+      bh.textContent='Adapts to your stress level';
+    }
+  }
 }
+
 function updateNimbusState(){
-  const avg=(S.overwhelm+S.workload)/2;
-  const tts=S.tasks.filter(t=>isToday(t.due));const allD=tts.length>0&&tts.every(t=>t.done);
-  const pend=S.tasks.filter(t=>!t.done).length;const urg=S.tasks.filter(t=>t.priority==='Urgent'&&!t.done).length;
-  if(allD&&avg<=4){S.nimbusState='glowing';}
-  else if(avg>=8.5){S.nimbusState='stressed';}
-  else if(avg>=6.5||urg>=3){S.nimbusState='sad';}
-  else if(avg<=3&&pend<=2){S.nimbusState='happy';}
-  else if(allD){S.nimbusState='glowing';}
-  else{S.nimbusState='neutral';}
-}
+  const avg        = (S.overwhelm + S.workload) / 2;
+  const todayTasks = S.tasks.filter(t => isToday(t.due));
+  const allDone    = todayTasks.length > 0 && todayTasks.every(t => t.done);
+  const pending    = S.tasks.filter(t => !t.done).length;
+  const urgentLeft = S.tasks.filter(t => t.priority === 'Urgent' && !t.done).length;
 
-// ═══════════════════════════════════════════════════════════════
-// UI ELEMENT ROUTER & TRANSITIONS
-// ═══════════════════════════════════════════════════════════════
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const t=document.getElementById(id);if(t)t.classList.add('active');
-}
-function swTab(tId,btn){
-  ['home','tasks','settings'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=(id===tId)?'block':'none';});
-  document.querySelectorAll('.bn2 .nb').forEach(b=>b.classList.remove('act'));if(btn)btn.classList.add('act');
-}
-
-// ═══════════════════════════════════════════════════════════════
-// TOAST MESSAGES
-// ═══════════════════════════════════════════════════════════════
-function showToast(m){
-  const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// AUTHENTICATION CONTROLLER FLOW
-// ═══════════════════════════════════════════════════════════════
-let isUp=false;
-function initAuth(){
-  showScreen('auth');isUp=false;
-  document.getElementById('authSub').textContent="Your personal study cloud ☁️";
-  renderAuthForm();
-}
-function renderAuthForm(){
-  const f=document.getElementById('authForm');
-  f.innerHTML=isUp?`
-    <div class="fg"><label class="fl">Full Name</label><input class="fi" id="auName" placeholder="Alex Rivera" type="text"></div>
-    <div class="fg"><label class="fl">Email Address</label><input class="fi" id="auEmail" placeholder="alex@school.edu" type="email"></div>
-    <div class="fg"><label class="fl">Phone (Optional)</label><input class="fi" id="auPhone" placeholder="555-0199" type="tel"></div>
-    <div class="fg"><label class="fl">Password</label><input class="fi" id="auPass" placeholder="••••••••" type="password"></div>
-    <button class="bp" onclick="handleAuth()">Create Account ☁️</button>
-    <div class="asw">Already using Nimbus? <span onclick="toggleAuthMode()">Sign In</span></div>
-  `:`
-    <div class="fg"><label class="fl">Email Address</label><input class="fi" id="auEmail" placeholder="alex@school.edu" type="email"></div>
-    <div class="fg"><label class="fl">Password</label><input class="fi" id="auPass" placeholder="••••••••" type="password"></div>
-    <button class="bp" onclick="handleAuth()">Sign In to Nimbus</button>
-    <div class="asw">New to the cloud? <span onclick="toggleAuthMode()">Create Account</span></div>
-  `;
-}
-function toggleAuthMode(){isUp=!isUp;document.getElementById('authErr').classList.remove('show');renderAuthForm();}
-async function handleAuth(){
-  const em=document.getElementById('auEmail').value.trim();
-  const pa=document.getElementById('auPass').value.trim();
-  const err=document.getElementById('authErr');err.classList.remove('show');
-  if(!em||!pa){err.textContent="Please fill out all fields.";err.classList.add('show');return;}
-  showScreen('load');
-  if(isUp){
-    const nm=document.getElementById('auName').value.trim();
-    const ph=document.getElementById('auPhone').value.trim();
-    if(!nm){showScreen('auth');err.textContent="Name is required.";err.classList.add('show');return;}
-    if(sb){
-      const {data,error}=await sb.auth.signUp({email:em,password:pa,options:{data:{name:nm,phone:ph}}});
-      if(error){showScreen('auth');err.textContent=error.message;err.classList.add('show');return;}
-      S.userId=data.user?.id;S.email=em;S.phone=ph;S.name=nm;
-    }else{
-      S.userId='mock_'+Date.now();S.email=em;S.phone=ph;S.name=nm;
-    }
-    startOnboarding();
-  }else{
-    if(sb){
-      const {data,error}=await sb.auth.signInWithPassword({email:em,password:pa});
-      if(error){showScreen('auth');err.textContent=error.message;err.classList.add('show');return;}
-      S.userId=data.user?.id;S.email=em;S.name=data.user?.user_metadata?.name||em.split('@')[0];
-      S.phone=data.user?.user_metadata?.phone||'';
-    }else{
-      if(localStorage.getItem('nim_mock_em')===em){
-        S.userId='mock_user';S.email=em;S.name=localStorage.getItem('nim_mock_nm')||'Student';
-        const ls=localStorage.getItem('nim_state');if(ls)S=JSON.parse(ls);
-      }else{
-        showScreen('auth');err.textContent="Invalid credentials in mock environment.";err.classList.add('show');return;}
-    }
-    await loadDataAndLaunch();
+  if(allDone && avg <= 4){
+    S.nimbusState = 'glowing';
+  } else if(avg >= 8.5){
+    S.nimbusState = 'stressed';
+  } else if(avg >= 6.5 || urgentLeft >= 3){
+    S.nimbusState = 'sad';
+  } else if(avg <= 3 && pending <= 2){
+    S.nimbusState = 'happy';
+  } else if(allDone){
+    S.nimbusState = 'glowing';
+  } else {
+    S.nimbusState = 'neutral';
   }
 }
 
-// ═══════════════════════════════════════════════════════════════
-// ONBOARDING ENGINE
-// ═══════════════════════════════════════════════════════════════
-let obStep=0;
-function startOnboarding(){obStep=1;showScreen('onboard');renderOB();}
-function renderOBDots(){
-  const h=document.getElementById('stepDots');h.innerHTML='';
-  for(let i=1;i<=4;i++){const d=document.createElement('div');d.className='sd '+(obStep===i?'act':(obStep>i?'dn':''));h.appendChild(d);}
-}
-function renderOB(){
-  renderOBDots();const c=document.getElementById('onboardContent');
-  if(obStep===1){
-    c.innerHTML=`
-      <div class="ot">What grade are you in?</div><div class="os">Nimbus tailors tracking strategies based on your layout path.</div>
-      <div class="fg" style="margin-top:12px;"><div class="og" id="gOpts"><div class="ob" onclick="selO(this,'gOpts')">9th Grade</div><div class="ob" onclick="selO(this,'gOpts')">10th Grade</div><div class="ob" onclick="selO(this,'gOpts')">11th Grade</div><div class="ob" onclick="selO(this,'gOpts')">12th Grade</div><div class="ob" onclick="selO(this,'gOpts')">College / Uni</div><div class="ob" onclick="selO(this,'gOpts')">Other</div></div></div>
-      <button class="bp" style="margin-top:24px;" onclick="nextOB(1)">Continue</button>
-    `;
-  }else if(obStep===2){
-    c.innerHTML=`
-      <div class="ot">Current Stress Levels</div><div class="os">Be candid. This tunes Nimbus's predictive burnout checks.</div>
-      <div class="cq">On a scale of 1-10, how close to burnout are you?</div>
-      <div class="sr" style="margin:16px 0 24px;"><div class="st"><input type="range" min="1" max="10" value="5" id="obS" oninput="updS(this,'obV')"></div><div class="sv" id="obV">5</div></div>
-      <button class="bp" onclick="nextOB(2)">Continue</button>
-    `;
-  }else if(obStep===3){
-    c.innerHTML=`
-      <div class="ot">What are you balancing?</div><div class="os">We'll set up distinct workspace zones for your obligations.</div>
-      <div class="il" id="obCats"></div>
-      <button class="bp" style="margin-top:18px;" onclick="nextOB(3)">Finalize Dashboard ✓</button>
-    `;
-    const b=document.getElementById('obCats');
-    DEF_CATS.forEach(cat=>{
-      const d=document.createElement('div');d.className='ir';
-      d.innerHTML=`<input type="checkbox" checked value="${cat.id}" style="accent-color:var(--or);width:18px;height:18px;"><div class="irt">${cat.name}<div class="irs">${cat.subcats.slice(0,4).join(', ')}...</div></div>`;
-      b.appendChild(d);
-    });
-  }
-}
-function nextOB(s){
-  if(s===1){
-    const sel=document.querySelector('#gOpts .ob.sel');if(!sel){showToast("Please choose your level");return;}
-    S.grade=sel.textContent;obStep=2;renderOB();
-  }else if(s===2){
-    S.onboardStress=parseInt(document.getElementById('obS').value);
-    S.overwhelm=S.onboardStress;S.workload=S.onboardStress;
-    obStep=3;renderOB();
-  }else if(s===3){
-    const boxes=document.querySelectorAll('#obCats input:checked');S.categories=[];
-    boxes.forEach(b=>{const dc=DEF_CATS.find(c=>c.id===b.value);if(dc)S.categories.push(dc);});
-    if(S.categories.length===0)S.categories=[DEF_CATS[0]];
-    finishOnboarding();
-  }
-}
-async function finishOnboarding(){
-  showScreen('load');
-  if(!sb){
-    localStorage.setItem('nim_mock_em',S.email);localStorage.setItem('nim_mock_nm',S.name);
-    localStorage.setItem('nim_state',JSON.stringify(S));
-  }else{
-    await sb.from('profiles').insert([{id:S.userId,name:S.name,grade:S.grade,categories:S.categories,notifs:S.notifs}]);
-  }
-  await loadDataAndLaunch();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// DATA PIPELINE STORAGE
-// ═══════════════════════════════════════════════════════════════
-async function loadDataAndLaunch(){
-  if(sb){
-    const{data:p}=await sb.from('profiles').select('*').eq('id',S.userId).single();
-    if(p){S.name=p.name;S.grade=p.grade;S.categories=p.categories||DEF_CATS;S.notifs=p.notifs||S.notifs;S.lastCI=p.last_checkin;S.workload=p.workload||5;S.overwhelm=p.overwhelm||5;}
-    const{data:t}=await sb.from('tasks').select('*').eq('user_id',S.userId);
-    if(t)S.tasks=t.map(x=>({id:x.id,name:x.title,cat:x.category,subcat:x.subject,time:x.est_time,priority:x.priority,due:x.due_date,done:x.completed}));
-  }
-  updateBurnoutAlert();updateNimbusState();setupDOM();
-  showScreen('app');swTab('home',document.querySelector('.bn2 .nb'));
-}
-async function syncS(){
-  updateNimbusState();drawNimbus();
-  if(!sb){localStorage.setItem('nim_state',JSON.stringify(S));return;}
-  await sb.from('profiles').update({notifs:S.notifs,last_checkin:S.lastCI,workload:S.workload,overwhelm:S.overwhelm}).eq('id',S.userId);
-}
-function setupDOM(){
-  document.getElementById('greet').textContent=`Hey, ${S.name.split(' ')[0]} ☁️`;
-  const options={weekday:'long',month:'short',day:'numeric'};
-  document.getElementById('ddate').textContent=new Date().toLocaleDateString('en-US',options);
-  document.getElementById('setEmail').textContent=S.email;
-  document.getElementById('setPhone').textContent=S.phone||'No phone listed';
-  document.getElementById('setUser').textContent=`${S.grade} Student Account`;
-  document.getElementById('nBreak').checked=S.notifs.break;
-  document.getElementById('nTasks').checked=S.notifs.tasks;
-  document.getElementById('nCI').checked=S.notifs.checkin;
-  document.getElementById('ciTime').value=S.notifs.checkinTime;
-  document.getElementById('bFreq').value=S.notifs.breakFreq;
-  document.getElementById('bfRow').style.display=S.notifs.break?'flex':'none';
-  document.getElementById('ciTRow').style.display=S.notifs.checkin?'flex':'none';
-  const cSel=document.getElementById('tCat');cSel.innerHTML='<option value="">Choose a category</option>';
-  S.categories.forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=c.name;cSel.appendChild(o);});
-  const sp=SPARKS[Math.floor(Math.random()*SPARKS.length)];
-  document.getElementById('affQ').textContent=`"${sp.q}"`;
-  document.getElementById('affA').textContent=`— ${sp.a}`;
-  if(ciDone()){document.getElementById('nudge').classList.remove('show');}
-  else{document.getElementById('nudge').classList.add('show');}
-  renderTasks();drawNimbus();
-}
-function saveN(){
-  S.notifs.break=document.getElementById('nBreak').checked;
-  S.notifs.tasks=document.getElementById('nTasks').checked;
-  S.notifs.checkin=document.getElementById('nCI').checked;
-  S.notifs.checkinTime=document.getElementById('ciTime').value;
-  S.notifs.breakFreq=parseInt(document.getElementById('bFreq').value);
-  document.getElementById('bfRow').style.display=S.notifs.break?'flex':'none';
-  document.getElementById('ciTRow').style.display=S.notifs.checkin?'flex':'none';
-  updateBurnoutAlert();syncS();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// NIMBUS VISUAL SYSTEM
-// ═══════════════════════════════════════════════════════════════
-function drawNimbus(){
-  const s=document.getElementById('nSVG');if(!s)return;
-  if(S.nimbusState==='happy')s.innerHTML=EN_HAP;
-  else if(S.nimbusState==='stressed')s.innerHTML=EN_STR;
-  else if(S.nimbusState==='sad')s.innerHTML=EN_SAD;
-  else if(S.nimbusState==='glowing')s.innerHTML=EN_GLO;
-  else s.innerHTML=EN_CLD;
-}
-function nimClick(){
-  const w=document.getElementById('nWrap');w.style.transform='scale(1.15)';
-  setTimeout(()=>w.style.transform='scale(1)',200);
-  const t=document.getElementById('nTxt');
-  const level=getBurnoutLevel();
-  if(level==='critical') t.textContent="\"Please protect your energy. Let's rest.\" 😰";
-  else if(level==='high') t.textContent="\"Things are piling up. Break choice active.\" ⏳";
-  else if(S.nimbusState==='glowing') t.textContent="\"You crushed it completely today! Awesome!\" 🌟";
-  else t.textContent="\"Keep navigating safely. I'm here!\" ☁️";
-}
-
-// ═══════════════════════════════════════════════════════════════
-// DAILY CHECK-IN SYSTEM
-// ═══════════════════════════════════════════════════════════════
-function openCI(){
-  document.getElementById('ciDate').textContent=fmtD(today());
-  document.getElementById('ciModal').classList.add('show');selMood(S.mood);
-  document.getElementById('wlS').value=S.workload;updS(document.getElementById('wlS'),'wlV');
-  document.getElementById('owS').value=S.overwhelm;updS(document.getElementById('owS'),'owV');
-}
-function selMood(idx){
-  selM=idx;const nodes=document.querySelectorAll('#moodRow .moo');
-  nodes.forEach((n,i)=>n.classList.toggle('sel',i==idx));
-}
-async function submitCI(){
-  S.mood=selM;S.workload=parseInt(document.getElementById('wlS').value);
-  S.overwhelm=parseInt(document.getElementById('owS').value);S.lastCI=today();
-  document.getElementById('ciModal').classList.remove('show');
-  document.getElementById('nudge').classList.remove('show');
-  showToast("Daily diagnostics loaded into Nimbus ☁️");
-  updateBurnoutAlert();await syncS();setupDOM();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// TASK WORKFLOW ENGINE
-// ═══════════════════════════════════════════════════════════════
-function updSubcats(){
-  const cVal=document.getElementById('tCat').value;const g=document.getElementById('subG');
-  const s=document.getElementById('tSubcat');if(!cVal){g.style.display='none';return;}
-  const matched=S.categories.find(c=>c.name===cVal);
-  if(matched&&matched.subcats){
-    s.innerHTML='';matched.subcats.forEach(sc=>{const o=document.createElement('option');o.value=sc;o.textContent=sc;s.appendChild(o);});
-    g.style.display='block';
-  }else{g.style.display='none';}
-}
-function openAddTask(){
-  document.getElementById('tName2').value='';document.getElementById('tCat').value='';
-  document.getElementById('subG').style.display='none';document.getElementById('tDue').value=today();
-  clrO('priOpts');clrO('timeOpts');document.getElementById('addTaskModal').classList.add('show');
-}
-function clrO(pId){document.querySelectorAll(`#${pId} .ob`).forEach(b=>b.classList.remove('sel'));}
-function selO(btn,pId){clrO(pId);btn.classList.add('sel');}
-function updS(el,vId){const p=((el.value-el.min)/(el.max-el.min))*100;el.style.setProperty('--pct',p+'%');document.getElementById(vId).textContent=el.value;}
-
-async function addTask(){
-  const name=document.getElementById('tName2').value.trim();
-  const cat=document.getElementById('tCat').value;
-  const subcat=document.getElementById('subG').style.display==='block'?document.getElementById('tSubcat').value:'';
-  const pSel=document.querySelector('#priOpts .ob.sel');
-  const tSel=document.querySelector('#timeOpts .ob.sel');
-  const due=document.getElementById('tDue').value;
-  if(!name){showToast("Provide a task name");return;}
-  const pri=pSel?pSel.textContent.split(' ')[1]:'Medium';
-  const est=tSel?tSel.textContent:'30 min';
-  const nTask={id:'t_'+Date.now(),name,cat,subcat,time:est,priority:pri,due,done:false};
-  S.tasks.push(nTask);
-  if(sb){await sb.from('tasks').insert([{id:nTask.id,user_id:S.userId,title:name,category:cat,subject:subcat,est_time:est,priority:pri,due_date:due,completed:false}]);}
-  document.getElementById('addTaskModal').classList.remove('show');
-  showToast("Task safely registered 📂");
-  await syncS();renderTasks();
-}
-
-function renderTasks(){
-  const tList=document.getElementById('todayList');const aList=document.getElementById('allTasks');
-  tList.innerHTML='';aList.innerHTML='';
-  let tCount=0;
-  S.tasks.forEach(t=>{
-    const c=t.priority==='Urgent'?'pu':(t.priority==='Low'?'pl2':'pm');
-    const borderC=t.priority==='Urgent'?'#e8874a':(t.priority==='Low'?'#58b088':'#baaff0');
-    const row=document.createElement('div');row.className='tc '+(t.done?'dc':'');
-    row.onclick=(e)=>{if(!e.target.classList.contains('tck'))viewTask(t.id);};
-    row.innerHTML=`
-      <div class="tsd" style="background:${borderC}"></div>
-      <div class="tck ${t.done?'chk':''}" onclick="evtTog('${t.id}',event)"></div>
-      <div class="ti">
-        <div class="tt">${t.name}</div>
-        <div class="tm2">${t.cat}${t.subcat?' • '+t.subcat:''} 📅 ${fmtD(t.due)}</div>
-      </div>
-      <div class="pb ${c}">${t.time}</div>
-    `;
-    if(isToday(t.due)){tList.appendChild(row.cloneNode(true));tCount++;}
-    let match=true;
-    if(curF==='today'&&!isToday(t.due))match=false;
-    if(curF==='upcoming'&&(isToday(t.due)||t.done))match=false;
-    if(curF==='done'&&!t.done)match=false;
-    if(match)aList.appendChild(row);
-  });
-  if(tCount==0)tList.innerHTML='<div style="font-size:14px;color:var(--tl);font-weight:600;text-align:center;padding:20px 0;">All clear for today! 🌤️</div>';
-  document.getElementById('taskSub').textContent=`${S.tasks.filter(t=>!t.done).length} pending responsibilities`;
-}
-
-async function evtTog(id,e){
-  e.stopPropagation();const t=S.tasks.find(x=>x.id===id);if(!t)return;
-  t.done=!t.done;if(sb){await sb.from('tasks').update({completed:t.done}).eq('id',id);}
-  showToast(t.done?"Task finalized! 🙌":"Task marked active");
-  await syncS();renderTasks();
-}
-function filterT(f,btn){
-  curF=f;document.querySelectorAll('.fr .fc').forEach(b=>b.classList.remove('act'));
-  btn.classList.add('act');renderTasks();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// TASK DETAIL ACTION SHEETS
-// ═══════════════════════════════════════════════════════════════
-function viewTask(id){
-  detId=id;const t=S.tasks.find(x=>x.id===id);if(!t)return;
-  document.getElementById('dtName').textContent=t.name;
-  document.getElementById('dtMeta').innerHTML=`Workspace: ${t.cat||'General'}<br>Subject: ${t.subcat||'None'}<br>Allocation: ${t.time} | Urgency: ${t.priority}<br>Due: ${fmtD(t.due)}`;
-  document.getElementById('dtCompleteBtn').textContent=t.done?"✓ Mark Active":"✓ Mark Complete";
-  document.getElementById('dtTimerBtn').style.display=t.done?'none':'block';
-  document.getElementById('taskDetail').classList.add('show');
-}
-async function doneDetail(){
-  if(!detId)return;document.getElementById('taskDetail').classList.remove('show');
-  const t=S.tasks.find(x=>x.id===detId);if(!t)return;
-  t.done=!t.done;if(sb){await sb.from('tasks').update({completed:t.done}).eq('id',detId);}
-  showToast(t.done?"Finalized! 🙌":"Returned to workflow");
-  await syncS();renderTasks();
-}
-function openEdit(){
-  const t=S.tasks.find(x=>x.id===detId);if(!t)return;
-  document.getElementById('taskDetail').classList.remove('show');
-  document.getElementById('eName').value=t.name;document.getElementById('eDue').value=t.due;
-  clrO('eTimeOpts');clrO('ePriOpts');
-  document.querySelectorAll('#eTimeOpts .ob').forEach(b=>{if(b.textContent===t.time)b.classList.add('sel');});
-  document.querySelectorAll('#ePriOpts .ob').forEach(b=>{if(b.textContent.includes(t.priority))b.classList.add('sel');});
-  document.getElementById('editModal').classList.add('show');
-}
-async function saveEdit(){
-  const t=S.tasks.find(x=>x.id===detId);if(!t)return;
-  const name=document.getElementById('eName').value.trim();if(!name)return;
-  const pSel=document.querySelector('#ePriOpts .ob.sel');
-  const tSel=document.querySelector('#eTimeOpts .ob.sel');
-  t.name=name;t.due=document.getElementById('eDue').value;
-  if(pSel)t.priority=pSel.textContent.split(' ')[1];
-  if(tSel)t.time=tSel.textContent;
-  if(sb){await sb.from('tasks').update({title:t.name,due_date:t.due,priority:t.priority,est_time:t.time}).eq('id',detId);}
-  document.getElementById('editModal').classList.remove('show');showToast("Task profile updated");
-  await syncS();renderTasks();
-}
-async function delTaskOrGoal(){if(detId){await delTask();}}
-async function delTask(){
-  if(!detId)return;S.tasks=S.tasks.filter(x=>x.id!==detId);
-  if(sb){await sb.from('tasks').delete().eq('id',detId);}
-  document.getElementById('taskDetail').classList.remove('show');
-  showToast("Removed from registration registry");
-  await syncS();renderTasks();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// FOCUS POMODORO ENGINE WITH ADAPTIVE BREAK OPTIONS
-// ═══════════════════════════════════════════════════════════════
-function launchTimer(){
-  const t=S.tasks.find(x=>x.id===detId);if(!t)return;
-  document.getElementById('taskDetail').classList.remove('show');
-  TMR.taskId=t.id;TMR.name=t.name;TMR.phase='focus';
-  let m=25;if(t.time.includes('15'))m=15;if(t.time.includes('45'))m=45;if(t.time.includes('1 hr'))m=50;
-  TMR.total=m*60;TMR.rem=TMR.total;TMR.active=false;
-  document.getElementById('tName').textContent=TMR.name;
-  document.getElementById('tPhase').textContent="Focus Session";
-  document.getElementById('bSug').classList.remove('show');
-  document.getElementById('tPlay').classList.remove('break');
-  document.getElementById('tPlay').textContent="▶";
-  updTimerDisp();showScreen('timer');
-}
-function closeTimer(){clearInterval(TMR.iv);TMR.active=false;showScreen('app');}
-function updTimerDisp(){
-  const m=Math.floor(TMR.rem/60);const s=TMR.rem%60;
-  document.getElementById('tDisp').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  const offset=691-((TMR.rem/TMR.total)*691);
-  const pr=document.getElementById('tProg');pr.style.strokeDashoffset=offset;
-  if(TMR.phase==='break'){pr.setAttribute('stroke','#58b088');}
-  else{pr.setAttribute('stroke','#f5a96a');}
-}
-function toggleTimer(){
-  if(TMR.active){clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent="▶";}
-  else{
-    TMR.active=true;document.getElementById('tPlay').textContent="⏸";
-    TMR.iv=setInterval(()=>{
-      if(TMR.rem>0){TMR.rem--;updTimerDisp();}
-      else{clearInterval(TMR.iv);TMR.active=false;handleTimerEnd();}
-    },1000);
-  }
-}
-function resetTimer(){clearInterval(TMR.iv);TMR.active=false;TMR.rem=TMR.total;document.getElementById('tPlay').textContent="▶";updTimerDisp();}
-function handleTimerEnd(){
-  if(TMR.phase==='focus'){
-    TMR.bc++;showToast("Focus block built safely! 🪵");
-    document.getElementById('bSug').classList.add('show');
-    // Adapt the system values if settings allow
-    if(S.notifs.break){
-      const adMins=getAdaptiveBreakMins();
-      startBreak(adMins);
-    }
-  }else{
-    showToast("Break cycle completed. Ready to step back in?");
-    TMR.phase='focus';TMR.total=25*60;TMR.rem=TMR.total;
-    document.getElementById('tPhase').textContent="Focus Session";
-    document.getElementById('bSug').classList.remove('show');
-    document.getElementById('tPlay').classList.remove('break');
-    document.getElementById('tPlay').textContent="▶";
-    updTimerDisp();
-  }
-}
-function startBreak(mins){
-  TMR.phase='break';TMR.total=mins*60;TMR.rem=TMR.total;
-  document.getElementById('tPhase').textContent=`Break Environment (${mins}m)`;
-  document.getElementById('bSug').classList.remove('show');
-  document.getElementById('tPlay').classList.add('break');
-  TMR.active=false;toggleTimer();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// RE ROUTE CONTROL & SYSTEM SHUTDOWN
-// ═══════════════════════════════════════════════════════════════
-function closeMO(e,mId){if(e.target.id===mId)document.getElementById(mId).classList.remove('show');}
-async function logOut(){
-  showScreen('load');if(sb){await sb.auth.signOut();}
-  S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
-  initAuth();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// BOOTSTRAP INITIALIZATION
-// ═══════════════════════════════════════════════════════════════
-window.onload=async()=>{
-  document.getElementById('lcloud').innerHTML=`<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke="#2a1808"><path d="M25 65 A16 16 0 0 1 25 33 A22 22 0 0 1 63 21 A18 18 0 0 1 90 40 A14 14 0 0 1 85 67 Z" fill="#fff"/></g>`;
-  setTimeout(async()=>{
-    if(sb){
-      const{data:{session}}=await sb.auth.getSession();
-      if(session&&session.user){
-        S.userId=session.user.id;S.email=session.user.email;
-        await loadDataAndLaunch();return;
-      }
-    }else{
-      const lem=localStorage.getItem('nim_mock_em');
-      if(lem){
-        S.userId='mock_user';S.email=lem;S.name=localStorage.getItem('nim_mock_nm')||'Student';
-        const ls=localStorage.getItem('nim_state');if(ls)S=JSON.parse(ls);
-        await loadDataAndLaunch();return;
-      }
-    }
-    initAuth();
-  },1200);
-};
+// Initial mock load bypass logic for setup visualization
+setTimeout(() => {
+  document.getElementById('load').style.display = 'none';
+  document.getElementById('app').classList.add('active');
+}, 800);
 </script>
 </body>
 </html>
