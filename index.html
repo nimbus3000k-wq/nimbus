@@ -392,6 +392,37 @@ let sb=null;
 try{sb=supabase.createClient(SB_URL,SB_KEY);}catch(e){}
 
 // ═══════════════════════════════════════════════════════════════
+// REALTIME — Broadcast channel, private + scoped to this account.
+// Run the RLS policy SQL (realtime.messages) in the Supabase SQL
+// Editor once, separately — this part is just the client-side JS.
+// ═══════════════════════════════════════════════════════════════
+let rtChannel=null;
+
+function connectRealtime(){
+  if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
+  if(rtChannel)return; // already connected
+  rtChannel=sb.channel('user:'+S.userId,{config:{private:true}});
+  rtChannel
+    .on('broadcast',{event:'task_update'},(msg)=>{
+      console.log('📡 Realtime message received:',msg.payload);
+      // This fires on every tab/device subscribed to this same channel,
+      // including the tab that sent it. Hook UI refresh logic here later.
+    })
+    .subscribe((status)=>{
+      if(status==='SUBSCRIBED')console.log('✅ Realtime connected on user:'+S.userId);
+    });
+}
+
+function disconnectRealtime(){
+  if(rtChannel){sb.removeChannel(rtChannel);rtChannel=null;}
+}
+
+function broadcastTaskUpdate(action,task){
+  if(!rtChannel)return;
+  rtChannel.send({type:'broadcast',event:'task_update',payload:{action,task,at:new Date().toISOString()}});
+}
+
+// ═══════════════════════════════════════════════════════════════
 // STATE — everything that persists
 // ═══════════════════════════════════════════════════════════════
 let S={
@@ -592,6 +623,7 @@ async function afterAuth(){
 }
 function logOut(){
   if(sb)sb.auth.signOut();
+  disconnectRealtime();
   stopNI();clearInterval(TMR.iv);
   S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
   _re=null;
@@ -709,6 +741,7 @@ function recalcFromSaved(){
 }
 function startApp(){
   recalcFromSaved();
+  connectRealtime();
   showScrn('app');
   ['tasks','settings'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
   const h=document.getElementById('home');if(h)h.style.display='block';
@@ -825,6 +858,7 @@ function fmtDue(s){
 function togTask(id){
   const t=S.tasks.find(x=>x.id===id);if(!t)return;
   t.done=!t.done;
+  broadcastTaskUpdate(t.done?'completed':'reopened',{id:t.id,name:t.name});
   drawTodayTasks();drawAllTasks();save();
 }
 
