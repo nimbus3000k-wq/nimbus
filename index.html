@@ -1137,7 +1137,7 @@ function stopNI(){NI.forEach(id=>{clearInterval(id);clearTimeout(id);});NI=[];}
 // NIMBUS CLICK
 // ═══════════════════════════════════════════════════════════════
 function nimClick(){
-  const msgs=["You've got this! ☁️","One task at a time. You're doing great twin!","Nimbus believes in you! 🌤️","You're as swift as a coursing river","Focus up! Nimbus is cheering for you!", "Son you got this", "Bro is cooking"];
+  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","Take a deep breath. You're okay.","Focus up! Nimbus is cheering for you!"];
   toast(msgs[Math.floor(Math.random()*msgs.length)]);
   const w=document.getElementById('nWrap');
   if(w){w.style.transform='scale(1.1) rotate(-4deg)';setTimeout(()=>w.style.transform='scale(1)',300);}
