@@ -406,7 +406,7 @@ const ADMIN_EMAIL = 'nimbus3000k@gmail.com'; // ← change this to your real acc
 const PRESENCE_ROOM = 'nimbus-activity';
 let presenceChannel=null;
 
-function isAdmin(){ return S.email && S.email.toLowerCase()===ADMIN_EMAIL.toLowerCase(); }
+function isAdmin(){ return !!(S.email && S.email.trim().toLowerCase()===ADMIN_EMAIL.trim().toLowerCase()); }
 
 function connectPresence(){
   if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
@@ -808,37 +808,51 @@ function updSetInfo(){
 
 
 // ═══════════════════════════════════════════════════════════════
-// AFFIRMATIONS
+// AFFIRMATIONS — each entry has its own text + author so the
+// attribution line under the quote is always correct.
 // ═══════════════════════════════════════════════════════════════
 const AFFS=[
-  "You don't have to be perfect. You just have to start -Nimbus",
-  "Every expert was once a beginner. Keep going - Nimbus",
-  "Small steps still move you forward. That counts - Nimbus",
-  "The problem is not the problem. The problem is your attitude about the problem -Jack Sparrow",
-  "I am running away from my responsibilities. And it feels good -Michael Scott",
-  "Progress, not perfection -Nimbus",
-  "I’m moving up and down, side to side, like a roller coaster -Daniel Ricciardo",
-  "To finish first, first you must finish -Mich Schumacher",
-   "Take a breath. You are doing better than you think.",
-  "Sometimes in the life I'm too competititve -Kylian Mbappe",
-  "I’ve missed more than 9,000 shots in my career... and that is why I succeed -Michael Jordan",
-  "Do or do not. There is no try -Yoda",
-  "Pressure is a privilege -Billie Jean King",
-  "I'm not lazy. I'm on energy-saving mode -Patrick Star"
+  {text:"You don't have to be perfect. You just have to start.",author:"Nimbus"},
+  {text:"Every expert was once a beginner. Keep going.",author:"Nimbus"},
+  {text:"Small steps still move you forward. That counts.",author:"Nimbus"},
+  {text:"The problem is not the problem. The problem is your attitude about the problem.",author:"Jack Sparrow"},
+  {text:"I am running away from my responsibilities. And it feels good.",author:"Michael Scott"},
+  {text:"Progress, not perfection.",author:"Nimbus"},
+  {text:"I'm moving up and down, side to side, like a roller coaster.",author:"Daniel Ricciardo"},
+  {text:"To finish first, first you must finish.",author:"Michael Schumacher"},
+  {text:"Take a breath. You are doing better than you think.",author:"Nimbus"},
+  {text:"Sometimes in life I'm too competitive.",author:"Kylian Mbappé"},
+  {text:"I've missed more than 9,000 shots in my career... and that is why I succeed.",author:"Michael Jordan"},
+  {text:"Do or do not. There is no try.",author:"Yoda"},
+  {text:"Pressure is a privilege.",author:"Billie Jean King"},
+  {text:"I'm not lazy. I'm on energy-saving mode.",author:"Patrick Star"}
 ];
 // Burnout-aware affirmations
 const BURN_AFFS=[
-  "You are more than your to-do list. Please rest.",
-  "Burnout is real. One thing at a time is enough.",
-  "Recovery is productive. Your body needs this.",
-  "It's okay to do less today. Seriously.",
+  {text:"You are more than your to-do list. Please rest.",author:"Nimbus"},
+  {text:"Burnout is real. One thing at a time is enough.",author:"Nimbus"},
+  {text:"Recovery is productive. Your body needs this.",author:"Nimbus"},
+  {text:"It's okay to do less today. Seriously.",author:"Nimbus"}
 ];
+// Shuffle-bag: draws every quote in a pool once (in random order) before
+// any repeat, instead of plain Math.random() which can repeat immediately.
+const _affBags=new Map();
+function shuffled(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
 function setAff(){
   const lvl=getBurnoutLevel();
   const pool=(lvl==='critical'||lvl==='high')?BURN_AFFS:AFFS;
-  const a=pool[Math.floor(Math.random()*pool.length)];
-  const e=document.getElementById('affQ');if(e)e.textContent=`"${a}"`;
-  const e2=document.getElementById('affA');
+  let bag=_affBags.get(pool);
+  if(!bag||!bag.length){bag=shuffled(pool);_affBags.set(pool,bag);}
+  const a=bag.pop();
+  const e=document.getElementById('affQ');if(e)e.textContent=`"${a.text}"`;
+  const e2=document.getElementById('affA');if(e2)e2.textContent=`— ${a.author}`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1129,7 +1143,7 @@ function schedCI(){
   const now=new Date(),t=new Date();t.setHours(h,mi,0,0);
   if(t<=now)t.setDate(t.getDate()+1);
   const id=setTimeout(()=>{
-    if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today? Nimbus wants to know!!');
+    if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today? Nimbus wants to know!');
     NI.push(setInterval(()=>{if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today?');},86400000));
   },t-now);
   NI.push(id);
@@ -1141,7 +1155,7 @@ function stopNI(){NI.forEach(id=>{clearInterval(id);clearTimeout(id);});NI=[];}
 // NIMBUS CLICK
 // ═══════════════════════════════════════════════════════════════
 function nimClick(){
-  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you!! 🌤️","You're as swift as a coursing river💪","Focus up! Nimbus is cheering for you!", "Son you got this", "Bro is cooking", "You da goat🐐", "Nimbus thinks your slaying💅", "Never back down never WHAT?"];
+  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","You're as swift as a coursing river 💪","Focus up! Nimbus is cheering for you!","You got this!","Bro is cooking 🔥","You da goat 🐐","Nimbus thinks you're slaying 💅","Never back down, never give up!"];
   toast(msgs[Math.floor(Math.random()*msgs.length)]);
   const w=document.getElementById('nWrap');
   if(w){w.style.transform='scale(1.1) rotate(-4deg)';setTimeout(()=>w.style.transform='scale(1)',300);}
@@ -1154,6 +1168,7 @@ function swTab(tab,el){
   ['home','tasks','settings','admin'].forEach(id=>{const s=document.getElementById(id);if(s)s.style.display='none';});
   const t=document.getElementById(tab);if(t)t.style.display='block';
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));el.classList.add('act');
+  if(tab==='home'){setAff();}
   if(tab==='tasks'){buildCatDD();drawAllTasks();}
   if(tab==='settings'){loadNS();updSetInfo();}
   if(tab==='admin'&&presenceChannel){renderAdminPresence(presenceChannel.presenceState());}
