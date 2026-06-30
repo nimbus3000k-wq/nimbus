@@ -402,7 +402,7 @@ try{sb=supabase.createClient(SB_URL,SB_KEY);}catch(e){}
 // PRESENCE — everyone tracks their own status on a shared room;
 // only the admin (set ADMIN_EMAIL below) sees the live feed.
 // ═══════════════════════════════════════════════════════════════
-const ADMIN_EMAIL = 'nimbus3000k@gmail.com'; // ← change this to your real account email
+const ADMIN_EMAIL = 'you@yourdomain.com'; // ← change this to your real account email
 const PRESENCE_ROOM = 'nimbus-activity';
 let presenceChannel=null;
 
@@ -1137,7 +1137,7 @@ function stopNI(){NI.forEach(id=>{clearInterval(id);clearTimeout(id);});NI=[];}
 // NIMBUS CLICK
 // ═══════════════════════════════════════════════════════════════
 function nimClick(){
-  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","Take a deep breath. You're okay.","Focus up! Nimbus is cheering for you!"];
+  const msgs=["You've got this! ☁️","One task at a time. You're doing great twin!","Nimbus believes in you! 🌤️","You're as swift as a coursing river","Focus up! Nimbus is cheering for you!", "Son you got this", "Bro is cooking"];
   toast(msgs[Math.floor(Math.random()*msgs.length)]);
   const w=document.getElementById('nWrap');
   if(w){w.style.transform='scale(1.1) rotate(-4deg)';setTimeout(()=>w.style.transform='scale(1)',300);}
@@ -1203,8 +1203,12 @@ function loadLocal(){
     const s=localStorage.getItem('nimbus_v5');if(!s)return false;
     const p=JSON.parse(s);
     const isDemo=id=>!id||id==='demo'||(typeof id==='string'&&id.startsWith('demo-'));
-    // Don't let a different real account's cached profile leak into this login
-    if(!isDemo(S.userId)&&!isDemo(p.userId)&&p.userId!==S.userId)return false;
+    // Don't let a different real account's cached profile leak into this login.
+    // Match by user ID OR email — the ID can change if an account was deleted
+    // and recreated, but the email is still the same person.
+    const sameId=isDemo(S.userId)||isDemo(p.userId)||p.userId===S.userId;
+    const sameEmail=S.email&&p.email&&S.email.toLowerCase()===p.email.toLowerCase();
+    if(!sameId&&!sameEmail)return false;
     const uid=S.userId,em=S.email;
     Object.assign(S,p);
     if(uid)S.userId=uid;if(em)S.email=em;
