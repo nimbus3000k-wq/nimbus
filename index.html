@@ -812,41 +812,20 @@ function updSetInfo(){
 // attribution line under the quote is always correct.
 // ═══════════════════════════════════════════════════════════════
 const AFFS=[
+  {text:"You don't have to be perfect. You just have to start.",author:"Nimbus"},
+  {text:"Every expert was once a beginner. Keep going.",author:"Nimbus"},
+  {text:"Small steps still move you forward. That counts.",author:"Nimbus"},
   {text:"The problem is not the problem. The problem is your attitude about the problem.",author:"Jack Sparrow"},
   {text:"I am running away from my responsibilities. And it feels good.",author:"Michael Scott"},
+  {text:"Progress, not perfection.",author:"Nimbus"},
   {text:"I'm moving up and down, side to side, like a roller coaster.",author:"Daniel Ricciardo"},
   {text:"To finish first, first you must finish.",author:"Michael Schumacher"},
+  {text:"Take a breath. You are doing better than you think.",author:"Nimbus"},
   {text:"Sometimes in life I'm too competitive.",author:"Kylian Mbappé"},
   {text:"I've missed more than 9,000 shots in my career... and that is why I succeed.",author:"Michael Jordan"},
   {text:"Do or do not. There is no try.",author:"Yoda"},
   {text:"Pressure is a privilege.",author:"Billie Jean King"},
-  {text:"I'm not lazy. I'm on energy-saving mode.",author:"Patrick Star"},
-  {text:"If you don't like your destiny, don't accept it, have the courage to change it the way you want it to be!",author:"Naruto"},
-  {text:"Du bist gut genug (You are good enough)",author:"Blumengarten, KITSCHKRIEG, and Shirin David"},
-  {text:"Go Beyond, Plus Ultra!",author:"All Might"},
-  {text:"A warrior doesn't need a sword. Your true weapon is the absolute refusal to let the world break your will",author:"Thors"},
-  {text:"If you're nothing without this suit, then you shouldn't have it. Now get back out there and earn it",author:"Tony Stark"},
-  {text:"We have to be greater than what we suffer. Step up, or step aside",author:"Spider-Man"},
-  {text:"No, no, no! There is no point in crying over spilled milk. You just wipe it up and keep moving!",author:"Edna Mode"},
-  {text:"It ain't about how hard you hit. It's about how hard you can get hit and keep moving forward",author:"Rocky Balboa"},
-  {text:"Never tell me the odds. Just fire up the engines.",author:"Hans Solo"},
-  {text:" What, like it's hard?",author:"Elle Woods"},
-  {text:"If you want to survive, you wake up, you show up, and you out-work everyone",author:"Miranda Priestly"},
-  {text:"The sky's the limit? No, the sky is just the starting point. Keep climbing",author:"Princess Tiana"},
-  {text:"Carpe diem. Seize the day, boys. Make your lives extraordinary. Don't waste a single second",author:"John Keating"},
-  {text:"It’s not about how much you want it. It’s about how hard you’re willing to work when no one is watching.",author:"Judy Hopps"},
-  {text:"The only thing standing between you and your goal is the work you're putting off",author:"Harvey Specter"},
-  {text:"I am going to get exactly what I want, and I am going to look incredible while doing it",author:"Blair Waldorf"},
-  {text:"I am too busy building a future to care about your opinions or your drama. Do the assignment."",author:"Paris Geller"},
-  {text:"Stay Alive",author:"Haymitch Abernathy"},
-  {text:"Working hard is important, but there is something that matters even more: believing in yourself and refusing to give up",author:"Harry Potter"},
-  {text:"The world is hard, kid. It doesn't care about your feelings, and it definitely doesn't stop turning because you're tired. Keep swinging.",author:"Chiron"},
-  {text:"I'm gonna keep getting better, keep getting better, and one day, everything's gonna pay off",author:"Giannis Antetokounmpo"},
-  {text:"But if you give up, you're going to lose 100%.",author:"Rafael Nadal"},
-  {text:"The secret is just to work, work, work. There are no magical shortcuts to lifting trophies.",author:"Mohammed Salah"},
-  {text:"I don't need the best glamour. I need the best work ethic. Talent without working hard is nothing.",author:"Cristiano Ronaldo"},
-  {text:"Everything negative — pressure, challenges — is all an opportunity for me to rise.",author:"Kobe Bryant"}
-
+  {text:"I'm not lazy. I'm on energy-saving mode.",author:"Patrick Star"}
 ];
 // Burnout-aware affirmations
 const BURN_AFFS=[
@@ -1176,7 +1155,7 @@ function stopNI(){NI.forEach(id=>{clearInterval(id);clearTimeout(id);});NI=[];}
 // NIMBUS CLICK
 // ═══════════════════════════════════════════════════════════════
 function nimClick(){
-  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","You're as swift as a coursing river 💪","Focus up! Nimbus is cheering for you!","You got this!","Bro is cooking 🔥","You da goat 🐐","Nimbus thinks you're slaying 💅","Never back down, never WHAT?","So tuff so talented"];
+  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","You're as swift as a coursing river 💪","Focus up! Nimbus is cheering for you!","You got this!","Bro is cooking 🔥","You da goat 🐐","Nimbus thinks you're slaying 💅","Never back down, never give up!"];
   toast(msgs[Math.floor(Math.random()*msgs.length)]);
   const w=document.getElementById('nWrap');
   if(w){w.style.transform='scale(1.1) rotate(-4deg)';setTimeout(()=>w.style.transform='scale(1)',300);}
