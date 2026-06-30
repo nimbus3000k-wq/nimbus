@@ -402,7 +402,7 @@ try{sb=supabase.createClient(SB_URL,SB_KEY);}catch(e){}
 // PRESENCE — everyone tracks their own status on a shared room;
 // only the admin (set ADMIN_EMAIL below) sees the live feed.
 // ═══════════════════════════════════════════════════════════════
-const ADMIN_EMAIL = 'you@yourdomain.com'; // ← change this to your real account email
+const ADMIN_EMAIL = 'nimbus3000k@gmail.com'; // ← change this to your real account email
 const PRESENCE_ROOM = 'nimbus-activity';
 let presenceChannel=null;
 
@@ -811,16 +811,20 @@ function updSetInfo(){
 // AFFIRMATIONS
 // ═══════════════════════════════════════════════════════════════
 const AFFS=[
-  "You don't have to be perfect. You just have to start.",
-  "Every expert was once a beginner. Keep going.",
-  "Small steps still move you forward. That counts.",
-  "Rest is not giving up. Rest is recharging.",
-  "You've made it through every hard day so far.",
-  "Progress, not perfection. Always.",
-  "You got this twin!!",
-  "Never back down never WHAT?",
-  "You da goat keep going",
+  "You don't have to be perfect. You just have to start -Nimbus",
+  "Every expert was once a beginner. Keep going - Nimbus",
+  "Small steps still move you forward. That counts - Nimbus",
+  "The problem is not the problem. The problem is your attitude about the problem -Jack Sparrow",
+  "I am running away from my responsibilities. And it feels good -Michael Scott",
+  "Progress, not perfection -Nimbus",
+  "I’m moving up and down, side to side, like a roller coaster -Daniel Ricciardo",
+  "To finish first, first you must finish -Mich Schumacher",
    "Take a breath. You are doing better than you think.",
+  "Sometimes in the life I'm too competititve -Kylian Mbappe",
+  "I’ve missed more than 9,000 shots in my career... and that is why I succeed -Michael Jordan",
+  "Do or do not. There is no try -Yoda",
+  "Pressure is a privilege -Billie Jean King",
+  "I'm not lazy. I'm on energy-saving mode -Patrick Star"
 ];
 // Burnout-aware affirmations
 const BURN_AFFS=[
@@ -834,7 +838,7 @@ function setAff(){
   const pool=(lvl==='critical'||lvl==='high')?BURN_AFFS:AFFS;
   const a=pool[Math.floor(Math.random()*pool.length)];
   const e=document.getElementById('affQ');if(e)e.textContent=`"${a}"`;
-  const e2=document.getElementById('affA');if(e2)e2.textContent='— Nimbus';
+  const e2=document.getElementById('affA');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1125,7 +1129,7 @@ function schedCI(){
   const now=new Date(),t=new Date();t.setHours(h,mi,0,0);
   if(t<=now)t.setDate(t.getDate()+1);
   const id=setTimeout(()=>{
-    if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today? Nimbus wants to know!');
+    if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today? Nimbus wants to know!!');
     NI.push(setInterval(()=>{if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today?');},86400000));
   },t-now);
   NI.push(id);
@@ -1137,7 +1141,7 @@ function stopNI(){NI.forEach(id=>{clearInterval(id);clearTimeout(id);});NI=[];}
 // NIMBUS CLICK
 // ═══════════════════════════════════════════════════════════════
 function nimClick(){
-  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","Take a deep breath. You're okay.","Focus up! Nimbus is cheering for you!"];
+  const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you!! 🌤️","You're as swift as a coursing river💪","Focus up! Nimbus is cheering for you!", "Son you got this", "Bro is cooking", "You da goat🐐", "Nimbus thinks your slaying💅", "Never back down never WHAT?"];
   toast(msgs[Math.floor(Math.random()*msgs.length)]);
   const w=document.getElementById('nWrap');
   if(w){w.style.transform='scale(1.1) rotate(-4deg)';setTimeout(()=>w.style.transform='scale(1)',300);}
