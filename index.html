@@ -421,7 +421,7 @@ function connectPresence(){
 
   presenceChannel.subscribe(async(status)=>{
     if(status==='SUBSCRIBED'){
-      await setPresence('idle');
+      await setPresence('home');
     }
   });
 }
@@ -447,7 +447,7 @@ function renderAdminPresence(state){
   if(!el)return;
   const entries=Object.values(state).flat();
   if(!entries.length){el.innerHTML=`<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;">Nobody online right now</div>`;return;}
-  const labels={idle:'is on the home screen',focusing:'is focusing',break:'is on a break'};
+  const labels={home:'is on the home screen',tasks:'is viewing tasks',settings:'is in settings',admin:'is viewing live activity',focusing:'is focusing',break:'is on a break'};
   el.innerHTML=entries.map(p=>`<div class="srow"><div class="srl"><div class="srt">${p.name}</div><div class="srs">${labels[p.activity]||p.activity}${p.task?' · '+p.task:''}</div></div></div>`).join('');
 }
 
@@ -1025,7 +1025,7 @@ function openTimer(task){
   updTDisp();showScrn('timer');
   setPresence('focusing',task.name);
 }
-function closeTimer(){clearInterval(TMR.iv);TMR.active=false;showScrn('app');setPresence('idle');}
+function closeTimer(){clearInterval(TMR.iv);TMR.active=false;showScrn('app');setPresence('home');}
 function toggleTimer(){
   if(TMR.active){clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent='▶';}
   else{TMR.active=true;document.getElementById('tPlay').textContent='⏸';TMR.iv=setInterval(tickT,1000);}
@@ -1172,6 +1172,11 @@ function swTab(tab,el){
   if(tab==='tasks'){buildCatDD();drawAllTasks();}
   if(tab==='settings'){loadNS();updSetInfo();}
   if(tab==='admin'&&presenceChannel){renderAdminPresence(presenceChannel.presenceState());}
+  // Only overwrite presence with the tab name if we're not mid-focus/break —
+  // a focus/break session should keep showing as such even while browsing tabs.
+  if(TMR.phase!=='break'&&!TMR.active){
+    setPresence(tab);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
