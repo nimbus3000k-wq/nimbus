@@ -145,6 +145,38 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div class="srow"><div class="srl"><div class="srt" id="setEmail">Email</div><div class="srs" id="setPhone">—</div></div></div>
       <button class="lb" onclick="logOut()">Log Out</button>
     </div>
+    <div class="ss">
+      <div class="ssl">Your Profile</div>
+      <div class="srow" style="flex-direction:column;align-items:flex-start;gap:10px;">
+        <div style="font-size:13px;font-weight:700;color:var(--td);width:100%;">Grade</div>
+        <div class="og" id="gradeOpts" style="width:100%;">
+          <div class="ob" onclick="selGrSet(this)">9th Grade</div>
+          <div class="ob" onclick="selGrSet(this)">10th Grade</div>
+          <div class="ob" onclick="selGrSet(this)">11th Grade</div>
+          <div class="ob" onclick="selGrSet(this)">12th Grade</div>
+          <div class="ob" onclick="selGrSet(this)">Other</div>
+        </div>
+      </div>
+      <div class="srow" style="flex-direction:column;align-items:flex-start;gap:10px;margin-top:2px;">
+        <div style="font-size:13px;font-weight:700;color:var(--td);width:100%;">Classes</div>
+        <div class="il" id="setAcL" style="width:100%;"></div>
+        <div class="air" style="width:100%;">
+          <input class="aii" id="setAcI" placeholder="e.g. Calculus, AP History">
+          <select class="ais" id="setAcT"><option>Regular</option><option>Honors</option><option>AP</option><option>IB</option><option>Dual Enrollment</option></select>
+          <button class="aib" onclick="addSetAc()">Add</button>
+        </div>
+      </div>
+      <div class="srow" style="flex-direction:column;align-items:flex-start;gap:10px;margin-top:2px;">
+        <div style="font-size:13px;font-weight:700;color:var(--td);width:100%;">Extracurriculars</div>
+        <div class="il" id="setEcL" style="width:100%;"></div>
+        <div class="air" style="width:100%;">
+          <input class="aii" id="setEcI" placeholder="e.g. Varsity Soccer, NHS">
+          <select class="ais" id="setEcT"><option>Sports &amp; Athletics</option><option>Arts &amp; Performance</option><option>Clubs &amp; Orgs</option><option>Student Gov</option><option>Work / Job</option><option>Volunteering</option><option>Community Service</option><option>Exam Prep</option><option>Other</option></select>
+          <button class="aib" onclick="addSetEc()">Add</button>
+        </div>
+      </div>
+      <button class="bp" onclick="saveProfile()" style="margin-top:4px;">Save Profile ✓</button>
+    </div>
     <div class="ss"><div class="ssl">About</div><div class="srow"><div class="srl"><div class="srt">Nimbus</div><div class="srs">Version 1.0 beta</div></div></div></div>
   </div>
   <div id="admin" style="display:none;">
@@ -436,7 +468,80 @@ function startApp(){
 }
 function updNTxt(){const m={stressed:'Nimbus is feeling stormy 🌩️',sad:'Nimbus is feeling rainy 🌧️',neutral:'Nimbus is okay ⛅',happy:'Nimbus is feeling sunny ☀️',glowing:'Nimbus is glowing! 🌈'};const e=document.getElementById('nTxt');if(e)e.textContent=m[S.nimbusState]||'Nimbus is here ☁️';}
 function updGreet(){const e=document.getElementById('greet');if(e)e.textContent=`Hey ${S.name||'there'} ☁️`;const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const n=new Date();const d=document.getElementById('ddate');if(d)d.textContent=`${days[n.getDay()]}, ${months[n.getMonth()]} ${n.getDate()}`;}
-function updSetInfo(){const e=document.getElementById('setUser');if(e)e.textContent=S.email||'Demo mode';const em=document.getElementById('setEmail');if(em)em.textContent=S.email||'—';const ph=document.getElementById('setPhone');if(ph)ph.textContent=S.phone||'No phone added';}
+function updSetInfo(){const e=document.getElementById('setUser');if(e)e.textContent=S.email||'Demo mode';const em=document.getElementById('setEmail');if(em)em.textContent=S.email||'—';const ph=document.getElementById('setPhone');if(ph)ph.textContent=S.phone||'No phone added';loadProfileEditor();}
+
+// ═══════════════════════════════════════════════════════════════
+// PROFILE EDITOR — edit grade, classes, extracurriculars
+// ═══════════════════════════════════════════════════════════════
+function loadProfileEditor(){
+  // Grade
+  document.querySelectorAll('#gradeOpts .ob').forEach(b=>{
+    b.classList.toggle('sel',b.textContent===S.grade);
+  });
+  // Classes
+  renderSetAcL();
+  // ECs
+  renderSetEcL();
+}
+
+function selGrSet(el){
+  document.querySelectorAll('#gradeOpts .ob').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function renderSetAcL(){
+  const cat=getCat('academic');
+  const el=document.getElementById('setAcL');if(!el)return;
+  if(!cat?.subcats?.length){el.innerHTML=`<div style="font-size:13px;color:var(--tl);font-weight:600;">No classes added yet</div>`;return;}
+  el.innerHTML=cat.subcats.map(s=>`<div class="ir"><div><div class="irt">${s.name}</div><div class="irs">${s.type||''}</div></div><button class="irm" onclick="rmSetAc('${s.id}')">×</button></div>`).join('');
+}
+
+function rmSetAc(id){
+  const cat=getCat('academic');if(!cat)return;
+  cat.subcats=cat.subcats.filter(s=>s.id!==id);
+  renderSetAcL();
+}
+
+function addSetAc(){
+  const n=document.getElementById('setAcI')?.value.trim();
+  const t=document.getElementById('setAcT')?.value||'Regular';
+  if(!n)return;
+  let cat=getCat('academic')||addCT('academic');
+  cat.subcats.push({id:'ac_'+Date.now(),name:n,type:t});
+  document.getElementById('setAcI').value='';
+  renderSetAcL();
+}
+
+function renderSetEcL(){
+  const ecs=S.categories.filter(c=>c.type==='ec');
+  const el=document.getElementById('setEcL');if(!el)return;
+  if(!ecs.length){el.innerHTML=`<div style="font-size:13px;color:var(--tl);font-weight:600;">No activities added yet</div>`;return;}
+  el.innerHTML=ecs.map(c=>`<div class="ir"><div><div class="irt">${c.name}</div><div class="irs">${c.ecType||''}</div></div><button class="irm" onclick="rmSetEc('${c.id}')">×</button></div>`).join('');
+}
+
+function rmSetEc(id){
+  S.categories=S.categories.filter(c=>c.id!==id);
+  renderSetEcL();
+}
+
+function addSetEc(){
+  const n=document.getElementById('setEcI')?.value.trim();
+  const t=document.getElementById('setEcT')?.value||'Other';
+  if(!n)return;
+  S.categories.push({id:'ec_'+Date.now(),name:n,icon:ecI(t),color:'pink',type:'ec',ecType:t,subcats:[]});
+  document.getElementById('setEcI').value='';
+  renderSetEcL();
+}
+
+function saveProfile(){
+  // Save grade from selected button
+  const grBtn=document.querySelector('#gradeOpts .ob.sel');
+  if(grBtn)S.grade=grBtn.textContent;
+  // Categories already mutated in place — just save
+  buildCatDD(); // refresh task dropdowns
+  save();
+  toast('Profile saved! ✓');
+}
 
 // AFFIRMATIONS
 const AFFS=[
