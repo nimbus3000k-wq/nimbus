@@ -523,7 +523,6 @@ function requestNotifPermission(){
 }
 function loadNS(){const n=S.notifs||{};const nb=document.getElementById('nBreak');if(nb){nb.checked=!!n.break;document.getElementById('bfRow').style.display=n.break?'flex':'none';}const nt=document.getElementById('nTasks');if(nt)nt.checked=!!n.tasks;const nc=document.getElementById('nCI');if(nc){nc.checked=!!n.checkin;document.getElementById('ciTRow').style.display=n.checkin?'flex':'none';}const bf=document.getElementById('bFreq');if(bf)bf.value=n.breakFreq||60;const ct=document.getElementById('ciTime');if(ct)ct.value=n.checkinTime||'08:00';}
 function saveN(){S.notifs={break:document.getElementById('nBreak')?.checked||false,breakFreq:parseInt(document.getElementById('bFreq')?.value||60),tasks:document.getElementById('nTasks')?.checked||false,checkin:document.getElementById('nCI')?.checked||false,checkinTime:document.getElementById('ciTime')?.value||'08:00'};document.getElementById('bfRow').style.display=S.notifs.break?'flex':'none';document.getElementById('ciTRow').style.display=S.notifs.checkin?'flex':'none';setupNotifs();save();}
-let NI=[];
 function setupNotifs(){
   stopNI();
   const hasAny=S.notifs&&(S.notifs.break||S.notifs.tasks||S.notifs.checkin);
