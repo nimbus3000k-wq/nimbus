@@ -1,8 +1,15 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Nimbus">
+<meta name="theme-color" content="#e8874a">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23feecd8'/%3E%3Cellipse cx='50' cy='58' rx='38' ry='18' fill='white'/%3E%3Cellipse cx='34' cy='44' rx='20' ry='17' fill='white'/%3E%3Cellipse cx='54' cy='40' rx='24' ry='21' fill='white'/%3E%3Cellipse cx='70' cy='46' rx='16' ry='15' fill='white'/%3E%3C/svg%3E">
 <title>Nimbus — Breakout from Burnout</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -19,8 +26,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .fi{width:100%;padding:13px 16px;border-radius:var(--rmd);border:1.5px solid rgba(240,200,160,.4);background:rgba(255,255,255,.9);font-family:'Nunito',sans-serif;font-size:15px;color:var(--td);outline:none;transition:border-color .2s;font-weight:600;}.fi:focus{border-color:var(--or);}
 .og{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
 .ob{padding:12px 10px;border-radius:var(--rmd);border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.65);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--tm);cursor:pointer;transition:all .2s;text-align:center;}.ob:hover{border-color:var(--or);color:var(--ord);}.ob.sel{border-color:var(--or);background:rgba(245,169,106,.12);color:var(--ord);}
-.tg{display:flex;flex-wrap:wrap;gap:8px;}.tb{padding:8px 15px;border-radius:999px;border:1.5px solid rgba(240,200,160,.35);background:rgba(255,255,255,.65);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--tm);cursor:pointer;transition:all .2s;}.tb.sel{border-color:var(--or);background:rgba(245,169,106,.14);color:var(--ord);}
 .si{display:flex;gap:8px;justify-content:center;margin-bottom:22px;}.sd{width:8px;height:8px;border-radius:50%;background:var(--orl);transition:all .3s;}.sd.act{background:var(--or);width:24px;border-radius:4px;}.sd.dn{background:var(--mint);}
+/* GOAL BANNER */
+.goal-bar{position:fixed;top:0;left:0;right:0;z-index:90;background:linear-gradient(135deg,rgba(245,169,106,.18),rgba(186,175,240,.18));backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,185,140,.3);padding:10px 18px;display:none;align-items:center;gap:10px;}
+.goal-bar.show{display:flex;}
+.goal-bar-icon{font-size:18px;flex-shrink:0;}
+.goal-bar-text{flex:1;font-size:13px;font-weight:800;color:var(--td);line-height:1.3;}
+.goal-bar-edit{font-size:18px;cursor:pointer;color:var(--ord);flex-shrink:0;background:none;border:none;padding:2px 6px;}
+/* push goal-bar height into header padding when active */
+body.has-goal .ah{padding-top:82px;}
+body.has-goal #tasks,body.has-goal #settings,body.has-goal #admin{padding-top:86px;}
 #auth{align-items:center;justify-content:center;padding:24px;background:linear-gradient(150deg,#feecd8 0%,#fde8f0 40%,#ece8fc 100%);}
 .ac{background:rgba(255,252,248,.92);backdrop-filter:blur(16px);border:1.5px solid rgba(240,200,160,.4);border-radius:var(--rxl);padding:32px 26px;max-width:400px;width:100%;box-shadow:0 12px 48px rgba(232,135,74,.12);}
 .alo{text-align:center;margin-bottom:20px;}.at{font-size:24px;font-weight:900;color:var(--td);margin-bottom:6px;text-align:center;}.asb{font-size:14px;color:var(--tm);font-weight:600;text-align:center;margin-bottom:22px;}
@@ -82,13 +97,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .lb{width:100%;padding:14px;border-radius:var(--rmd);border:1.5px solid rgba(220,100,80,.25);background:rgba(220,100,80,.06);color:#c05030;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
 /* ADMIN */
 .auser{background:var(--cb);border:1.5px solid var(--cbr);border-radius:var(--rlg);padding:16px;margin-bottom:12px;}
-.auser-name{font-size:17px;font-weight:900;color:var(--td);margin-bottom:3px;}
-.auser-seen{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:10px;}
+.auser-name{font-size:17px;font-weight:900;color:var(--td);margin-bottom:3px;}.auser-seen{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:10px;}
 .asec-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;}
 .asec-pill{background:rgba(245,185,140,.15);border-radius:10px;padding:7px 12px;font-size:12px;font-weight:800;color:var(--tm);text-align:center;}
 .asec-pill span{display:block;color:var(--ord);font-size:15px;font-weight:900;margin-top:2px;}
-.alog-item{font-size:12px;color:var(--tm);font-weight:600;padding:5px 0;border-bottom:1px solid rgba(240,200,160,.2);}
-.alog-item:last-child{border-bottom:none;}
+.alog-item{font-size:12px;color:var(--tm);font-weight:600;padding:5px 0;border-bottom:1px solid rgba(240,200,160,.2);}.alog-item:last-child{border-bottom:none;}
 .arefresh{width:100%;padding:11px;border-radius:var(--rmd);border:1.5px solid rgba(245,185,140,.4);background:rgba(245,185,140,.08);color:var(--ord);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:14px;}
 /* MODALS */
 .mo{position:fixed;inset:0;background:rgba(40,20,10,.45);backdrop-filter:blur(5px);z-index:200;display:none;align-items:flex-end;justify-content:center;}.mo.show{display:flex;}
@@ -102,6 +115,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 </style>
 </head>
 <body>
+<!-- GOAL BANNER — visible on all tabs -->
+<div class="goal-bar" id="goalBar">
+  <span class="goal-bar-icon">🎯</span>
+  <span class="goal-bar-text" id="goalBarText"></span>
+  <button class="goal-bar-edit" onclick="openGoalEdit()" title="Edit goal">✏️</button>
+</div>
+
 <div id="load" class="screen active"><div style="text-align:center;"><svg width="110" height="92" viewBox="0 0 110 92" id="lcloud"></svg><div class="lt">Loading Nimbus...</div></div></div>
 <div id="auth" class="screen">
   <div class="ac">
@@ -133,12 +153,26 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div id="settings" style="display:none;">
     <div class="th">Settings</div><div class="ts" id="setUser">Your account</div>
     <div class="ss">
+      <div class="ssl">My Goal</div>
+      <div class="srow" style="flex-direction:column;align-items:flex-start;gap:10px;">
+        <div style="font-size:13px;color:var(--tl);font-weight:600;">Your goal shows at the top of every screen as a reminder.</div>
+        <div style="display:flex;gap:8px;width:100%;align-items:center;">
+          <input class="fi" id="goalInput" placeholder="e.g. Get into my dream school" style="margin:0;flex:1;">
+          <button class="aib" onclick="saveGoal()">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="ss">
       <div class="ssl">Notifications</div>
       <div class="srow"><div class="srl"><div class="srt">Break Reminders</div><div class="srs" id="breakHint">Adapts to your stress level</div></div><label class="tgl"><input type="checkbox" id="nBreak" onchange="saveN()"><div class="tgs"></div></label></div>
       <div class="srow" id="bfRow" style="display:none;"><div class="srl"><div class="srt">Break every</div></div><select class="sse" id="bFreq" onchange="saveN()"><option value="20">20 min</option><option value="30">30 min</option><option value="45">45 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hrs</option></select></div>
       <div class="srow"><div class="srl"><div class="srt">Task Reminders</div><div class="srs">Surface priority tasks</div></div><label class="tgl"><input type="checkbox" id="nTasks" onchange="saveN()"><div class="tgs"></div></label></div>
       <div class="srow"><div class="srl"><div class="srt">Daily Check-In</div><div class="srs">Morning prompt</div></div><label class="tgl"><input type="checkbox" id="nCI" onchange="saveN()"><div class="tgs"></div></label></div>
       <div class="srow" id="ciTRow" style="display:none;"><div class="srl"><div class="srt">Check-in time</div></div><input type="time" class="sse" id="ciTime" value="08:00" onchange="saveN()"></div>
+      <div class="srow" style="background:rgba(245,185,140,.08);border-color:rgba(245,185,140,.3);">
+        <div class="srl"><div class="srt">Enable Notifications</div><div class="srs">Required for mobile alerts</div></div>
+        <button class="aib" onclick="requestNotifPermission()" style="font-size:12px;">Allow</button>
+      </div>
     </div>
     <div class="ss">
       <div class="ssl">Account</div>
@@ -160,28 +194,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div class="srow" style="flex-direction:column;align-items:flex-start;gap:10px;margin-top:2px;">
         <div style="font-size:13px;font-weight:700;color:var(--td);width:100%;">Classes</div>
         <div class="il" id="setAcL" style="width:100%;"></div>
-        <div class="air" style="width:100%;">
-          <input class="aii" id="setAcI" placeholder="e.g. Calculus, AP History">
-          <select class="ais" id="setAcT"><option>Regular</option><option>Honors</option><option>AP</option><option>IB</option><option>Dual Enrollment</option></select>
-          <button class="aib" onclick="addSetAc()">Add</button>
-        </div>
+        <div class="air" style="width:100%;"><input class="aii" id="setAcI" placeholder="e.g. Calculus, AP History"><select class="ais" id="setAcT"><option>Regular</option><option>Honors</option><option>AP</option><option>IB</option><option>Dual Enrollment</option></select><button class="aib" onclick="addSetAc()">Add</button></div>
       </div>
       <div class="srow" style="flex-direction:column;align-items:flex-start;gap:10px;margin-top:2px;">
         <div style="font-size:13px;font-weight:700;color:var(--td);width:100%;">Extracurriculars</div>
         <div class="il" id="setEcL" style="width:100%;"></div>
-        <div class="air" style="width:100%;">
-          <input class="aii" id="setEcI" placeholder="e.g. Varsity Soccer, NHS">
-          <select class="ais" id="setEcT"><option>Sports &amp; Athletics</option><option>Arts &amp; Performance</option><option>Clubs &amp; Orgs</option><option>Student Gov</option><option>Work / Job</option><option>Volunteering</option><option>Community Service</option><option>Exam Prep</option><option>Other</option></select>
-          <button class="aib" onclick="addSetEc()">Add</button>
-        </div>
+        <div class="air" style="width:100%;"><input class="aii" id="setEcI" placeholder="e.g. Varsity Soccer, NHS"><select class="ais" id="setEcT"><option>Sports &amp; Athletics</option><option>Arts &amp; Performance</option><option>Clubs &amp; Orgs</option><option>Student Gov</option><option>Work / Job</option><option>Volunteering</option><option>Community Service</option><option>Exam Prep</option><option>Other</option></select><button class="aib" onclick="addSetEc()">Add</button></div>
       </div>
       <button class="bp" onclick="saveProfile()" style="margin-top:4px;">Save Profile ✓</button>
     </div>
     <div class="ss"><div class="ssl">About</div><div class="srow"><div class="srl"><div class="srt">Nimbus</div><div class="srs">Version 1.0 beta</div></div></div></div>
   </div>
   <div id="admin" style="display:none;">
-    <div class="th">Activity Log</div>
-    <div class="ts">All-time usage across all users</div>
+    <div class="th">Activity Log</div><div class="ts">All-time usage across all users</div>
     <button class="arefresh" onclick="loadAdminLogs()">↻ Refresh</button>
     <div id="adminPresenceList"><div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;">Loading activity...</div></div>
   </div>
@@ -200,6 +225,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <button class="bop" onclick="offerBreak()" style="margin-top:22px;">🌿 Take a Break</button>
   <div class="bsg" id="bSug"><div class="bst">🌿 Time for a break!</div><div style="font-size:12px;color:rgba(255,255,255,.5);font-weight:600;">Choose your break:</div><div class="bso"><button class="bop" onclick="startBreak(5)">5 min</button><button class="bop" onclick="startBreak(10)">10 min</button><button class="bop" onclick="startBreak(15)">15 min</button></div></div>
 </div>
+<!-- GOAL EDIT MODAL -->
+<div class="mo" id="goalModal" onclick="closeMO(event,'goalModal')">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">Edit Your Goal 🎯</div>
+    <div style="font-size:13px;color:var(--tl);font-weight:600;margin-bottom:14px;">This stays pinned at the top of every screen to keep you focused.</div>
+    <div class="fg"><label class="fl">My goal this semester</label><input class="fi" id="goalModalInput" placeholder="e.g. Get into my dream school" type="text"></div>
+    <button class="bp" onclick="saveGoalFromModal()">Save Goal 🎯</button>
+    <button class="bs" onclick="closeM('goalModal');if(!S.goal)document.getElementById('goalBar').classList.remove('show')">Cancel</button>
+  </div>
+</div>
 <!-- MODALS -->
 <div class="mo" id="ciModal" onclick="closeMO(event,'ciModal')"><div class="ms"><div class="mh"></div><div class="mt">Daily Check-In ☁️</div><div style="font-size:13px;color:var(--tl);font-weight:600;margin-bottom:14px;" id="ciDate"></div><div class="cq">How are you feeling right now?</div><div class="mr" id="moodRow"><div class="moo" onclick="selMood(0)"><span class="me">😰</span><span class="mla">Stressed</span></div><div class="moo" onclick="selMood(1)"><span class="me">😔</span><span class="mla">Low</span></div><div class="moo" onclick="selMood(2)"><span class="me">😐</span><span class="mla">Okay</span></div><div class="moo" onclick="selMood(3)"><span class="me">🙂</span><span class="mla">Good</span></div><div class="moo" onclick="selMood(4)"><span class="me">🌟</span><span class="mla">Great</span></div></div><div class="cq">Workload today (1–10):</div><div class="sr" style="margin-bottom:16px;"><div class="st"><input type="range" min="1" max="10" value="5" id="wlS" oninput="updS(this,'wlV')"></div><div class="sv" id="wlV">5</div></div><div class="cq">How overwhelmed do you feel? (1–10):</div><div class="sr" style="margin-bottom:22px;"><div class="st"><input type="range" min="1" max="10" value="5" id="owS" oninput="updS(this,'owV')"></div><div class="sv" id="owV">5</div></div><button class="bp" onclick="submitCI()">Update Nimbus ☁️</button></div></div>
 <div class="mo" id="addTaskModal" onclick="closeMO(event,'addTaskModal')"><div class="ms"><div class="mh"></div><div class="mt">Add Task</div><div class="fg"><label class="fl">Task name</label><input class="fi" id="tName2" placeholder="What do you need to do?" type="text"></div><div class="fg"><label class="fl">Category</label><select class="fi" id="tCat" onchange="updSubcats()"><option value="">Choose a category</option></select></div><div class="fg" id="subG" style="display:none;"><label class="fl">Subject / Activity</label><select class="fi" id="tSubcat"></select></div><div class="fg"><label class="fl">Estimated time</label><div class="og" id="timeOpts"><div class="ob" onclick="selO(this,'timeOpts')">15 min</div><div class="ob" onclick="selO(this,'timeOpts')">30 min</div><div class="ob" onclick="selO(this,'timeOpts')">45 min</div><div class="ob" onclick="selO(this,'timeOpts')">1 hr</div><div class="ob" onclick="selO(this,'timeOpts')">1.5 hr</div><div class="ob" onclick="selO(this,'timeOpts')">2+ hr</div></div></div><div class="fg"><label class="fl">Priority</label><div class="og" id="priOpts"><div class="ob" onclick="selO(this,'priOpts')">🔴 Urgent</div><div class="ob" onclick="selO(this,'priOpts')">🟠 Medium</div><div class="ob" onclick="selO(this,'priOpts')">🟢 Low</div><div class="ob" onclick="selO(this,'priOpts')">📚 Study</div></div></div><div class="fg"><label class="fl">Due date</label><input class="fi" id="tDue" type="date"></div><button class="bp" onclick="addTask()">Add Task ✓</button></div></div>
@@ -208,129 +244,67 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// PWA MANIFEST — injected so this works as a single file
+(function(){
+  try{
+    const m={name:'Nimbus',short_name:'Nimbus',description:'Your personal study cloud',start_url:location.href,display:'standalone',orientation:'portrait',background_color:'#feecd8',theme_color:'#e8874a',
+      icons:[{src:'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' rx=\'20\' fill=\'%23feecd8\'/%3E%3Cellipse cx=\'50\' cy=\'58\' rx=\'38\' ry=\'18\' fill=\'white\'/%3E%3Cellipse cx=\'34\' cy=\'44\' rx=\'20\' ry=\'17\' fill=\'white\'/%3E%3Cellipse cx=\'54\' cy=\'40\' rx=\'24\' ry=\'21\' fill=\'white\'/%3E%3Cellipse cx=\'70\' cy=\'46\' rx=\'16\' ry=\'15\' fill=\'white\'/%3E%3C/svg%3E',sizes:'192x192',type:'image/svg+xml'}]};
+    const blob=new Blob([JSON.stringify(m)],{type:'application/manifest+json'});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('link');link.rel='manifest';link.href=url;
+    document.head.appendChild(link);
+  }catch(e){}
+})();
+
+// SERVICE WORKER — for background notifications
+(function(){
+  if(!('serviceWorker' in navigator))return;
+  const swCode=`
+self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
+self.addEventListener('push',e=>{
+  const d=e.data?e.data.json():{title:'Nimbus ☁️',body:'Hey!'};
+  e.waitUntil(self.registration.showNotification(d.title||'Nimbus',{body:d.body||'',icon:d.icon||'',badge:d.badge||'',tag:d.tag||'nimbus'}));
+});
+self.addEventListener('notificationclick',e=>{
+  e.notification.close();
+  e.waitUntil(clients.matchAll({type:'window'}).then(cs=>{
+    for(const c of cs){if(c.url&&'focus' in c)return c.focus();}
+    if(clients.openWindow)return clients.openWindow('/');
+  }));
+});
+`;
+  try{
+    const blob=new Blob([swCode],{type:'application/javascript'});
+    const url=URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).then(reg=>{
+      console.log('SW registered');
+      window._swReg=reg;
+    }).catch(e=>console.log('SW reg failed (needs HTTPS):',e.message));
+  }catch(e){}
+})();
+
 const SB_URL='https://efnbwiyycuupgalwakws.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmbmJ3aXl5Y3V1cGdhbHdha3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTExOTAsImV4cCI6MjA5NjAyNzE5MH0.3GKnnIwbGN9RG3xUKeh8GTwt--XkNuAjAdTh9BG2g2Q';
 let sb=null;try{sb=supabase.createClient(SB_URL,SB_KEY);}catch(e){}
 
-// ═══════════════════════════════════════════════════════════════
-// ADMIN + ACTIVITY LOGGING
-// ═══════════════════════════════════════════════════════════════
+// ═══ ADMIN + ACTIVITY LOGGING ═══
 const ADMIN_EMAIL='nimbus3000k@gmail.com';
 function isAdmin(){return!!(S.email&&S.email.trim().toLowerCase()===ADMIN_EMAIL.trim().toLowerCase());}
-
-// Section timer — tracks time spent in each section
 let _sec=null,_secStart=null;
-
-function startSection(name){
-  endSection(); // flush previous section first
-  _sec=name;
-  _secStart=Date.now();
-}
-
-async function endSection(){
-  if(!_sec||!_secStart)return;
-  const endedMs=Date.now();
-  const secs=Math.round((endedMs-_secStart)/1000);
-  const section=_sec;
-  _sec=null;_secStart=null;
-  if(secs<3)return; // ignore micro-visits
-  await logActivity(section,secs,new Date(endedMs));
-}
-
-async function logActivity(section,durationSecs,endedAt){
-  if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
-  try{
-    const startedAt=new Date(endedAt.getTime()-durationSecs*1000);
-    await sb.from('activity_logs').insert({
-      user_id:S.userId,
-      user_name:S.name||'Unknown',
-      section,
-      duration_secs:durationSecs,
-      started_at:startedAt.toISOString(),
-      ended_at:endedAt.toISOString()
-    });
-  }catch(e){console.error('Activity log failed',e);}
-}
-
-async function loadAdminLogs(){
-  if(!sb||!isAdmin())return;
-  const el=document.getElementById('adminPresenceList');
-  if(el)el.innerHTML='<div style="text-align:center;padding:20px;color:var(--tl);font-weight:700;">Loading...</div>';
-  try{
-    const{data,error}=await sb.from('activity_logs')
-      .select('*')
-      .order('ended_at',{ascending:false})
-      .limit(1000);
-    if(error){console.error('Admin logs error:',error);if(el)el.innerHTML='<div style="color:#c05030;padding:20px;font-weight:700;">Error loading logs: '+error.message+'</div>';return;}
-    renderAdminView(data||[]);
-  }catch(e){console.error('loadAdminLogs failed',e);}
-}
-
-function fmtSecs(s){
-  if(s<60)return s+'s';
-  if(s<3600)return Math.floor(s/60)+'m '+(s%60)+'s';
-  return Math.floor(s/3600)+'h '+Math.floor((s%3600)/60)+'m';
-}
-function fmtDate(iso){
-  const d=new Date(iso);
-  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-}
-
-function renderAdminView(logs){
-  const el=document.getElementById('adminPresenceList');
-  if(!el)return;
-  if(!logs.length){el.innerHTML='<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;">No activity recorded yet. Users need to be logged in and browsing for a few seconds for logs to appear.</div>';return;}
-
-  // Group by user_id
-  const users={};
-  for(const log of logs){
-    const uid=log.user_id;
-    if(!users[uid])users[uid]={name:log.user_name||'Unknown',sections:{},lastSeen:null,firstSeen:null,recentLogs:[]};
-    users[uid].sections[log.section]=(users[uid].sections[log.section]||0)+log.duration_secs;
-    if(!users[uid].lastSeen||log.ended_at>users[uid].lastSeen)users[uid].lastSeen=log.ended_at;
-    if(!users[uid].firstSeen||log.started_at<users[uid].firstSeen)users[uid].firstSeen=log.started_at;
-    if(users[uid].recentLogs.length<8)users[uid].recentLogs.push(log);
-  }
-
-  const SEC_LABELS={home:'🏠 Home',tasks:'✅ Tasks',settings:'⚙️ Settings',focusing:'⏱ Focus Timer',break:'🌿 Break',admin:'📡 Activity Tab'};
-
-  // Sort users by most recently seen
-  const sorted=Object.entries(users).sort((a,b)=>b[1].lastSeen.localeCompare(a[1].lastSeen));
-
-  let html='';
-  for(const[uid,u]of sorted){
-    const totalSecs=Object.values(u.sections).reduce((a,b)=>a+b,0);
-    html+=`<div class="auser">
-      <div class="auser-name">${u.name}</div>
-      <div class="auser-seen">Last seen: ${fmtDate(u.lastSeen)} &nbsp;·&nbsp; First seen: ${fmtDate(u.firstSeen)} &nbsp;·&nbsp; Total: ${fmtSecs(totalSecs)}</div>
-      <div class="asec-grid">
-        ${Object.entries(u.sections).map(([sec,secs])=>`<div class="asec-pill">${SEC_LABELS[sec]||sec}<span>${fmtSecs(secs)}</span></div>`).join('')}
-      </div>
-      <div style="font-size:11px;font-weight:800;color:var(--tl);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;">Recent Sessions</div>
-      ${u.recentLogs.map(l=>`<div class="alog-item">${SEC_LABELS[l.section]||l.section} &nbsp;·&nbsp; ${fmtSecs(l.duration_secs)} &nbsp;·&nbsp; ${fmtDate(l.ended_at)}</div>`).join('')}
-    </div>`;
-  }
-  el.innerHTML=html;
-}
-
-// Flush current section when tab goes to background or is closed
-document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='hidden'){
-    // Try to log synchronously — best effort
-    endSection();
-  } else {
-    // Tab came back into view — restart timer for wherever we are
-    if(_lastTab)startSection(_lastTab);
-  }
-});
+function startSection(name){endSection();_sec=name;_secStart=Date.now();}
+async function endSection(){if(!_sec||!_secStart)return;const endedMs=Date.now();const secs=Math.round((endedMs-_secStart)/1000);const section=_sec;_sec=null;_secStart=null;if(secs<3)return;await logActivity(section,secs,new Date(endedMs));}
+async function logActivity(section,durationSecs,endedAt){if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;try{const startedAt=new Date(endedAt.getTime()-durationSecs*1000);await sb.from('activity_logs').insert({user_id:S.userId,user_name:S.name||'Unknown',section,duration_secs:durationSecs,started_at:startedAt.toISOString(),ended_at:endedAt.toISOString()});}catch(e){console.error('Activity log failed',e);}}
+async function loadAdminLogs(){if(!sb||!isAdmin())return;const el=document.getElementById('adminPresenceList');if(el)el.innerHTML='<div style="text-align:center;padding:20px;color:var(--tl);font-weight:700;">Loading...</div>';try{const{data,error}=await sb.from('activity_logs').select('*').order('ended_at',{ascending:false}).limit(1000);if(error){if(el)el.innerHTML='<div style="color:#c05030;padding:20px;font-weight:700;">Error: '+error.message+'<br><br><b>Run this SQL in Supabase first:</b><br><code style="font-size:11px;display:block;margin-top:8px;background:rgba(0,0,0,.05);padding:8px;border-radius:6px;white-space:pre-wrap;">CREATE TABLE IF NOT EXISTS activity_logs (\n  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,\n  user_id uuid, user_name text, section text,\n  duration_secs integer, started_at timestamptz,\n  ended_at timestamptz DEFAULT now()\n);\nALTER TABLE activity_logs ENABLE ROW LEVEL SECURITY;\nCREATE POLICY "insert_own" ON activity_logs FOR INSERT TO authenticated WITH CHECK (auth.uid()=user_id);\nCREATE POLICY "read_all" ON activity_logs FOR SELECT TO authenticated USING (true);</code></div>';return;}renderAdminView(data||[]);}catch(e){console.error('loadAdminLogs failed',e);}}
+function fmtSecs(s){if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m '+(s%60)+'s';return Math.floor(s/3600)+'h '+Math.floor((s%3600)/60)+'m';}
+function fmtDate(iso){const d=new Date(iso);return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});}
+function renderAdminView(logs){const el=document.getElementById('adminPresenceList');if(!el)return;if(!logs.length){el.innerHTML='<div style="text-align:center;padding:28px 0;color:var(--tl);font-weight:700;">No activity recorded yet.</div>';return;}const users={};for(const log of logs){const uid=log.user_id;if(!users[uid])users[uid]={name:log.user_name||'Unknown',sections:{},lastSeen:null,firstSeen:null,recentLogs:[]};users[uid].sections[log.section]=(users[uid].sections[log.section]||0)+log.duration_secs;if(!users[uid].lastSeen||log.ended_at>users[uid].lastSeen)users[uid].lastSeen=log.ended_at;if(!users[uid].firstSeen||log.started_at<users[uid].firstSeen)users[uid].firstSeen=log.started_at;if(users[uid].recentLogs.length<8)users[uid].recentLogs.push(log);}const SEC_LABELS={home:'🏠 Home',tasks:'✅ Tasks',settings:'⚙️ Settings',focusing:'⏱ Focus Timer',break:'🌿 Break',admin:'📡 Activity Tab'};const sorted=Object.entries(users).sort((a,b)=>b[1].lastSeen.localeCompare(a[1].lastSeen));let html='';for(const[uid,u]of sorted){const totalSecs=Object.values(u.sections).reduce((a,b)=>a+b,0);html+=`<div class="auser"><div class="auser-name">${u.name}</div><div class="auser-seen">Last seen: ${fmtDate(u.lastSeen)} · First seen: ${fmtDate(u.firstSeen)} · Total: ${fmtSecs(totalSecs)}</div><div class="asec-grid">${Object.entries(u.sections).map(([sec,secs])=>`<div class="asec-pill">${SEC_LABELS[sec]||sec}<span>${fmtSecs(secs)}</span></div>`).join('')}</div><div style="font-size:11px;font-weight:800;color:var(--tl);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;">Recent Sessions</div>${u.recentLogs.map(l=>`<div class="alog-item">${SEC_LABELS[l.section]||l.section} · ${fmtSecs(l.duration_secs)} · ${fmtDate(l.ended_at)}</div>`).join('')}</div>`;}el.innerHTML=html;}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){endSection();}else{if(_lastTab)startSection(_lastTab);}});
 window.addEventListener('beforeunload',()=>{endSection();});
-
 let _lastTab='home';
 
-// ═══════════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════════
-let S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
+// ═══ STATE ═══
+let S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',goal:'',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],onboardStress:null};
 let TMR={active:false,iv:null,rem:1500,total:1500,phase:'focus',taskId:null,name:'',bc:0};
 let NI=[],detId=null,curF='all',selM=2,_re=null;
 
@@ -341,79 +315,56 @@ function ciDone(){return S.lastCI===today();}
 function getBurnoutLevel(){const avg=(S.overwhelm+S.workload)/2;if(avg>=8.5)return'critical';if(avg>=7)return'high';if(avg>=5)return'moderate';if(avg>=3)return'low';return'minimal';}
 function getAdaptiveBreakMins(){const lvl=getBurnoutLevel();if(lvl==='critical')return 20;if(lvl==='high')return 30;if(lvl==='moderate')return 45;return S.notifs.breakFreq||60;}
 function updateBurnoutAlert(){const lvl=getBurnoutLevel();const bh=document.getElementById('breakHint');if(bh){const mins=getAdaptiveBreakMins();bh.textContent=(lvl==='critical'||lvl==='high')?`Auto-set to ${mins} min based on your stress`:'Adapts to your stress level';}}
+function updateNimbusState(){const avg=(S.overwhelm+S.workload)/2;const checkinScore=10-avg;const pending=S.tasks.filter(t=>!t.done).length;const done=S.tasks.filter(t=>t.done).length;const urgentPending=S.tasks.filter(t=>!t.done&&t.priority==='Urgent').length;let taskScore=(done*1.8)-(pending*1.2)-(urgentPending*0.8);taskScore=Math.max(-4,Math.min(4,taskScore));let score=checkinScore+taskScore;score=Math.max(0,Math.min(10,score));if(score>=8.5)S.nimbusState='glowing';else if(score>=6.5)S.nimbusState='happy';else if(score>=4)S.nimbusState='neutral';else if(score>=2)S.nimbusState='sad';else S.nimbusState='stressed';}
 
-function updateNimbusState(){
-  const avg=(S.overwhelm+S.workload)/2;
-  const checkinScore=10-avg;
-  const pending=S.tasks.filter(t=>!t.done).length;
-  const done=S.tasks.filter(t=>t.done).length;
-  const urgentPending=S.tasks.filter(t=>!t.done&&t.priority==='Urgent').length;
-  let taskScore=(done*1.8)-(pending*1.2)-(urgentPending*0.8);
-  taskScore=Math.max(-4,Math.min(4,taskScore));
-  let score=checkinScore+taskScore;
-  score=Math.max(0,Math.min(10,score));
-  if(score>=8.5)S.nimbusState='glowing';
-  else if(score>=6.5)S.nimbusState='happy';
-  else if(score>=4)S.nimbusState='neutral';
-  else if(score>=2)S.nimbusState='sad';
-  else S.nimbusState='stressed';
+// ═══ GOAL BANNER ═══
+function renderGoalBar(){
+  const bar=document.getElementById('goalBar');const txt=document.getElementById('goalBarText');const inp=document.getElementById('goalInput');
+  if(S.goal&&S.goal.trim()){
+    if(txt)txt.textContent=S.goal;
+    if(bar)bar.classList.add('show');
+    document.body.classList.add('has-goal');
+  }else{
+    if(bar)bar.classList.remove('show');
+    document.body.classList.remove('has-goal');
+  }
+  if(inp)inp.value=S.goal||'';
+}
+function saveGoal(){
+  const v=document.getElementById('goalInput')?.value.trim()||'';
+  S.goal=v;renderGoalBar();save();toast(v?'Goal saved! 🎯':'Goal cleared');
+}
+function openGoalEdit(){
+  const inp=document.getElementById('goalModalInput');if(inp)inp.value=S.goal||'';openM('goalModal');
+}
+function saveGoalFromModal(){
+  const v=document.getElementById('goalModalInput')?.value.trim()||'';
+  S.goal=v;renderGoalBar();const inp=document.getElementById('goalInput');if(inp)inp.value=v;save();closeM('goalModal');toast(v?'Goal saved! 🎯':'Goal cleared');
 }
 
-// AUTH
-function renderAuth(mode='login'){
-  const isL=mode==='login';
-  document.getElementById('authSub').textContent=isL?'Sign in to your account ☁️':'Create your account ☁️';
-  document.getElementById('authErr').classList.remove('show');
-  document.getElementById('authForm').innerHTML=`
-    ${!isL?`<div class="fg"><label class="fl">Your Name</label><input class="fi" id="aName" placeholder="First name" type="text"></div>`:''}
-    <div class="fg"><label class="fl">Email</label><input class="fi" id="aEmail" placeholder="you@email.com" type="email"></div>
-    ${!isL?`<div class="fg"><label class="fl">Phone (optional)</label><input class="fi" id="aPhone" placeholder="+1 555 000 0000" type="tel"></div>`:''}
-    <div class="fg"><label class="fl">Password</label><input class="fi" id="aPass" placeholder="Password" type="password" onkeydown="if(event.key==='Enter')${isL?'doLogin()':'doSignup()'}"></div>
-    <button class="bp" onclick="${isL?'doLogin()':'doSignup()'}"> ${isL?'Sign In →':'Create Account →'}</button>
-    <div class="asw">${isL?"Don't have an account? <span onclick=\"renderAuth('signup')\">Sign up</span>":"Already have an account? <span onclick=\"renderAuth('login')\">Sign in</span>"}</div>
-    <div style="text-align:center;margin-top:12px;"><span style="font-size:13px;font-weight:700;color:var(--ord);cursor:pointer;" onclick="skipAuth()">Continue without account (demo)</span></div>`;
-}
+// ═══ AUTH ═══
+function renderAuth(mode='login'){const isL=mode==='login';document.getElementById('authSub').textContent=isL?'Sign in to your account ☁️':'Create your account ☁️';document.getElementById('authErr').classList.remove('show');document.getElementById('authForm').innerHTML=`${!isL?`<div class="fg"><label class="fl">Your Name</label><input class="fi" id="aName" placeholder="First name" type="text"></div>`:''}    <div class="fg"><label class="fl">Email</label><input class="fi" id="aEmail" placeholder="you@email.com" type="email"></div>    ${!isL?`<div class="fg"><label class="fl">Phone (optional)</label><input class="fi" id="aPhone" placeholder="+1 555 000 0000" type="tel"></div>`:''}    <div class="fg"><label class="fl">Password</label><input class="fi" id="aPass" placeholder="Password" type="password" onkeydown="if(event.key==='Enter')${isL?'doLogin()':'doSignup()'}"></div>    <button class="bp" onclick="${isL?'doLogin()':'doSignup()'}"> ${isL?'Sign In →':'Create Account →'}</button>    <div class="asw">${isL?"Don't have an account? <span onclick=\"renderAuth('signup')\">Sign up</span>":"Already have an account? <span onclick=\"renderAuth('login')\">Sign in</span>"}</div>    <div style="text-align:center;margin-top:12px;"><span style="font-size:13px;font-weight:700;color:var(--ord);cursor:pointer;" onclick="skipAuth()">Continue without account (demo)</span></div>`;}
 function showLoad(){document.getElementById('load').classList.add('active');['auth','app','onboard'].forEach(s=>document.getElementById(s).classList.remove('active'));}
 function hideLoad(){document.getElementById('load').classList.remove('active');}
 function showScrn(id){['load','auth','onboard','app','timer'].forEach(s=>{const e=document.getElementById(s);if(e)e.classList.remove('active');});const t=document.getElementById(id);if(t)t.classList.add('active');}
-
-async function doLogin(){
-  const email=document.getElementById('aEmail').value.trim();const pass=document.getElementById('aPass').value;
-  if(!email||!pass){authErr('Please fill in all fields.');return;}
-  if(!sb){S.email=email;S.userId='demo-'+Date.now();afterAuth();return;}
-  showLoad();
-  const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
-  if(error){hideLoad();showScrn('auth');authErr(error.message.includes('Invalid')?'Wrong email or password.':error.message);return;}
-  S.userId=data.user.id;S.email=data.user.email;_re=null;
-  await loadCloud();if(!S.name)loadLocal();hideLoad();
-  if(S.name&&S.name.trim()!=='')startApp();else startOnboard();
-}
-async function doSignup(){
-  const n=document.getElementById('aName')?.value.trim()||'';const email=document.getElementById('aEmail').value.trim();const phone=document.getElementById('aPhone')?.value.trim()||'';const pass=document.getElementById('aPass').value;
-  if(!n){authErr('Please enter your name.');return;}if(!email||!pass){authErr('Please fill in email and password.');return;}if(pass.length<6){authErr('Password must be at least 6 characters.');return;}
-  if(!sb){S.name=n;S.email=email;S.phone=phone;S.userId='demo-'+Date.now();saveLocal();startOnboard();return;}
-  showLoad();
-  const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name:n,phone}}});
-  if(error){hideLoad();showScrn('auth');authErr(error.message);return;}
-  if(!data.session)console.warn('No session after signup — email confirmation likely required.');
-  S.userId=data.user.id;S.name=n;S.email=email;S.phone=phone;_re=null;saveLocal();hideLoad();startOnboard();
-}
+async function doLogin(){const email=document.getElementById('aEmail').value.trim();const pass=document.getElementById('aPass').value;if(!email||!pass){authErr('Please fill in all fields.');return;}if(!sb){S.email=email;S.userId='demo-'+Date.now();afterAuth();return;}showLoad();const{data,error}=await sb.auth.signInWithPassword({email,password:pass});if(error){hideLoad();showScrn('auth');authErr(error.message.includes('Invalid')?'Wrong email or password.':error.message);return;}S.userId=data.user.id;S.email=data.user.email;_re=null;await loadCloud();if(!S.name)loadLocal();hideLoad();if(S.name&&S.name.trim()!=='')startApp();else startOnboard();}
+async function doSignup(){const n=document.getElementById('aName')?.value.trim()||'';const email=document.getElementById('aEmail').value.trim();const phone=document.getElementById('aPhone')?.value.trim()||'';const pass=document.getElementById('aPass').value;if(!n){authErr('Please enter your name.');return;}if(!email||!pass){authErr('Please fill in email and password.');return;}if(pass.length<6){authErr('Password must be at least 6 characters.');return;}if(!sb){S.name=n;S.email=email;S.phone=phone;S.userId='demo-'+Date.now();saveLocal();startOnboard();return;}showLoad();const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name:n,phone}}});if(error){hideLoad();showScrn('auth');authErr(error.message);return;}if(!data.session)console.warn('No session after signup — email confirmation may be required.');S.userId=data.user.id;S.name=n;S.email=email;S.phone=phone;_re=null;saveLocal();hideLoad();startOnboard();}
 function skipAuth(){S.userId='demo';S.email='demo@nimbus.app';if(loadLocal()&&S.name)startApp();else startOnboard();}
 function authErr(m){const e=document.getElementById('authErr');e.textContent=m;e.classList.add('show');}
 async function afterAuth(){hideLoad();await loadCloud();if(!S.name)loadLocal();if(S.name&&S.name.trim()!=='')startApp();else startOnboard();}
-function logOut(){
-  if(sb)sb.auth.signOut();
-  endSection();
-  stopNI();clearInterval(TMR.iv);
-  S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],goals:[],onboardStress:null};
-  _re=null;_sec=null;_secStart=null;_lastTab='home';
-  showScrn('auth');renderAuth('login');
-}
+function logOut(){if(sb)sb.auth.signOut();endSection();stopNI();clearInterval(TMR.iv);S={userId:null,email:'',phone:'',name:'',grade:'',categories:[],tasks:[],mood:2,workload:5,overwhelm:5,nimbusState:'neutral',goal:'',notifs:{break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'},lastCI:null,burnoutHistory:[],onboardStress:null};_re=null;_sec=null;_secStart=null;_lastTab='home';renderGoalBar();showScrn('auth');renderAuth('login');}
 
-// ONBOARDING
+// ═══ ONBOARDING — no burnout step, goal is free text ═══
 const CATS={academic:{name:'Academic',icon:'📚',color:'orange',subcatTypes:['Regular','Honors','AP','IB','Dual Enrollment'],hint:'e.g. Calculus, English 11, AP US History'}};
 const EC_T=['Sports & Athletics','Arts & Performance','Clubs & Orgs','Student Gov','Work / Job','Volunteering','Community Service','Exam Prep','Other'];
-const STEPS=[{title:"Hey, I'm Nimbus! ☁️",sub:"Your personal study cloud. Let's set up your world.",type:"welcome"},{title:"What grade are you in?",sub:"Helps Nimbus understand your workload.",type:"grade",opts:["9th Grade","10th Grade","11th Grade","12th Grade","Other"]},{title:"Add your classes",sub:"Build your academic schedule.",type:"cat_ac"},{title:"Add your extracurriculars",sub:"Add every club, sport, job, or org.",type:"cat_ec"},{title:"Quick burnout check",sub:"Be honest — Nimbus won't judge.",type:"burnout"},{title:"What are your goals?",sub:"Choose what matters most this semester.",type:"tags",opts:["Stop procrastinating","Manage stress better","Improve grades","Better habits","College applications","Work-life balance","Be more organized","Sleep more"]},{title:"You're all set! 🌈",sub:"Nimbus is ready. Let's build some momentum together.",type:"finish"}];
+const STEPS=[
+  {title:"Hey, I'm Nimbus! ☁️",sub:"Your personal study cloud. Let's set up your world.",type:"welcome"},
+  {title:"What grade are you in?",sub:"Helps Nimbus understand your workload.",type:"grade",opts:["9th Grade","10th Grade","11th Grade","12th Grade","Other"]},
+  {title:"Add your classes",sub:"Build your academic schedule.",type:"cat_ac"},
+  {title:"Add your extracurriculars",sub:"Add every club, sport, job, or org.",type:"cat_ec"},
+  {title:"What's your big goal?",sub:"One thing you're working toward this semester. You'll see it every time you open the app.",type:"goal"},
+  {title:"You're all set! 🌈",sub:"Nimbus is ready. Let's build some momentum together.",type:"finish"}
+];
 function startOnboard(){showScrn('onboard');document.getElementById('stepDots').innerHTML=STEPS.map((_,i)=>`<div class="sd" id="d${i}"></div>`).join('');renderStep(0);}
 function updDots(){STEPS.forEach((_,i)=>{const d=document.getElementById('d'+i);if(d)d.className='sd'+(i<S.onboardStep?' dn':i===S.onboardStep?' act':'');});}
 function renderStep(n){
@@ -423,11 +374,11 @@ function renderStep(n){
   else if(s.type==='grade')h+=`<div class="og" id="grOpts">${s.opts.map(o=>`<div class="ob" onclick="selGr(this)">${o}</div>`).join('')}</div><button class="bp" onclick="nextS()">Continue →</button>`;
   else if(s.type==='cat_ac')h+=renderAcB()+`<button class="bp" onclick="nextS()">Continue →</button>`;
   else if(s.type==='cat_ec')h+=renderECB()+`<button class="bp" onclick="nextS()">Continue →</button>`;
-  else if(s.type==='burnout')h+=`<div class="cq" style="margin-top:4px;">Overall stress this week (1–10):</div><div class="sr" style="margin-bottom:14px;"><div class="st"><input type="range" min="1" max="10" value="5" id="bStr" oninput="updS(this,'bStrV')"></div><div class="sv" id="bStrV">5</div></div><div class="cq">Workload right now (1–10):</div><div class="sr" style="margin-bottom:20px;"><div class="st"><input type="range" min="1" max="10" value="5" id="bWk" oninput="updS(this,'bWkV')"></div><div class="sv" id="bWkV">5</div></div><div style="font-size:12px;color:var(--tm);font-weight:600;margin-bottom:12px;padding:10px;background:rgba(245,185,140,.1);border-radius:var(--rsm);">Just for Nimbus to get a feel for things — you'll set your real level during your first Daily Check-In.</div><button class="bp" onclick="saveBurn()">Continue →</button>`;
-  else if(s.type==='tags')h+=`<div class="tg" id="tagG">${s.opts.map(o=>`<div class="tb" onclick="togG(this)">${o}</div>`).join('')}</div><button class="bp" onclick="nextS()">Continue →</button>`;
+  else if(s.type==='goal')h+=`<div class="fg" style="margin-top:4px;"><input class="fi" id="onboardGoalI" placeholder="e.g. Get into my dream school, Raise my GPA, Make varsity" type="text" value="${S.goal||''}"></div><div style="font-size:12px;color:var(--tm);font-weight:600;margin-bottom:12px;padding:10px;background:rgba(245,185,140,.1);border-radius:var(--rsm);">This will be pinned at the top of every screen. You can change it anytime in Settings.</div><button class="bp" onclick="saveOnboardGoal()">Continue →</button><button class="bs" onclick="nextS()" style="margin-top:4px;">Skip for now</button>`;
   else if(s.type==='finish')h+=`<button class="bp" onclick="finOnboard()">Meet Nimbus! 🌈</button>`;
   document.getElementById('onboardContent').innerHTML=h;updAllS();
 }
+function saveOnboardGoal(){S.goal=document.getElementById('onboardGoalI')?.value.trim()||'';nextS();}
 function renderAcB(){const cat=getCat('academic')||addCT('academic');return`<div style="margin-bottom:12px;"><div class="air"><input class="aii" id="acI" placeholder="${CATS.academic.hint}"><select class="ais" id="acT">${CATS.academic.subcatTypes.map(t=>`<option>${t}</option>`).join('')}</select><button class="aib" onclick="addAcI()">Add</button></div></div><div class="il" id="acL">${renderAcL(cat)}</div>`;}
 function renderAcL(cat){if(!cat?.subcats?.length)return`<div style="font-size:13px;color:var(--tl);font-weight:700;padding:8px 4px;">No classes added yet</div>`;return cat.subcats.map(s=>`<div class="ir"><div><div class="irt">${s.name}</div><div class="irs">${s.type||''}</div></div><button class="irm" onclick="rmSub('academic','${s.id}')">×</button></div>`).join('');}
 function addAcI(){const n=document.getElementById('acI').value.trim();const t=document.getElementById('acT').value;if(!n)return;let c=getCat('academic')||addCT('academic');c.subcats.push({id:'ac_'+Date.now(),name:n,type:t});document.getElementById('acI').value='';document.getElementById('acL').innerHTML=renderAcL(c);}
@@ -440,21 +391,16 @@ function getCat(t){return S.categories.find(c=>c.type===t);}
 function addCT(t){const c=CATS[t];const cat={id:t+'_'+Date.now(),name:c.name,icon:c.icon,color:c.color,type:t,subcats:[]};S.categories.push(cat);return cat;}
 function rmSub(ct,id){const c=getCat(ct);if(!c)return;c.subcats=c.subcats.filter(s=>s.id!==id);const e=document.getElementById('acL');if(e)e.innerHTML=renderAcL(c);}
 function selGr(el){document.querySelectorAll('#grOpts .ob').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');S.grade=el.textContent;}
-function togG(el){el.classList.toggle('sel');const v=el.textContent;const i=S.goals.indexOf(v);i>-1?S.goals.splice(i,1):S.goals.push(v);}
-function saveBurn(){S.onboardStress={overwhelm:parseInt(document.getElementById('bStr').value),workload:parseInt(document.getElementById('bWk').value)};nextS();}
 function nextS(){if(S.onboardStep<STEPS.length-1)renderStep(S.onboardStep+1);}
-async function finOnboard(){
-  const nameInput=document.getElementById('aName');if(nameInput&&nameInput.value.trim())S.name=nameInput.value.trim();
-  saveLocal();await save();await new Promise(r=>setTimeout(r,500));showScrn('app');startApp();
-}
+async function finOnboard(){const nameInput=document.getElementById('aName');if(nameInput&&nameInput.value.trim())S.name=nameInput.value.trim();saveLocal();await save();await new Promise(r=>setTimeout(r,500));showScrn('app');startApp();}
 
-// NIMBUS SVG
+// ═══ NIMBUS SVG ═══
 function nColors(mood){const m={neutral:{c1:'rgba(255,252,248,1)',c2:'rgba(250,243,238,1)',c3:'rgba(255,255,255,.9)',sh:'rgba(245,185,140,.18)',ri:'rgba(235,210,190,.3)',ey:'#2a1808',bl:'rgba(232,135,74,.3)'},happy:{c1:'rgba(255,248,238,1)',c2:'rgba(252,235,218,1)',c3:'rgba(255,252,245,.9)',sh:'rgba(245,185,140,.22)',ri:'rgba(235,210,185,.35)',ey:'#2a1808',bl:'rgba(225,120,60,.32)'},sad:{c1:'rgba(210,225,248,1)',c2:'rgba(195,215,244,1)',c3:'rgba(222,235,252,.9)',sh:'rgba(120,165,232,.3)',ri:'rgba(160,190,238,.4)',ey:'#1e2a3a',bl:'rgba(120,160,220,.28)'},stressed:{c1:'rgba(182,192,220,1)',c2:'rgba(168,180,215,1)',c3:'rgba(198,208,228,.9)',sh:'rgba(100,120,185,.38)',ri:'rgba(128,145,198,.45)',ey:'#1a2038',bl:'rgba(100,118,185,.24)'},glowing:{c1:'rgba(255,253,218,1)',c2:'rgba(254,248,190,1)',c3:'rgba(255,255,232,.9)',sh:'rgba(245,215,70,.28)',ri:'rgba(242,212,90,.42)',ey:'#2a1e06',bl:'rgba(235,165,70,.35)'}};return m[mood]||m.neutral;}
 function buildCloud(mood,w,h,sc=1){const c=nColors(mood),cx=w/2,cy=h*.53;const body=`<ellipse cx="${cx}" cy="${cy+9*sc}" rx="${70*sc}" ry="${33*sc}" fill="${c.sh}"/><ellipse cx="${cx-18*sc}" cy="${cy-10*sc}" rx="${33*sc}" ry="${29*sc}" fill="${c.c1}"/><ellipse cx="${cx+18*sc}" cy="${cy-14*sc}" rx="${37*sc}" ry="${33*sc}" fill="${c.c1}"/><ellipse cx="${cx+46*sc}" cy="${cy-2*sc}" rx="${25*sc}" ry="${23*sc}" fill="${c.c2}"/><ellipse cx="${cx-46*sc}" cy="${cy+2*sc}" rx="${21*sc}" ry="${19*sc}" fill="${c.c2}"/><ellipse cx="${cx}" cy="${cy+10*sc}" rx="${66*sc}" ry="${25*sc}" fill="${c.c3}"/><ellipse cx="${cx}" cy="${cy+4*sc}" rx="${56*sc}" ry="${27*sc}" fill="${c.c1}"/>`;const rim=`<ellipse cx="${cx-15*sc}" cy="${cy-8*sc}" rx="${33*sc}" ry="${29*sc}" fill="none" stroke="${c.ri}" stroke-width="${1.4*sc}"/><ellipse cx="${cx+16*sc}" cy="${cy-12*sc}" rx="${35*sc}" ry="${31*sc}" fill="none" stroke="${c.ri}" stroke-width="${1.4*sc}"/>`;const eL=cx-14*sc,eR=cx+14*sc,eY=cy-2*sc;const eyes=`<ellipse cx="${eL}" cy="${eY}" rx="${7*sc}" ry="${8.5*sc}" fill="${c.ey}"/><ellipse cx="${eR}" cy="${eY}" rx="${7*sc}" ry="${8.5*sc}" fill="${c.ey}"/><ellipse cx="${eL+2*sc}" cy="${eY-2.5*sc}" rx="${2.5*sc}" ry="${3*sc}" fill="white"/><ellipse cx="${eR+2*sc}" cy="${eY-2.5*sc}" rx="${2.5*sc}" ry="${3*sc}" fill="white"/>`;const blush=`<ellipse cx="${cx-30*sc}" cy="${cy+8*sc}" rx="${9*sc}" ry="${5*sc}" fill="${c.bl}"/><ellipse cx="${cx+30*sc}" cy="${cy+8*sc}" rx="${9*sc}" ry="${5*sc}" fill="${c.bl}"/>`;let mouth='';if(mood==='stressed'){mouth=`<path d="M${cx-11*sc} ${cy-7*sc} L${cx-7*sc} ${cy-9*sc}" stroke="${c.ey}" stroke-width="${2*sc}" stroke-linecap="round" opacity=".65"/><path d="M${cx+7*sc} ${cy-9*sc} L${cx+11*sc} ${cy-7*sc}" stroke="${c.ey}" stroke-width="${2*sc}" stroke-linecap="round" opacity=".65"/><path d="M${cx-10*sc} ${cy+12*sc} Q${cx} ${cy+8*sc} ${cx+10*sc} ${cy+12*sc}" stroke="${c.ey}" stroke-width="${2.5*sc}" fill="none" stroke-linecap="round"/>`;}else if(mood==='sad'){mouth=`<path d="M${cx-10*sc} ${cy+11*sc} Q${cx} ${cy+7*sc} ${cx+10*sc} ${cy+11*sc}" stroke="${c.ey}" stroke-width="${2.5*sc}" fill="none" stroke-linecap="round"/>`;}else if(mood==='glowing'){mouth=`<path d="M${cx-11*sc} ${cy+10*sc} Q${cx} ${cy+20*sc} ${cx+11*sc} ${cy+10*sc}" stroke="#c09020" stroke-width="${3*sc}" fill="none" stroke-linecap="round"/>`;}else{const sa=mood==='happy'?16:13;mouth=`<path d="M${cx-10*sc} ${cy+10*sc} Q${cx} ${cy+sa*sc} ${cx+10*sc} ${cy+10*sc}" stroke="${c.ey}" stroke-width="${2.5*sc}" fill="none" stroke-linecap="round" opacity=".75"/>`;}let rain='';if(mood==='stressed'||mood==='sad'){const ry2=cy+31*sc;rain=`<ellipse cx="${cx-22*sc}" cy="${ry2}" rx="${2.8*sc}" ry="${6.5*sc}" fill="${c.sh}" opacity=".7"/><ellipse cx="${cx-6*sc}" cy="${ry2+5*sc}" rx="${2.8*sc}" ry="${7.5*sc}" fill="${c.sh}" opacity=".6"/><ellipse cx="${cx+10*sc}" cy="${ry2}" rx="${2.8*sc}" ry="${6.5*sc}" fill="${c.sh}" opacity=".75"/><ellipse cx="${cx+24*sc}" cy="${ry2+4*sc}" rx="${2.8*sc}" ry="${5.5*sc}" fill="${c.sh}" opacity=".5"/>`;}let glow='';if(mood==='glowing'){const gy=cy-39*sc;glow=`<line x1="${cx}" y1="${gy}" x2="${cx}" y2="${gy-13*sc}" stroke="#f7d070" stroke-width="${3*sc}" stroke-linecap="round" opacity=".8"/><line x1="${cx-27*sc}" y1="${gy+8*sc}" x2="${cx-37*sc}" y2="${gy}" stroke="#f7d070" stroke-width="${3*sc}" stroke-linecap="round" opacity=".7"/><line x1="${cx+27*sc}" y1="${gy+8*sc}" x2="${cx+37*sc}" y2="${gy}" stroke="#f7d070" stroke-width="${3*sc}" stroke-linecap="round" opacity=".7"/>`;}return glow+rain+body+rim+eyes+blush+mouth;}
 function smCloud(m){return`<svg width="110" height="92" viewBox="0 0 110 92" xmlns="http://www.w3.org/2000/svg">${buildCloud(m,110,92,.66)}</svg>`;}
 function drawN(m){const e=document.getElementById('nSVG');if(e)e.innerHTML=buildCloud(m,200,170,1);}
 
-// APP START
+// ═══ APP START ═══
 function recalcFromSaved(){updateNimbusState();updateBurnoutAlert();setAff();}
 function startApp(){
   recalcFromSaved();showScrn('app');
@@ -464,86 +410,25 @@ function startApp(){
   drawN(S.nimbusState);updNTxt();updGreet();drawTodayTasks();setAff();
   updAllS();loadNS();buildCatDD();updSetInfo();setupNotifs();
   const n=document.getElementById('nudge');if(n)n.classList.toggle('show',!ciDone());
+  renderGoalBar();
   startSection('home');_lastTab='home';
 }
 function updNTxt(){const m={stressed:'Nimbus is feeling stormy 🌩️',sad:'Nimbus is feeling rainy 🌧️',neutral:'Nimbus is okay ⛅',happy:'Nimbus is feeling sunny ☀️',glowing:'Nimbus is glowing! 🌈'};const e=document.getElementById('nTxt');if(e)e.textContent=m[S.nimbusState]||'Nimbus is here ☁️';}
 function updGreet(){const e=document.getElementById('greet');if(e)e.textContent=`Hey ${S.name||'there'} ☁️`;const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const n=new Date();const d=document.getElementById('ddate');if(d)d.textContent=`${days[n.getDay()]}, ${months[n.getMonth()]} ${n.getDate()}`;}
 function updSetInfo(){const e=document.getElementById('setUser');if(e)e.textContent=S.email||'Demo mode';const em=document.getElementById('setEmail');if(em)em.textContent=S.email||'—';const ph=document.getElementById('setPhone');if(ph)ph.textContent=S.phone||'No phone added';loadProfileEditor();}
 
-// ═══════════════════════════════════════════════════════════════
-// PROFILE EDITOR — edit grade, classes, extracurriculars
-// ═══════════════════════════════════════════════════════════════
-function loadProfileEditor(){
-  // Grade
-  document.querySelectorAll('#gradeOpts .ob').forEach(b=>{
-    b.classList.toggle('sel',b.textContent===S.grade);
-  });
-  // Classes
-  renderSetAcL();
-  // ECs
-  renderSetEcL();
-}
+// ═══ PROFILE EDITOR ═══
+function loadProfileEditor(){document.querySelectorAll('#gradeOpts .ob').forEach(b=>{b.classList.toggle('sel',b.textContent===S.grade);});renderSetAcL();renderSetEcL();}
+function selGrSet(el){document.querySelectorAll('#gradeOpts .ob').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
+function renderSetAcL(){const cat=getCat('academic');const el=document.getElementById('setAcL');if(!el)return;if(!cat?.subcats?.length){el.innerHTML=`<div style="font-size:13px;color:var(--tl);font-weight:600;">No classes added yet</div>`;return;}el.innerHTML=cat.subcats.map(s=>`<div class="ir"><div><div class="irt">${s.name}</div><div class="irs">${s.type||''}</div></div><button class="irm" onclick="rmSetAc('${s.id}')">×</button></div>`).join('');}
+function rmSetAc(id){const cat=getCat('academic');if(!cat)return;cat.subcats=cat.subcats.filter(s=>s.id!==id);renderSetAcL();}
+function addSetAc(){const n=document.getElementById('setAcI')?.value.trim();const t=document.getElementById('setAcT')?.value||'Regular';if(!n)return;let cat=getCat('academic')||addCT('academic');cat.subcats.push({id:'ac_'+Date.now(),name:n,type:t});document.getElementById('setAcI').value='';renderSetAcL();}
+function renderSetEcL(){const ecs=S.categories.filter(c=>c.type==='ec');const el=document.getElementById('setEcL');if(!el)return;if(!ecs.length){el.innerHTML=`<div style="font-size:13px;color:var(--tl);font-weight:600;">No activities added yet</div>`;return;}el.innerHTML=ecs.map(c=>`<div class="ir"><div><div class="irt">${c.name}</div><div class="irs">${c.ecType||''}</div></div><button class="irm" onclick="rmSetEc('${c.id}')">×</button></div>`).join('');}
+function rmSetEc(id){S.categories=S.categories.filter(c=>c.id!==id);renderSetEcL();}
+function addSetEc(){const n=document.getElementById('setEcI')?.value.trim();const t=document.getElementById('setEcT')?.value||'Other';if(!n)return;S.categories.push({id:'ec_'+Date.now(),name:n,icon:ecI(t),color:'pink',type:'ec',ecType:t,subcats:[]});document.getElementById('setEcI').value='';renderSetEcL();}
+function saveProfile(){const grBtn=document.querySelector('#gradeOpts .ob.sel');if(grBtn)S.grade=grBtn.textContent;buildCatDD();save();toast('Profile saved! ✓');}
 
-function selGrSet(el){
-  document.querySelectorAll('#gradeOpts .ob').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
-function renderSetAcL(){
-  const cat=getCat('academic');
-  const el=document.getElementById('setAcL');if(!el)return;
-  if(!cat?.subcats?.length){el.innerHTML=`<div style="font-size:13px;color:var(--tl);font-weight:600;">No classes added yet</div>`;return;}
-  el.innerHTML=cat.subcats.map(s=>`<div class="ir"><div><div class="irt">${s.name}</div><div class="irs">${s.type||''}</div></div><button class="irm" onclick="rmSetAc('${s.id}')">×</button></div>`).join('');
-}
-
-function rmSetAc(id){
-  const cat=getCat('academic');if(!cat)return;
-  cat.subcats=cat.subcats.filter(s=>s.id!==id);
-  renderSetAcL();
-}
-
-function addSetAc(){
-  const n=document.getElementById('setAcI')?.value.trim();
-  const t=document.getElementById('setAcT')?.value||'Regular';
-  if(!n)return;
-  let cat=getCat('academic')||addCT('academic');
-  cat.subcats.push({id:'ac_'+Date.now(),name:n,type:t});
-  document.getElementById('setAcI').value='';
-  renderSetAcL();
-}
-
-function renderSetEcL(){
-  const ecs=S.categories.filter(c=>c.type==='ec');
-  const el=document.getElementById('setEcL');if(!el)return;
-  if(!ecs.length){el.innerHTML=`<div style="font-size:13px;color:var(--tl);font-weight:600;">No activities added yet</div>`;return;}
-  el.innerHTML=ecs.map(c=>`<div class="ir"><div><div class="irt">${c.name}</div><div class="irs">${c.ecType||''}</div></div><button class="irm" onclick="rmSetEc('${c.id}')">×</button></div>`).join('');
-}
-
-function rmSetEc(id){
-  S.categories=S.categories.filter(c=>c.id!==id);
-  renderSetEcL();
-}
-
-function addSetEc(){
-  const n=document.getElementById('setEcI')?.value.trim();
-  const t=document.getElementById('setEcT')?.value||'Other';
-  if(!n)return;
-  S.categories.push({id:'ec_'+Date.now(),name:n,icon:ecI(t),color:'pink',type:'ec',ecType:t,subcats:[]});
-  document.getElementById('setEcI').value='';
-  renderSetEcL();
-}
-
-function saveProfile(){
-  // Save grade from selected button
-  const grBtn=document.querySelector('#gradeOpts .ob.sel');
-  if(grBtn)S.grade=grBtn.textContent;
-  // Categories already mutated in place — just save
-  buildCatDD(); // refresh task dropdowns
-  save();
-  toast('Profile saved! ✓');
-}
-
-// AFFIRMATIONS
+// ═══ AFFIRMATIONS ═══
 const AFFS=[
   {text:"The problem is not the problem. The problem is your attitude about the problem.",author:"Jack Sparrow"},
   {text:"I am running away from my responsibilities. And it feels good.",author:"Michael Scott"},
@@ -590,7 +475,7 @@ const _affBags=new Map();
 function shuffled(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function setAff(){const lvl=getBurnoutLevel();const pool=(lvl==='critical'||lvl==='high')?BURN_AFFS:AFFS;let bag=_affBags.get(pool);if(!bag||!bag.length){bag=shuffled(pool);_affBags.set(pool,bag);}const a=bag.pop();const e=document.getElementById('affQ');if(e)e.textContent=`"${a.text}"`;const e2=document.getElementById('affA');if(e2)e2.textContent=`— ${a.author}`;}
 
-// TASKS
+// ═══ TASKS ═══
 const CM={orange:{dot:'#e8874a'},mint:{dot:'#58b088'},lavender:{dot:'#8878d0'},sky:{dot:'#5898d8'},peach:{dot:'#e8a888'},pink:{dot:'#c785a9'}};
 function getCatForTask(t){if(!t.catId)return null;const f=S.categories.find(c=>c.id===t.catId||c.type===t.catId);if(f)return f;if(t.catId==='academic')return{name:'Academic',icon:'📚',color:'orange'};if(t.catId==='colprep')return{name:'College Prep',icon:'🎓',color:'lavender'};if(t.catId==='personal')return{name:'Personal',icon:'🏠',color:'peach'};return null;}
 function dotColor(t){const c=getCatForTask(t);if(!c)return'#e8a888';return CM[c.color]?.dot||'#e8a888';}
@@ -612,64 +497,72 @@ function saveEdit(){const t=S.tasks.find(x=>x.id===detId);if(!t)return;t.name=do
 function addTask(){const name=document.getElementById('tName2').value.trim();if(!name){toast('Please enter a task name!');return;}const catId=document.getElementById('tCat').value;const scEl=document.getElementById('tSubcat');const sn=scEl?.value||'';let st='';if(catId==='academic'){const c=getCat('academic');const s=c?.subcats.find(x=>x.name===sn);if(s)st=s.type;}const t={id:Date.now(),name,catId:catId||'general',subcatName:sn,subcatType:st,time:(document.querySelector('#timeOpts .ob.sel')||{textContent:'30 min'}).textContent,priority:((document.querySelector('#priOpts .ob.sel')||{textContent:'Medium'}).textContent).replace(/[🔴🟠🟢📚]\s*/,''),due:document.getElementById('tDue').value||today(),done:false};S.tasks.push(t);closeM('addTaskModal');drawTodayTasks();drawAllTasks();toast('Task added! ✓');save();}
 function selO(el,gid){document.querySelectorAll(`#${gid} .ob`).forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
 
-// TIMER
-function openTimer(task){
-  const tm={'15 min':900,'30 min':1800,'45 min':2700,'1 hr':3600,'1.5 hr':5400,'2+ hr':7200};
-  TMR.total=tm[task.time]||1800;TMR.rem=TMR.total;TMR.phase='focus';TMR.name=task.name;TMR.taskId=task.id;TMR.active=false;TMR.bc=0;clearInterval(TMR.iv);
-  document.getElementById('tName').textContent=task.name;document.getElementById('tPhase').textContent='Focus Session';document.getElementById('tPlay').textContent='▶';document.getElementById('bSug').classList.remove('show');
-  updTDisp();showScrn('timer');
-  startSection('focusing');_lastTab='focusing';
-}
-function closeTimer(){
-  clearInterval(TMR.iv);TMR.active=false;
-  endSection(); // log the focus/break session
-  showScrn('app');
-  startSection(_lastTab==='focusing'?'home':_lastTab);_lastTab='home';
-}
+// ═══ TIMER ═══
+function openTimer(task){const tm={'15 min':900,'30 min':1800,'45 min':2700,'1 hr':3600,'1.5 hr':5400,'2+ hr':7200};TMR.total=tm[task.time]||1800;TMR.rem=TMR.total;TMR.phase='focus';TMR.name=task.name;TMR.taskId=task.id;TMR.active=false;TMR.bc=0;clearInterval(TMR.iv);document.getElementById('tName').textContent=task.name;document.getElementById('tPhase').textContent='Focus Session';document.getElementById('tPlay').textContent='▶';document.getElementById('bSug').classList.remove('show');updTDisp();showScrn('timer');startSection('focusing');_lastTab='focusing';}
+function closeTimer(){clearInterval(TMR.iv);TMR.active=false;endSection();showScrn('app');startSection('home');_lastTab='home';}
 function toggleTimer(){if(TMR.active){clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent='▶';}else{TMR.active=true;document.getElementById('tPlay').textContent='⏸';TMR.iv=setInterval(tickT,1000);}}
-function tickT(){if(TMR.rem<=0){clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent='▶';if(TMR.phase==='focus'){TMR.bc++;document.getElementById('bSug').classList.add('show');toast('Focus done! Take a break 🌿');sndNotif('Break time!','You finished a focus session.');}else{document.getElementById('bSug').classList.remove('show');document.getElementById('tPhase').textContent='Focus Session';TMR.phase='focus';TMR.rem=TMR.total;updTDisp();toast('Break done! Back to focus ⏱');startSection('focusing');_lastTab='focusing';}return;}TMR.rem--;updTDisp();}
+function tickT(){if(TMR.rem<=0){clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent='▶';if(TMR.phase==='focus'){TMR.bc++;document.getElementById('bSug').classList.add('show');toast('Focus done! Take a break 🌿');sndNotif('Break time! ☁️','You finished a focus session. Take a breather.');}else{document.getElementById('bSug').classList.remove('show');document.getElementById('tPhase').textContent='Focus Session';TMR.phase='focus';TMR.rem=TMR.total;updTDisp();toast('Break done! Back to focus ⏱');startSection('focusing');_lastTab='focusing';}return;}TMR.rem--;updTDisp();}
 function updTDisp(){const m=Math.floor(TMR.rem/60),s=TMR.rem%60;document.getElementById('tDisp').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;const pct=1-(TMR.rem/TMR.total);document.getElementById('tProg').style.strokeDashoffset=691*(1-pct);document.getElementById('tProg').style.stroke=TMR.phase==='break'?'#58b088':pct>.8?'#f7d070':'#f5a96a';}
-function startBreak(min){
-  document.getElementById('bSug').classList.remove('show');
-  TMR.phase='break';TMR.rem=min*60;TMR.total=min*60;
-  document.getElementById('tPhase').textContent=`${min} min Break`;updTDisp();TMR.active=true;document.getElementById('tPlay').textContent='⏸';TMR.iv=setInterval(tickT,1000);
-  toast(`${min} min break started 🌿`);
-  startSection('break');_lastTab='break';
-}
+function startBreak(min){document.getElementById('bSug').classList.remove('show');TMR.phase='break';TMR.rem=min*60;TMR.total=min*60;document.getElementById('tPhase').textContent=`${min} min Break`;updTDisp();TMR.active=true;document.getElementById('tPlay').textContent='⏸';TMR.iv=setInterval(tickT,1000);toast(`${min} min break started 🌿`);startSection('break');_lastTab='break';}
 function resetTimer(){clearInterval(TMR.iv);TMR.active=false;TMR.rem=TMR.total;TMR.phase='focus';document.getElementById('tPlay').textContent='▶';document.getElementById('bSug').classList.remove('show');document.getElementById('tPhase').textContent='Focus Session';updTDisp();}
 function offerBreak(){clearInterval(TMR.iv);TMR.active=false;document.getElementById('tPlay').textContent='▶';document.getElementById('bSug').classList.add('show');}
 
-// CHECK-IN
+// ═══ CHECK-IN ═══
 function openCI(){document.getElementById('wlS').value=S.workload;document.getElementById('owS').value=S.overwhelm;document.getElementById('wlV').textContent=S.workload;document.getElementById('owV').textContent=S.overwhelm;updAllS();selMood(S.mood);const d=document.getElementById('ciDate');if(d)d.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});openM('ciModal');}
 function selMood(i){selM=i;document.querySelectorAll('#moodRow .moo').forEach((el,j)=>el.classList.toggle('sel',j===i));}
 function submitCI(){S.mood=selM;S.workload=parseInt(document.getElementById('wlS').value);S.overwhelm=parseInt(document.getElementById('owS').value);S.lastCI=today();S.burnoutHistory=S.burnoutHistory||[];S.burnoutHistory.push({date:today(),overwhelm:S.overwhelm,workload:S.workload});if(S.burnoutHistory.length>30)S.burnoutHistory=S.burnoutHistory.slice(-30);updateNimbusState();drawN(S.nimbusState);updNTxt();const n=document.getElementById('nudge');if(n)n.classList.remove('show');closeM('ciModal');toast('Nimbus updated! ☁️');updateBurnoutAlert();setAff();setupNotifs();save();}
 
-// NOTIFICATIONS
+// ═══ NOTIFICATIONS — mobile-ready ═══
+function requestNotifPermission(){
+  if(!('Notification'in window)){toast('Notifications not supported on this browser.');return;}
+  Notification.requestPermission().then(p=>{
+    if(p==='granted'){startNI();toast('Notifications enabled! ☁️');}
+    else if(p==='denied')toast('Blocked. Enable in phone Settings → Nimbus → Notifications.');
+    else toast('Permission dismissed — tap Allow again to enable.');
+  });
+}
 function loadNS(){const n=S.notifs||{};const nb=document.getElementById('nBreak');if(nb){nb.checked=!!n.break;document.getElementById('bfRow').style.display=n.break?'flex':'none';}const nt=document.getElementById('nTasks');if(nt)nt.checked=!!n.tasks;const nc=document.getElementById('nCI');if(nc){nc.checked=!!n.checkin;document.getElementById('ciTRow').style.display=n.checkin?'flex':'none';}const bf=document.getElementById('bFreq');if(bf)bf.value=n.breakFreq||60;const ct=document.getElementById('ciTime');if(ct)ct.value=n.checkinTime||'08:00';}
 function saveN(){S.notifs={break:document.getElementById('nBreak')?.checked||false,breakFreq:parseInt(document.getElementById('bFreq')?.value||60),tasks:document.getElementById('nTasks')?.checked||false,checkin:document.getElementById('nCI')?.checked||false,checkinTime:document.getElementById('ciTime')?.value||'08:00'};document.getElementById('bfRow').style.display=S.notifs.break?'flex':'none';document.getElementById('ciTRow').style.display=S.notifs.checkin?'flex':'none';setupNotifs();save();}
-function setupNotifs(){stopNI();const hasAny=S.notifs&&(S.notifs.break||S.notifs.tasks||S.notifs.checkin);if(!hasAny)return;if(!('Notification'in window)){toast('Notifications not supported.');return;}if(Notification.permission==='denied'){toast('Notifications blocked in browser settings.');return;}if(Notification.permission==='default'){Notification.requestPermission().then(p=>{if(p==='granted'){startNI();toast('Notifications enabled! ☁️');}else toast('Notifications not enabled.');});return;}startNI();}
-function startNI(){if(S.notifs.break){const mins=getAdaptiveBreakMins();NI.push(setInterval(()=>sndNotif('☁️ Time for a break!',`Every ${mins} min based on your stress level`),mins*60*1000));}if(S.notifs.tasks){const chk=()=>{const due=S.tasks.filter(t=>!t.done&&isToday(t.due));if(!due.length)return;const urgent=due.filter(t=>t.priority==='Urgent');const show=urgent.length?urgent:due;sndNotif(`📋 ${due.length} task${due.length>1?'s':''} due today`,show.slice(0,2).map(t=>t.name).join(', '));};setTimeout(chk,3000);NI.push(setInterval(chk,3600000));}if(S.notifs.checkin)schedCI();}
-function schedCI(){const[h,mi]=(S.notifs.checkinTime||'08:00').split(':').map(Number);const now=new Date(),t=new Date();t.setHours(h,mi,0,0);if(t<=now)t.setDate(t.getDate()+1);const id=setTimeout(()=>{if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today?');NI.push(setInterval(()=>{if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today?');},86400000));},t-now);NI.push(id);}
-function sndNotif(title,body){if(Notification.permission==='granted')new Notification(title,{body});}
+let NI=[];
+function setupNotifs(){
+  stopNI();
+  const hasAny=S.notifs&&(S.notifs.break||S.notifs.tasks||S.notifs.checkin);
+  if(!hasAny)return;
+  if(!('Notification'in window)){toast('Notifications not supported.');return;}
+  if(Notification.permission==='denied'){toast('Notifications blocked. Enable in Settings → Nimbus.');return;}
+  if(Notification.permission==='default'){
+    // Don't auto-prompt on setup — user must tap the Allow button
+    return;
+  }
+  startNI();
+}
+function startNI(){
+  if(S.notifs.break){const mins=getAdaptiveBreakMins();NI.push(setInterval(()=>sndNotif('☁️ Time for a break!',`You've been going for ${mins} min. Step away for a bit.`),mins*60*1000));}
+  if(S.notifs.tasks){
+    const chk=()=>{const due=S.tasks.filter(t=>!t.done&&isToday(t.due));if(!due.length)return;const urgent=due.filter(t=>t.priority==='Urgent');const show=urgent.length?urgent:due;sndNotif(`📋 ${due.length} task${due.length>1?'s':''} due today`,show.slice(0,2).map(t=>t.name).join(', '));};
+    setTimeout(chk,3000);NI.push(setInterval(chk,3600000));
+  }
+  if(S.notifs.checkin)schedCI();
+}
+function schedCI(){const[h,mi]=(S.notifs.checkinTime||'08:00').split(':').map(Number);const now=new Date(),t=new Date();t.setHours(h,mi,0,0);if(t<=now)t.setDate(t.getDate()+1);const id=setTimeout(()=>{if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today? Nimbus wants to know!');NI.push(setInterval(()=>{if(!ciDone())sndNotif('☁️ Daily Check-In','How are you feeling today?');},86400000));},t-now);NI.push(id);}
+function sndNotif(title,body){
+  if(Notification.permission!=='granted')return;
+  // Use service worker for better mobile delivery if available
+  if(window._swReg&&window._swReg.showNotification){
+    window._swReg.showNotification(title,{body,icon:'',badge:'',tag:title,renotify:true,requireInteraction:false});
+  }else{
+    new Notification(title,{body});
+  }
+}
 function stopNI(){NI.forEach(id=>{clearInterval(id);clearTimeout(id);});NI=[];}
 
-// NIMBUS CLICK
+// ═══ NIMBUS CLICK ═══
 function nimClick(){const msgs=["You've got this! ☁️","One task at a time. You're doing great!","Nimbus believes in you! 🌤️","You're as swift as a coursing river 💪","Focus up! Nimbus is cheering for you!","You got this!","Bro is cooking 🔥","You da goat 🐐","Nimbus thinks you're slaying 💅","Never back down, never WHAT?","So tuff so talented"];toast(msgs[Math.floor(Math.random()*msgs.length)]);const w=document.getElementById('nWrap');if(w){w.style.transform='scale(1.1) rotate(-4deg)';setTimeout(()=>w.style.transform='scale(1)',300);}}
 
-// NAVIGATION
-function swTab(tab,el){
-  ['home','tasks','settings','admin'].forEach(id=>{const s=document.getElementById(id);if(s)s.style.display='none';});
-  const t=document.getElementById(tab);if(t)t.style.display='block';
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));el.classList.add('act');
-  // Log time in previous section, start new one
-  startSection(tab);_lastTab=tab;
-  if(tab==='home')setAff();
-  if(tab==='tasks'){buildCatDD();drawAllTasks();}
-  if(tab==='settings'){loadNS();updSetInfo();}
-  if(tab==='admin')loadAdminLogs();
-}
+// ═══ NAVIGATION ═══
+function swTab(tab,el){['home','tasks','settings','admin'].forEach(id=>{const s=document.getElementById(id);if(s)s.style.display='none';});const t=document.getElementById(tab);if(t)t.style.display='block';document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));el.classList.add('act');startSection(tab);_lastTab=tab;if(tab==='home')setAff();if(tab==='tasks'){buildCatDD();drawAllTasks();}if(tab==='settings'){loadNS();updSetInfo();}if(tab==='admin')loadAdminLogs();}
 
-// MODALS + TOAST + SLIDERS
+// ═══ MODALS + TOAST + SLIDERS ═══
 function openM(id){document.getElementById(id).classList.add('show');}
 function closeM(id){document.getElementById(id).classList.remove('show');}
 function closeMO(e,id){if(e.target===document.getElementById(id))closeM(id);}
@@ -678,67 +571,27 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 function updS(input,valId){const pct=((input.value-input.min)/(input.max-input.min))*100;input.style.setProperty('--pct',pct+'%');if(valId){const e=document.getElementById(valId);if(e)e.textContent=input.value;}}
 function updAllS(){document.querySelectorAll('input[type=range]').forEach(s=>{const pct=((s.value-s.min)/(s.max-s.min))*100;s.style.setProperty('--pct',pct+'%');});}
 
-// SAVE / LOAD
-async function save(){
-  saveLocal();
-  if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
-  try{
-    const payload={tasks:S.tasks,categories:S.categories,mood:S.mood,workload:S.workload,overwhelm:S.overwhelm,nimbusState:S.nimbusState,name:S.name,phone:S.phone,grade:S.grade,goals:S.goals,notifs:S.notifs,lastCI:S.lastCI,burnoutHistory:S.burnoutHistory||[]};
-    const{error}=await sb.from('user_data').upsert({user_id:S.userId,data:payload,updated_at:new Date().toISOString()},{onConflict:'user_id'});
-    if(error){console.error('SAVE ERROR:',error.message);toast('⚠️ Cloud sync failed — saved on this device only');}
-    else console.log('✅ Saved — name:'+S.name+' tasks:'+S.tasks.length);
-  }catch(e){console.error('SAVE EX',e);toast('⚠️ Cloud sync failed — saved on this device only');}
-}
+// ═══ SAVE / LOAD ═══
+async function save(){saveLocal();if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;try{const payload={tasks:S.tasks,categories:S.categories,mood:S.mood,workload:S.workload,overwhelm:S.overwhelm,nimbusState:S.nimbusState,name:S.name,phone:S.phone,grade:S.grade,goal:S.goal||'',notifs:S.notifs,lastCI:S.lastCI,burnoutHistory:S.burnoutHistory||[]};const{error}=await sb.from('user_data').upsert({user_id:S.userId,data:payload,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error){console.error('SAVE ERROR:',error.message);toast('⚠️ Cloud sync failed — saved on this device only');}else console.log('✅ Saved');}catch(e){console.error('SAVE EX',e);toast('⚠️ Cloud sync failed — saved on this device only');}}
 function saveLocal(){try{localStorage.setItem('nimbus_v5',JSON.stringify(S));}catch(e){}}
-function loadLocal(){
-  try{
-    const s=localStorage.getItem('nimbus_v5');if(!s)return false;
-    const p=JSON.parse(s);
-    const isDemo=id=>!id||id==='demo'||(typeof id==='string'&&id.startsWith('demo-'));
-    const sameId=isDemo(S.userId)||isDemo(p.userId)||p.userId===S.userId;
-    const sameEmail=S.email&&p.email&&S.email.toLowerCase()===p.email.toLowerCase();
-    if(!sameId&&!sameEmail)return false;
-    const uid=S.userId,em=S.email;Object.assign(S,p);if(uid)S.userId=uid;if(em)S.email=em;
-    if(!S.notifs)S.notifs={break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'};
-    if(!Array.isArray(S.tasks))S.tasks=[];if(!Array.isArray(S.categories))S.categories=[];if(!S.burnoutHistory)S.burnoutHistory=[];if(!S.goals)S.goals=[];
-    return true;
-  }catch(e){return false;}
-}
-async function loadCloud(){
-  if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;
-  try{
-    const{data,error}=await sb.from('user_data').select('data').eq('user_id',S.userId).single();
-    if(error){if(error.code!=='PGRST116'){console.error('loadCloud ERROR:',error.message);toast('⚠️ Could not load cloud data');}else console.log('loadCloud: no cloud row yet (new account)');return;}
-    if(!data?.data){console.log('No cloud data yet');return;}
-    const d=data.data;
-    console.log('✅ Loaded — name:'+d.name+' tasks:'+(d.tasks||[]).length);
-    const uid=S.userId,em=S.email;
-    if(Array.isArray(d.tasks))S.tasks=d.tasks;if(Array.isArray(d.categories))S.categories=d.categories;
-    if(d.mood!=null)S.mood=d.mood;if(d.workload!=null)S.workload=d.workload;if(d.overwhelm!=null)S.overwhelm=d.overwhelm;
-    if(d.nimbusState)S.nimbusState=d.nimbusState;if(d.name)S.name=d.name;if(d.phone!=null)S.phone=d.phone;
-    if(d.grade!=null)S.grade=d.grade;if(d.notifs)S.notifs=d.notifs;if(d.lastCI!=null)S.lastCI=d.lastCI;
-    if(Array.isArray(d.burnoutHistory))S.burnoutHistory=d.burnoutHistory;if(Array.isArray(d.goals))S.goals=d.goals;
-    S.userId=uid;S.email=em;saveLocal();
-  }catch(e){console.error('LOAD EX',e);}
-}
+function loadLocal(){try{const s=localStorage.getItem('nimbus_v5');if(!s)return false;const p=JSON.parse(s);const isDemo=id=>!id||id==='demo'||(typeof id==='string'&&id.startsWith('demo-'));const sameId=isDemo(S.userId)||isDemo(p.userId)||p.userId===S.userId;const sameEmail=S.email&&p.email&&S.email.toLowerCase()===p.email.toLowerCase();if(!sameId&&!sameEmail)return false;const uid=S.userId,em=S.email;Object.assign(S,p);if(uid)S.userId=uid;if(em)S.email=em;if(!S.notifs)S.notifs={break:false,breakFreq:60,tasks:false,checkin:false,checkinTime:'08:00'};if(!Array.isArray(S.tasks))S.tasks=[];if(!Array.isArray(S.categories))S.categories=[];if(!S.burnoutHistory)S.burnoutHistory=[];if(!S.goal)S.goal='';return true;}catch(e){return false;}}
+async function loadCloud(){if(!sb||!S.userId||S.userId==='demo'||S.userId.startsWith('demo-'))return;try{const{data,error}=await sb.from('user_data').select('data').eq('user_id',S.userId).single();if(error){if(error.code!=='PGRST116'){console.error('loadCloud ERROR:',error.message);toast('⚠️ Could not load cloud data');}else console.log('loadCloud: no cloud row yet');return;}if(!data?.data){console.log('No cloud data yet');return;}const d=data.data;console.log('✅ Loaded — name:'+d.name);const uid=S.userId,em=S.email;if(Array.isArray(d.tasks))S.tasks=d.tasks;if(Array.isArray(d.categories))S.categories=d.categories;if(d.mood!=null)S.mood=d.mood;if(d.workload!=null)S.workload=d.workload;if(d.overwhelm!=null)S.overwhelm=d.overwhelm;if(d.nimbusState)S.nimbusState=d.nimbusState;if(d.name)S.name=d.name;if(d.phone!=null)S.phone=d.phone;if(d.grade!=null)S.grade=d.grade;if(d.goal!=null)S.goal=d.goal;if(d.notifs)S.notifs=d.notifs;if(d.lastCI!=null)S.lastCI=d.lastCI;if(Array.isArray(d.burnoutHistory))S.burnoutHistory=d.burnoutHistory;S.userId=uid;S.email=em;saveLocal();}catch(e){console.error('LOAD EX',e);}}
 
-// BOOT
+// ═══ BOOT ═══
 window.addEventListener('DOMContentLoaded',async()=>{
   const lc=document.getElementById('lcloud');if(lc)lc.innerHTML=buildCloud('neutral',110,92,.66);
   renderAuth('login');
   if(!sb){if(loadLocal()&&S.name&&S.userId)startApp();else{hideLoad();showScrn('auth');}return;}
   try{
     const{data:{session}}=await sb.auth.getSession();
-    if(session){
-      S.userId=session.user.id;S.email=session.user.email;showLoad();
-      await loadCloud();if(!S.name)loadLocal();hideLoad();
-      if(!S.name||S.name.trim()===''){startOnboard();return;}
-      startApp();return;
-    }
+    if(session){S.userId=session.user.id;S.email=session.user.email;showLoad();await loadCloud();if(!S.name)loadLocal();hideLoad();if(!S.name||S.name.trim()===''){startOnboard();return;}startApp();return;}
     if(loadLocal()&&S.name&&S.userId&&S.userId.startsWith('demo'))startApp();
     else{hideLoad();showScrn('auth');}
   }catch(e){console.error('Boot error:',e);hideLoad();showScrn('auth');}
 });
 </script>
 </body>
-</html>
+</html>"""
+
+
+
